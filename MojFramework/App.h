@@ -11,6 +11,7 @@
 #include <random>
 #include "FrameTimer.h"
 #include "Sound.h"
+#include <vector>
 
 class App
 {
@@ -38,7 +39,7 @@ private:
 	std::uniform_real_distribution<float> vRand;
 	Jaz jaz;
 	static constexpr int n = GeneralGame::enemyNum;
-	Enemy enemy[n];
+	std::vector<Enemy> enemy;
 	Collectable coll;
 	GeneralGame gg;
 	Bullet bul;

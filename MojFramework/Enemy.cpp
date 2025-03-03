@@ -1,9 +1,11 @@
 #include "Enemy.h"
 
-void Enemy::Init(const Vec2& pos_in, const Vec2& vel_in)
+Enemy::Enemy(const Vec2& pos_in, const Vec2& vel_in)
 {
 	pos = pos_in;
 	vel = vel_in;
+	lives = maxLives;
+	destroyed = false;
 }
 
 void Enemy::BorderCheck()
@@ -77,18 +79,6 @@ bool Enemy::Colliding(Bullet& bul)
 		bottom1 >= bul.GetPos().y;
 }
 
-void Enemy::Destroyed()
-{
-	Init(Vec2(-100.0f, -100.0f), Vec2(0.0f, 0.0f));
-	destroyed = true;
-}
-
-void Enemy::Respawn()
-{
-	lives = maxLives;
-	destroyed = false;
-}
-
 bool Enemy::DestroyedStatus()
 {
 	return destroyed;
@@ -99,6 +89,6 @@ void Enemy::Damaged()
 	lives--;
 	if (lives <= 0)
 	{
-		Destroyed();
+		destroyed = true;
 	}
 }

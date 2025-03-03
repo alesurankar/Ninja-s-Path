@@ -39,12 +39,14 @@ void App::UpdateModel()
 
 			//Bullet
 
-			//Object
-			for (int i = 0; i < n; i++)
+			//Enemy
+			enemy.clear();
+			for (int e = 0; e < n; e++)
 			{
-				enemy[i].Respawn();
-				enemy[i].Init(Vec2(xRand(rng),yRand(rng)),Vec2(vRand(rng),vRand(rng)));
+				enemy.emplace_back(Vec2(xRand(rng),yRand(rng)),Vec2(vRand(rng),vRand(rng)));
 			}
+
+			//Collectable
 			coll.Init(Vec2(xRand(rng), yRand(rng)));
 
 			//GeneralGame
@@ -77,22 +79,32 @@ void App::UpdateModel()
 			bul.Update(dt);
 		}
 
-		//Object
-		for (int i = 0; i < n; i++)
+		//Enemy
+		for (int e = 0; e < n;)
 		{
-			enemy[i].Update(dt); 
-			if (enemy[i].Colliding(jaz))
+			enemy[e].Update(dt); 
+			if (!enemy[e].DestroyedStatus())
 			{
-				jaz.Damaged();
-				jazDamaged.Play();
+				if (enemy[e].Colliding(jaz))
+				{
+					jaz.Damaged();
+					jazDamaged.Play();
+				}
+				if (enemy[e].Colliding(bul))
+				{
+					enemy[e].Damaged();
+					bul.Smashed();
+					objDamaged.Play();
+				}
+				e++;
 			}
-			if (enemy[i].Colliding(bul))
+			else
 			{
-				enemy[i].Damaged();
-				bul.Smashed();
-				objDamaged.Play();
+				enemy.erase(enemy.begin() + e);
 			}
 		}
+
+		//Collectable
 		if (coll.Colliding(jaz))
 		{
 			gg.AddScore();
@@ -143,14 +155,16 @@ void App::ComposeFrame()
 			bul.Draw(gfx);
 		}
 
-		//Object
-		for (int i = 0; i < n; i++)
+		//Enemy
+		for (Enemy& e : enemy)
 		{
-			if (!enemy[i].DestroyedStatus())
+			if (!e.DestroyedStatus())
 			{
-				enemy[i].Draw(gfx);
+				e.Draw(gfx);
 			}
 		}
+
+		//Collectable
 		coll.Draw(gfx);
 		
 		//GeneralGame
