@@ -49,7 +49,7 @@ void App::UpdateModel()
 
 			//GeneralGame
 			gg.StartGame();
-			frameCount = 0;
+			frameCount = 1.3f;
 			startGame.Play();
 		}
 	}
@@ -104,6 +104,18 @@ void App::UpdateModel()
 			}
 			objCollected.Play();
 		}
+
+		//GeneralGame
+		if (gg.GameOverStatus())
+		{
+			gameMusic.StopAll();
+		}
+		frameCount += dt;
+		if (frameCount > 3.4f)
+		{
+			gameMusic.Play();
+			frameCount = 0.0f;
+		}
 	}
 }
 
@@ -144,11 +156,5 @@ void App::ComposeFrame()
 		//GeneralGame
 		gg.DrawScore(gfx);
 		gg.DrawGameBorder(gfx);
-		frameCount++;
-		if (frameCount > 206)
-		{
-			gameMusic.Play();
-			frameCount = 0;
-		}
 	}
 }
