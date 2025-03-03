@@ -18,6 +18,8 @@ public:
 	float GetWidth();
 	float GetHeight();
 	bool FiringStatus();
+	void Fire();
+	void Reload();
 	Vec2 GetCenter();
 	Vec2 GetDirection(const Mouse& mouse);
 	void Destroyed();
@@ -30,6 +32,7 @@ private:
 	bool destroyed = false;
 	int lives;
 	bool firing;
+	bool loaded;
 	Vec2 pos;
 	float speed;
 	static constexpr float width = 21.0f;

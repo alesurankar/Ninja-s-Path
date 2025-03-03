@@ -1,10 +1,11 @@
 #include "Bullet.h"
 
-void Bullet::Init(const Vec2& center_in, const Vec2& vel_in)
+Bullet::Bullet(const Vec2& center_in, const Vec2& vel_in)
 {
 	center = center_in;
 	pos = center - Vec2(dim/2, dim/2);
 	vel = vel_in;
+	smashed = false;
 }
 
 void Bullet::Draw(Graphics& gfx) const
@@ -22,41 +23,32 @@ void Bullet::Update(float dt)
 
 void Bullet::BorderCheck()
 {
-	if (flying)
+	if (pos.x <= float(GeneralGame::offset))
 	{
-		if (pos.x <= float(GeneralGame::offset))
-		{
-			Smashed();
-		}
-		if (pos.y <= float(GeneralGame::yOffset))
-		{
-			Smashed();
-		}
-		if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - dim)
-		{
-			Smashed();
-		}
-		if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - dim)
-		{
-			Smashed();
-		}
+		Smashed();
+	}
+	if (pos.y <= float(GeneralGame::yOffset))
+	{
+		Smashed();
+	}
+	if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - dim)
+	{
+		Smashed();
+	}
+	if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - dim)
+	{
+		Smashed();
 	}
 }
 
 void Bullet::Smashed()
 {
-	Init(Vec2(-200.0f, -200.0f), Vec2(0.0f, 0.0f));
-	flying = false;
+	smashed = true;
 }
 
-bool Bullet::FlyingStatus()
+bool Bullet::SmashedStatus()
 {
-	return flying;
-}
-
-void Bullet::Flying()
-{
-	flying = true;
+	return smashed;
 }
 
 Vec2 Bullet::GetPos()

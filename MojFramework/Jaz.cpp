@@ -3,6 +3,7 @@
 Jaz::Jaz(const Vec2& pos_in)
 {
 	pos = pos_in;
+	firing = false;
 }
 
 void Jaz::BorderCheck()
@@ -37,11 +38,11 @@ void Jaz::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	if (mouse.LeftIsPressed())
 	{
-		firing = true;
+		Fire();
 	}
 	else
 	{
-		firing = false;
+		Reload();
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
@@ -92,6 +93,24 @@ float Jaz::GetHeight()
 bool Jaz::FiringStatus()
 {
 	return firing;
+}
+
+void Jaz::Fire()
+{
+	if (loaded)
+	{
+		firing = true;
+		loaded = false;
+	}
+	else
+	{
+		firing = false;
+	}
+}
+
+void Jaz::Reload()
+{
+	loaded = true;
 }
 
 Vec2 Jaz::GetCenter()

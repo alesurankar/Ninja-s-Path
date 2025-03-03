@@ -7,17 +7,16 @@
 class Bullet
 {
 public:
-	void Init(const Vec2& center_in, const Vec2& vel_in);
+	Bullet(const Vec2& center_in, const Vec2& vel_in);
 	void Draw(Graphics& gfx) const;
 	void Update(float dt);
 	void BorderCheck();
 	void Smashed();
-	bool FlyingStatus();
-	void Flying();
+	bool SmashedStatus();
 	Vec2 GetPos();
 	float GetDim();
 private:
-	bool flying = false;
+	bool smashed;
 	Vec2 center;
 	Vec2 pos;
 	Vec2 vel;
