@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
@@ -101,7 +102,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vec2.cpp" />
@@ -109,6 +110,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Collectable.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
@@ -121,7 +123,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MyException.h" />
     <ClInclude Include="MyWin.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />

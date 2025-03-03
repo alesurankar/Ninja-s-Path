@@ -3,7 +3,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Object.h"
+#include "Enemy.h"
+#include "Collectable.h"
 #include "Jaz.h"
 #include "GeneralGame.h"
 #include "Bullet.h"
@@ -37,8 +38,8 @@ private:
 	std::uniform_real_distribution<float> vRand;
 	Jaz jaz;
 	static constexpr int n = GeneralGame::enemyNum;
-	Object objRed[n];
-	Object objBlue;
+	Enemy enemy[n];
+	Collectable coll;
 	GeneralGame gg;
 	Bullet bul;
 	Sound fireSound;

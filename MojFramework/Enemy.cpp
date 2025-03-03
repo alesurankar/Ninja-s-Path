@@ -1,17 +1,12 @@
-#include "Object.h"
+#include "Enemy.h"
 
-void Object::InitRed(const Vec2& pos_in, const Vec2& vel_in)
+void Enemy::Init(const Vec2& pos_in, const Vec2& vel_in)
 {
 	pos = pos_in;
 	vel = vel_in;
 }
 
-void Object::InitBlue(const Vec2& pos_in)
-{
-	pos = pos_in;
-}
-
-void Object::BorderCheck()
+void Enemy::BorderCheck()
 {
 	if (!destroyed)
 	{
@@ -39,7 +34,7 @@ void Object::BorderCheck()
 }
 
 
-void Object::DrawRed(Graphics& gfx) const
+void Enemy::Draw(Graphics& gfx) const
 {
 	gfx.DrawImage(pos,s);
 	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width, 5.0f, Colors::Red);
@@ -47,19 +42,14 @@ void Object::DrawRed(Graphics& gfx) const
 	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width * float(lives) / float(maxLives), 5.0f, Colors::Red);
 }
 
-void Object::DrawBlue(Graphics& gfx) const
-{
-	gfx.DrawRect(pos, width, height, Colors::Blue);
-}
-
-void Object::Update(float dt)
+void Enemy::Update(float dt)
 {
 	pos += vel * dt;
 
 	BorderCheck();
 }
 
-bool Object::Colliding(Jaz& jaz)
+bool Enemy::Colliding(Jaz& jaz)
 {
 	const float right0 = jaz.GetPos().x + jaz.GetWidth();
 	const float bottom0 = jaz.GetPos().y + jaz.GetHeight();
@@ -73,7 +63,7 @@ bool Object::Colliding(Jaz& jaz)
 		bottom1 >= jaz.GetPos().y;
 }
 
-bool Object::Colliding(Bullet& bul)
+bool Enemy::Colliding(Bullet& bul)
 {
 	const float right0 = bul.GetPos().x + bul.GetDim();
 	const float bottom0 = bul.GetPos().y + bul.GetDim();
@@ -87,24 +77,24 @@ bool Object::Colliding(Bullet& bul)
 		bottom1 >= bul.GetPos().y;
 }
 
-void Object::Destroyed()
+void Enemy::Destroyed()
 {
-	InitRed(Vec2(-100.0f, -100.0f), Vec2(0.0f, 0.0f));
+	Init(Vec2(-100.0f, -100.0f), Vec2(0.0f, 0.0f));
 	destroyed = true;
 }
 
-void Object::Respawn()
+void Enemy::Respawn()
 {
 	lives = maxLives;
 	destroyed = false;
 }
 
-bool Object::DestroyedStatus()
+bool Enemy::DestroyedStatus()
 {
 	return destroyed;
 }
 
-void Object::Damaged()
+void Enemy::Damaged()
 {
 	lives--;
 	if (lives <= 0)

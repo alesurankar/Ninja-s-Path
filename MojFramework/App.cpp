@@ -42,10 +42,10 @@ void App::UpdateModel()
 			//Object
 			for (int i = 0; i < n; i++)
 			{
-				objRed[i].Respawn();
-				objRed[i].InitRed(Vec2(xRand(rng),yRand(rng)),Vec2(vRand(rng),vRand(rng)));
+				enemy[i].Respawn();
+				enemy[i].Init(Vec2(xRand(rng),yRand(rng)),Vec2(vRand(rng),vRand(rng)));
 			}
-			objBlue.InitBlue(Vec2(xRand(rng), yRand(rng)));
+			coll.Init(Vec2(xRand(rng), yRand(rng)));
 
 			//GeneralGame
 			gg.StartGame();
@@ -80,23 +80,23 @@ void App::UpdateModel()
 		//Object
 		for (int i = 0; i < n; i++)
 		{
-			objRed[i].Update(dt); 
-			if (objRed[i].Colliding(jaz))
+			enemy[i].Update(dt); 
+			if (enemy[i].Colliding(jaz))
 			{
 				jaz.Damaged();
 				jazDamaged.Play();
 			}
-			if (objRed[i].Colliding(bul))
+			if (enemy[i].Colliding(bul))
 			{
-				objRed[i].Damaged();
+				enemy[i].Damaged();
 				bul.Smashed();
 				objDamaged.Play();
 			}
 		}
-		if (objBlue.Colliding(jaz))
+		if (coll.Colliding(jaz))
 		{
 			gg.AddScore();
-			objBlue.InitBlue(Vec2(xRand(rng), yRand(rng)));
+			coll.Init(Vec2(xRand(rng), yRand(rng)));
 			if (gg.ScoreStatus() >= GeneralGame::maxScore)
 			{
 				gg.GameOver();
@@ -146,12 +146,12 @@ void App::ComposeFrame()
 		//Object
 		for (int i = 0; i < n; i++)
 		{
-			if (!objRed[i].DestroyedStatus())
+			if (!enemy[i].DestroyedStatus())
 			{
-				objRed[i].DrawRed(gfx);
+				enemy[i].Draw(gfx);
 			}
 		}
-		objBlue.DrawBlue(gfx);
+		coll.Draw(gfx);
 		
 		//GeneralGame
 		gg.DrawScore(gfx);

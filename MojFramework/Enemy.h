@@ -7,14 +7,12 @@
 #include "Bullet.h"
 #include "Surface.h"
 
-class Object
+class Enemy
 {
 public:
-	void InitRed(const Vec2& pos_in, const Vec2& vel_in);
-	void InitBlue(const Vec2& pos_in);
+	void Init(const Vec2& pos_in, const Vec2& vel_in);
 	void BorderCheck();
-	void DrawRed(Graphics& gfx) const;
-	void DrawBlue(Graphics& gfx) const;
+	void Draw(Graphics& gfx) const;
 	void Update(float dt);
 	bool Colliding(Jaz& jaz);
 	bool Colliding(Bullet& bul);
