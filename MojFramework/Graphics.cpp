@@ -348,6 +348,24 @@ void Graphics::DrawCircle(const Vec2& center, float rad, Color c)
 	DrawCircle(int(center.x), int(center.y), int(rad), c);
 }
 
+void Graphics::DrawImage(int x, int y, const Surface& s)
+{
+	const int width = s.GetWidth();
+	const int height = s.GetHeight();
+	for (int sx = 0; sx < width; sx++)
+	{
+		for (int sy = 0; sy < height; sy++)
+		{
+			PutPixel(sx + x, sy + y, s.GetPixel(sx, sy));
+		}
+	}
+}
+
+void Graphics::DrawImage(const Vec2& pos, const Surface& s)
+{
+	DrawImage(int(pos.x), int(pos.y), s);
+}
+
 
 
 //////////////////////////////////////////////////

@@ -5,6 +5,7 @@
 #include "Mouse.h"
 #include "GeneralGame.h"
 #include "Vec2.h"
+#include "Surface.h"
 
 class Jaz
 {
@@ -24,13 +25,14 @@ public:
 	bool DestroyedStatus();
 	void Damaged();
 private:
+	Surface s = Surface("Images\\SpriteMe21x36.bmp");
 	float inOff = 1.0f;
 	bool destroyed = false;
 	int lives;
 	bool firing;
 	Vec2 pos;
 	float speed;
-	static constexpr float width = 12.0f;
-	static constexpr float height = 12.0f;
+	static constexpr float width = 21.0f;
+	static constexpr float height = 36.0f;
 	static constexpr int maxLives = GeneralGame::myLives;
 };

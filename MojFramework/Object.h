@@ -5,6 +5,7 @@
 #include "GeneralGame.h"
 #include "Vec2.h"
 #include "Bullet.h"
+#include "Surface.h"
 
 class Object
 {
@@ -22,12 +23,13 @@ public:
 	bool DestroyedStatus();
 	void Damaged();
 private:
+	Surface s = Surface("Images\\SpriteEnemy24x24.bmp");
 	float inOff = 1.0f;
 	int lives;
 	bool destroyed = false;
 	Vec2 pos;
 	Vec2 vel;
-	static constexpr float width = 12.0f;
-	static constexpr float height = 12.0f;
+	static constexpr float width = 24.0f;
+	static constexpr float height = 24.0f;
 	static constexpr int maxLives = GeneralGame::enemyLives;
 };

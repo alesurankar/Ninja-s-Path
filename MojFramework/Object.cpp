@@ -41,9 +41,10 @@ void Object::BorderCheck()
 
 void Object::DrawRed(Graphics& gfx) const
 {
-	gfx.DrawRect(pos, width, height, Colors::Red);
-	gfx.DrawRect(pos + Vec2(inOff, inOff), width - 2*inOff, height - 2* inOff, Colors::White);
-	gfx.DrawRect(pos, width * float(lives) / float(maxLives), height, Colors::Red);
+	gfx.DrawImage(pos,s);
+	//gfx.DrawRect(pos, width, height, Colors::Red);
+	//gfx.DrawRect(pos + Vec2(inOff, inOff), width - 2*inOff, height - 2* inOff, Colors::White);
+	//gfx.DrawRect(pos, width * float(lives) / float(maxLives), height, Colors::Red);
 }
 
 void Object::DrawBlue(Graphics& gfx) const
