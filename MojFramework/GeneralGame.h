@@ -33,5 +33,5 @@ public:
 	static constexpr float bulSpeed = 500.0f;
 	static constexpr float bulDim = 6.0f;
 	static constexpr int myLives = 100;
-	static constexpr int enemyLives = 2;
+	static constexpr int enemyLives = 3;
 };
