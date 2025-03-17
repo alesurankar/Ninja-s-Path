@@ -29,4 +29,6 @@ private:
 	float frameCount;
 	Sound startGame;
 	Sound gameMusic;
+	Surface lost = Surface("Images\\GameLost 400x200.bmp");
+	Surface won = Surface("Images\\GameWon 400x200.bmp");
 };

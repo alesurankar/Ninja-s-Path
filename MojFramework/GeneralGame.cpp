@@ -10,11 +10,13 @@ GeneralGame::GeneralGame()
 void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Green);
+	gfx.DrawImage(200, 200, won);
 }
 
 void GeneralGame::GameLostBanner(Graphics& gfx) const
 {
 	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Red);
+	gfx.DrawImage(200, 200, lost);
 }
 
 void GeneralGame::DrawScore(Graphics& gfx) const
