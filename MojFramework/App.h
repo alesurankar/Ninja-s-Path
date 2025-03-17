@@ -13,10 +13,17 @@
 #include "FrameTimer.h"
 #include "Sound.h"
 #include <vector>
+#include "Menu.h"
 
 class App
 {
 public:
+	enum class State
+	{
+		GameOver,
+		Menu,
+		PlayGame
+	};
 	App(class MainWindow& wnd);
 	App(const App&) = delete;
 	App& operator=(const App&) = delete;
@@ -48,5 +55,7 @@ private:
 	Sound objCollected;
 	Sound objDamaged;
 	Sound jazDamaged;
+	State state = State::Menu;
+	Menu menu;
 	/********************************/
 };

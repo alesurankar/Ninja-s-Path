@@ -28,31 +28,47 @@ void App::Go()
 void App::UpdateModel()
 {
 	float dt = ft.CheckPoint();
-	if (gg.GameOverStatus())
+
+	if (state == State::GameOver)
 	{
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
-			//Jaz
-			jaz.Respawn();
-
-			//Bullet
-			bul.clear();
-
-			//Enemy
-			enemy.clear();
-			for (int e = 0; e < n; e++)
-			{
-				enemy.emplace_back(Vec2(xRand(rng),yRand(rng)),Vec2(vRand(rng),vRand(rng)));
-			}
-
-			//Collectable
-			coll.Init(Vec2(xRand(rng), yRand(rng)));
-
-			//GeneralGame
-			gg.StartGame();
+			state = State::Menu;
 		}
 	}
-	else
+
+
+	while (!wnd.mouse.IsEmpty())
+	{
+		const auto m = wnd.mouse.Read();
+		if (state == State::Menu)
+		{
+			if (m.GetType() == Mouse::Event::Type::LPress)
+			{
+				//Jaz
+				jaz.Respawn();
+
+				//Bullet
+				bul.clear();
+
+				//Enemy
+				enemy.clear();
+				for (int e = 0; e < n; e++)
+				{
+					enemy.emplace_back(Vec2(xRand(rng), yRand(rng)), Vec2(vRand(rng), vRand(rng)));
+				}
+
+				//Collectable
+				coll.Init(Vec2(xRand(rng), yRand(rng)));
+
+				//GeneralGame
+				gg.StartGame();
+				state = State::PlayGame;
+			}
+		}
+	}
+
+	if (state == State::PlayGame)
 	{
 		//Jaz
 		jaz.Update(wnd.mouse, wnd.kbd, dt);
@@ -124,16 +140,26 @@ void App::UpdateModel()
 
 		//GeneralGame
 		gg.UpdateGame(dt);
+		if (gg.GameOverStatus())
+		{
+			state = State::GameOver;
+		}
 	}
 }
 
 void App::ComposeFrame()
 {
-	if (gg.GameOverStatus())
+	if (state == State::GameOver)
 	{
 		gg.GameOverDrawLogic(gfx);
 	}
-	else
+
+	if (state == State::Menu)
+	{
+		menu.Draw(gfx);
+	}
+
+	if (state == State::PlayGame)
 	{
 		//Jaz
 		jaz.Draw(gfx);
