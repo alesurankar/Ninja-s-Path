@@ -74,42 +74,42 @@ void App::UpdateModel()
 		//Bullet
 		for (int b = 0; b < bul.size(); )
 		{
-			if (!bul[b].SmashedStatus())
+			bul[b].Update(dt);
+			if (bul[b].SmashedStatus())
 			{
-				bul[b].Update(dt);
-				b++;
+				bul.erase(bul.begin() + b);
 			}
 			else
 			{
-				bul.erase(bul.begin() + b);
+				b++;
 			}
 		}
 
 		//Enemy
 		for (int e = 0; e < enemy.size();)
 		{
-			if (!enemy[e].DestroyedStatus())
+			enemy[e].Update(dt);
+			if (enemy[e].Colliding(jaz))
 			{
-				enemy[e].Update(dt);
-				if (enemy[e].Colliding(jaz))
+				jaz.Damaged();
+				jazDamaged.Play();
+			}
+			for (Bullet& b : bul)
+			{
+				if (enemy[e].Colliding(b))
 				{
-					jaz.Damaged();
-					jazDamaged.Play();
+					enemy[e].Damaged();
+					b.Smashed();
+					objDamaged.Play();
 				}
-				for (Bullet& b : bul)
-				{
-					if (enemy[e].Colliding(b))
-					{
-						enemy[e].Damaged();
-						b.Smashed();
-						objDamaged.Play();
-					}
-				}
-				e++;
+			}
+			if (enemy[e].DestroyedStatus())
+			{
+				enemy.erase(enemy.begin() + e);
 			}
 			else
 			{
-				enemy.erase(enemy.begin() + e);
+				e++;
 			}
 		}
 

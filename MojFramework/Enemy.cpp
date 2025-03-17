@@ -10,28 +10,25 @@ Enemy::Enemy(const Vec2& pos_in, const Vec2& vel_in)
 
 void Enemy::BorderCheck()
 {
-	if (!destroyed)
+	if (pos.x <= float(GeneralGame::offset))
 	{
-		if (pos.x <= float(GeneralGame::offset))
-		{
-			pos.x = float(GeneralGame::offset);
-			vel.x = -vel.x;
-		}
-		if (pos.y <= float(GeneralGame::yOffset))
-		{
-			pos.y = float(GeneralGame::yOffset);
-			vel.y = -vel.y;
-		}
-		if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - width)
-		{
-			pos.x = float(Graphics::ScreenWidth - GeneralGame::offset) - width;
-			vel.x = -vel.x;
-		}
-		if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - height)
-		{
-			pos.y = float(Graphics::ScreenHeight - GeneralGame::offset) - height;
-			vel.y = -vel.y;
-		}
+		pos.x = float(GeneralGame::offset);
+		vel.x = -vel.x;
+	}
+	if (pos.y <= float(GeneralGame::yOffset))
+	{
+		pos.y = float(GeneralGame::yOffset);
+		vel.y = -vel.y;
+	}
+	if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - width)
+	{
+		pos.x = float(Graphics::ScreenWidth - GeneralGame::offset) - width;
+		vel.x = -vel.x;
+	}
+	if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - height)
+	{
+		pos.y = float(Graphics::ScreenHeight - GeneralGame::offset) - height;
+		vel.y = -vel.y;
 	}
 }
 
