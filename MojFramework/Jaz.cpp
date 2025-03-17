@@ -4,6 +4,7 @@ Jaz::Jaz(const Vec2& pos_in)
 {
 	pos = pos_in;
 	firing = false;
+	loaded = false;
 }
 
 void Jaz::BorderCheck()
@@ -133,6 +134,7 @@ void Jaz::Respawn()
 {
 	lives = maxLives;
 	destroyed = false;
+	loaded = false;
 }
 
 bool Jaz::DestroyedStatus()
