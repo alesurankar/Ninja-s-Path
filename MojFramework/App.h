@@ -7,6 +7,7 @@
 #include "Collectable.h"
 #include "Jaz.h"
 #include "GeneralGame.h"
+#include "Config.h"
 #include "Bullet.h"
 #include <random>
 #include "FrameTimer.h"
@@ -38,7 +39,7 @@ private:
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
 	Jaz jaz;
-	static constexpr int n = GeneralGame::enemyNum;
+	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	Collectable coll;
 	GeneralGame gg;

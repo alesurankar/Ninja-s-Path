@@ -23,19 +23,19 @@ void Bullet::Update(float dt)
 
 void Bullet::BorderCheck()
 {
-	if (pos.x <= float(GeneralGame::offset))
+	if (pos.x <= float(Config::offset))
 	{
 		Smashed();
 	}
-	if (pos.y <= float(GeneralGame::yOffset))
+	if (pos.y <= float(Config::yOffset))
 	{
 		Smashed();
 	}
-	if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - dim)
+	if (pos.x >= float(Graphics::ScreenWidth - Config::offset) - dim)
 	{
 		Smashed();
 	}
-	if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - dim)
+	if (pos.y >= float(Graphics::ScreenHeight - Config::offset) - dim)
 	{
 		Smashed();
 	}

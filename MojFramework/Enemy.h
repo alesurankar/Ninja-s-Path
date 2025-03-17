@@ -2,7 +2,7 @@
 
 #include "Graphics.h"
 #include "Jaz.h"
-#include "GeneralGame.h"
+#include "Config.h"
 #include "Vec2.h"
 #include "Bullet.h"
 #include "Surface.h"
@@ -27,5 +27,5 @@ private:
 	Vec2 vel;
 	static constexpr float width = 24.0f;
 	static constexpr float height = 24.0f;
-	static constexpr int maxLives = GeneralGame::enemyLives;
+	static constexpr int maxLives = Config::enemyLives;
 };

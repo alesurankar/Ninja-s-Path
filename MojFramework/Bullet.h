@@ -2,7 +2,7 @@
 
 #include "Graphics.h"
 #include "Vec2.h"
-#include "GeneralGame.h"
+#include "Config.h"
 
 class Bullet
 {
@@ -20,6 +20,6 @@ private:
 	Vec2 center;
 	Vec2 pos;
 	Vec2 vel;
-	static constexpr float dim = GeneralGame::bulDim;
-	static constexpr float speed = GeneralGame::bulSpeed;
+	static constexpr float dim = Config::bulDim;
+	static constexpr float speed = Config::bulSpeed;
 };

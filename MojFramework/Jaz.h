@@ -3,7 +3,7 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "GeneralGame.h"
+#include "Config.h"
 #include "Vec2.h"
 #include "Surface.h"
 
@@ -37,5 +37,5 @@ private:
 	float speed;
 	static constexpr float width = 21.0f;
 	static constexpr float height = 36.0f;
-	static constexpr int maxLives = GeneralGame::myLives;
+	static constexpr int maxLives = Config::myLives;
 };

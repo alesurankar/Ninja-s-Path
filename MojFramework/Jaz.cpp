@@ -8,21 +8,21 @@ Jaz::Jaz(const Vec2& pos_in)
 
 void Jaz::BorderCheck()
 {
-	if (pos.x <= float(GeneralGame::offset))
+	if (pos.x <= float(Config::offset))
 	{
-		pos.x = float(GeneralGame::offset);
+		pos.x = float(Config::offset);
 	}
-	if (pos.y <= float(GeneralGame::yOffset))
+	if (pos.y <= float(Config::yOffset))
 	{
-		pos.y = float(GeneralGame::yOffset);
+		pos.y = float(Config::yOffset);
 	}
-	if (pos.x >= float(Graphics::ScreenWidth - GeneralGame::offset) - width)
+	if (pos.x >= float(Graphics::ScreenWidth - Config::offset) - width)
 	{
-		pos.x = float(Graphics::ScreenWidth - GeneralGame::offset) - width;
+		pos.x = float(Graphics::ScreenWidth - Config::offset) - width;
 	}
-	if (pos.y >= float(Graphics::ScreenHeight - GeneralGame::offset) - height)
+	if (pos.y >= float(Graphics::ScreenHeight - Config::offset) - height)
 	{
-		pos.y = float(Graphics::ScreenHeight - GeneralGame::offset) - height;
+		pos.y = float(Graphics::ScreenHeight - Config::offset) - height;
 	}
 }
 
@@ -46,11 +46,11 @@ void Jaz::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		speed = GeneralGame::mySpeed * 3;
+		speed = Config::mySpeed * 3;
 	}
 	else
 	{
-		speed = GeneralGame::mySpeed;
+		speed = Config::mySpeed;
 	}
 
 	Vec2 dir(0.0f, 0.0f);

@@ -2,7 +2,7 @@
 
 #include "Graphics.h"
 #include "Jaz.h"
-#include "GeneralGame.h"
+#include "Config.h"
 #include "Vec2.h"
 
 class Collectable

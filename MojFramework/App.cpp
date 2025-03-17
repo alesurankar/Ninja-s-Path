@@ -8,7 +8,7 @@ App::App(MainWindow& wnd)
 	rng(rd()),
 	xRand(20.0f, 770.0f),
 	yRand(20.0f, 570.0f),
-	vRand(-GeneralGame::difficulty, GeneralGame::difficulty),
+	vRand(-Config::difficulty, Config::difficulty),
 	jaz(Vec2(xRand(rng),yRand(rng))),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
@@ -118,7 +118,7 @@ void App::UpdateModel()
 		{
 			gg.AddScore();
 			coll.Init(Vec2(xRand(rng), yRand(rng)));
-			if (gg.ScoreStatus() >= GeneralGame::maxScore)
+			if (gg.ScoreStatus() >= Config::maxScore)
 			{
 				gg.GameOver();
 				gg.GameWon();
