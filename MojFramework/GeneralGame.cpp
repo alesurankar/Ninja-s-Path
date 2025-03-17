@@ -1,5 +1,12 @@
 #include "GeneralGame.h"
 
+GeneralGame::GeneralGame()
+	:
+	startGame(L"Sounds\\5_startGame.wav"),
+	gameMusic(L"Sounds\\6_gameMusic.wav")
+{
+}
+
 void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Green);
@@ -28,11 +35,6 @@ bool GeneralGame::GameOverStatus()
 	return gameOver;
 }
 
-bool GeneralGame::GameWonStatus()
-{
-	return gameWon;
-}
-
 int GeneralGame::ScoreStatus()
 {
 	return score;
@@ -43,6 +45,8 @@ void GeneralGame::StartGame()
 	score = 0;
 	gameOver = false;
 	gameWon = false;
+	frameCount = 1.3f;
+	startGame.Play();
 }
 
 void GeneralGame::GameOver()
@@ -58,4 +62,36 @@ void GeneralGame::GameWon()
 void GeneralGame::AddScore()
 {
 	score++;
+}
+
+void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
+{
+	if (gameWon)
+	{
+		GameWonBanner(gfx);
+	}
+	else
+	{
+		GameLostBanner(gfx);
+	}
+}
+
+void GeneralGame::DrawGame(Graphics& gfx) const
+{
+	DrawScore(gfx);
+	DrawGameBorder(gfx);
+}
+
+void GeneralGame::UpdateGame(float dt)
+{
+	if (GameOverStatus())
+	{
+		gameMusic.StopAll();
+	}
+	frameCount += dt;
+	if (frameCount > 3.4f)
+	{
+		gameMusic.Play();
+		frameCount = 0.0f;
+	}
 }

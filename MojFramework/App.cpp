@@ -13,9 +13,7 @@ App::App(MainWindow& wnd)
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
-	jazDamaged(L"Sounds\\4_jazDamaged.wav"),
-	startGame(L"Sounds\\5_startGame.wav"),
-	gameMusic(L"Sounds\\6_gameMusic.wav")
+	jazDamaged(L"Sounds\\4_jazDamaged.wav")
 {
 }
 
@@ -52,8 +50,6 @@ void App::UpdateModel()
 
 			//GeneralGame
 			gg.StartGame();
-			frameCount = 1.3f;
-			startGame.Play();
 		}
 	}
 	else
@@ -127,16 +123,7 @@ void App::UpdateModel()
 		}
 
 		//GeneralGame
-		if (gg.GameOverStatus())
-		{
-			gameMusic.StopAll();
-		}
-		frameCount += dt;
-		if (frameCount > 3.4f)
-		{
-			gameMusic.Play();
-			frameCount = 0.0f;
-		}
+		gg.UpdateGame(dt);
 	}
 }
 
@@ -144,14 +131,7 @@ void App::ComposeFrame()
 {
 	if (gg.GameOverStatus())
 	{
-		if (gg.GameWonStatus())
-		{
-			gg.GameWonBanner(gfx);
-		}
-		else
-		{
-			gg.GameLostBanner(gfx);
-		}
+		gg.GameOverDrawLogic(gfx);
 	}
 	else
 	{
@@ -180,7 +160,6 @@ void App::ComposeFrame()
 		coll.Draw(gfx);
 		
 		//GeneralGame
-		gg.DrawScore(gfx);
-		gg.DrawGameBorder(gfx);
+		gg.DrawGame(gfx);
 	}
 }

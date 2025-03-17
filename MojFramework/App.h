@@ -48,8 +48,5 @@ private:
 	Sound objCollected;
 	Sound objDamaged;
 	Sound jazDamaged;
-	Sound startGame;
-	Sound gameMusic;
-	float frameCount;
 	/********************************/
 };
