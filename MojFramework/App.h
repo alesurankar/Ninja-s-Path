@@ -57,5 +57,6 @@ private:
 	Sound jazDamaged;
 	State state = State::Menu;
 	Menu menu;
+	float count;
 	/********************************/
 };

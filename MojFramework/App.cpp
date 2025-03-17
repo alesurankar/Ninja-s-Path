@@ -53,10 +53,6 @@ void App::UpdateModel()
 
 				//Enemy
 				enemy.clear();
-				for (int e = 0; e < n; e++)
-				{
-					enemy.emplace_back(Vec2(xRand(rng), yRand(rng)), Vec2(vRand(rng), vRand(rng)));
-				}
 
 				//Collectable
 				coll.Init(Vec2(xRand(rng), yRand(rng)));
@@ -64,6 +60,7 @@ void App::UpdateModel()
 				//GeneralGame
 				gg.StartGame();
 				state = State::PlayGame;
+				count = 0.0f;
 			}
 		}
 	}
@@ -98,6 +95,13 @@ void App::UpdateModel()
 		}
 
 		//Enemy
+		count += dt;
+		if (count > Config::enemyRespawnTime && enemy.size() < n)
+		{
+			enemy.emplace_back(Vec2(xRand(rng), yRand(rng)), Vec2(vRand(rng), vRand(rng)));
+			count = 0.0f;
+		}
+
 		for (int e = 0; e < enemy.size();)
 		{
 			enemy[e].Update(dt);
