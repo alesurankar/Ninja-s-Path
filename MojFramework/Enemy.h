@@ -18,6 +18,7 @@ public:
 	bool Colliding(Bullet& bul);
 	bool DestroyedStatus();
 	void Damaged();
+	Vec2 GetPos();
 private:
 	Surface s = Surface("Images\\SpriteEnemy24x24.bmp");
 	float inOff = 1.0f;

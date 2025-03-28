@@ -58,7 +58,7 @@ void GeneralGame::StartGame()
 	enemy.clear();
 
 	//Collectable
-	coll.Init(Vec2(xRand(rng), yRand(rng)));
+	coll.clear();
 
 	//GeneralGame
 	score = 0;
@@ -125,6 +125,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 		if (enemy[e].DestroyedStatus())
 		{
+			coll.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
 		}
 		else
@@ -134,16 +135,23 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Collectable
-	if (coll.Colliding(jaz))
+	for (int c = 0; c < coll.size();)
 	{
-		score++;
-		coll.Init(Vec2(xRand(rng), yRand(rng)));
-		if (score >= Config::maxScore)
+		if (coll[c].Colliding(jaz))
 		{
-			gameOver = true;
-			gameWon = true;
+			score++;
+			coll.erase(coll.begin() + c);
+			if (score >= Config::maxScore)
+			{
+				gameOver = true;
+				gameWon = true;
+			}
+			objCollected.Play();
 		}
-		objCollected.Play();
+		else
+		{
+			c++;
+		}
 	}
 
 	//GeneralGame
@@ -195,7 +203,10 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	}
 
 	//Collectable
-	coll.Draw(gfx);
+	for (Collectable& c : coll)
+	{
+		c.Draw(gfx);
+	}
 
 	//GeneralGame
 	DrawScore(gfx);

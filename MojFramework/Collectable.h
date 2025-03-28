@@ -8,7 +8,7 @@
 class Collectable
 {
 public:
-	void Init(const Vec2& pos_in);
+	Collectable(const Vec2& pos_in);
 	void BorderCheck();
 	void Draw(Graphics& gfx) const;
 	bool Colliding(Jaz& jaz);

@@ -21,7 +21,7 @@ private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
-	/*  Moije Funkcije              */
+	/*  Moje Funkcije               */
 	void CreateGame();
 	void DestroyGame();
 	void CreateMenu();

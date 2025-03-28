@@ -33,7 +33,7 @@ private:
 	Jaz jaz;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
-	Collectable coll;
+	std::vector<Collectable> coll;
 	std::vector<Bullet> bul;
 	Sound fireSound;
 	Sound objCollected;
