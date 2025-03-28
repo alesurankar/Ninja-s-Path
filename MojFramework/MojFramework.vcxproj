@@ -95,8 +95,11 @@
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeneralGame.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="LivingEntity.cpp" />
+    <ClCompile Include="NonLivingObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -104,6 +107,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
   </ItemGroup>
@@ -116,8 +120,11 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FrameTimer.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeneralGame.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="LivingEntity.h" />
+    <ClInclude Include="NonLivingObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
@@ -126,6 +133,7 @@
     <ClInclude Include="MyException.h" />
     <ClInclude Include="MyWin.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />

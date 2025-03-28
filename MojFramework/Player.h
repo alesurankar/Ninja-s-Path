@@ -1,13 +1,9 @@
 #pragma once
-
-#include "Graphics.h"
+#include "LivingEntity.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "Config.h"
-#include "Vec2.h"
-#include "Surface.h"
 
-class Player
+class Player// : LivingEntity
 {
 public:
 	Player(const Vec2& pos_in);

@@ -1,13 +1,9 @@
 #pragma once
-
-#include "Graphics.h"
+#include "LivingEntity.h"
 #include "Player.h"
-#include "Config.h"
-#include "Vec2.h"
 #include "Bullet.h"
-#include "Surface.h"
 
-class Enemy
+class Enemy// : LivingEntity
 {
 public:
 	Enemy(const Vec2& pos_in, const Vec2& vel_in);

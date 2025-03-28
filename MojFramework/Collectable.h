@@ -1,11 +1,8 @@
 #pragma once
-
-#include "Graphics.h"
+#include "NonLivingObject.h"
 #include "Player.h"
-#include "Config.h"
-#include "Vec2.h"
 
-class Collectable
+class Collectable// : public NonLivingObject
 {
 public:
 	Collectable(const Vec2& pos_in);

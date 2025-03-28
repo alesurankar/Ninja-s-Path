@@ -1,10 +1,7 @@
 #pragma once
+#include "Projectile.h"
 
-#include "Graphics.h"
-#include "Vec2.h"
-#include "Config.h"
-
-class Bullet
+class Bullet// : public Projectile
 {
 public:
 	Bullet(const Vec2& center_in, const Vec2& vel_in);
