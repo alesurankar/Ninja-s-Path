@@ -15,12 +15,17 @@ public:
 	App(class MainWindow& wnd);
 	App(const App&) = delete;
 	App& operator=(const App&) = delete;
+	~App();
 	void Go();
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  Moije Funkcije              */
+	void CreateGame();
+	void DestroyGame();
+	void CreateMenu();
+	void DestroyMenu();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -28,8 +33,8 @@ private:
 	/********************************/
 	/*  Moji Parametri              */
 	FrameTimer ft;
-	GeneralGame gg;
+	GeneralGame* gg = nullptr;
+	Menu* menu = nullptr;
 	State state = State::Menu;
-	Menu menu;
 	/********************************/
 };
