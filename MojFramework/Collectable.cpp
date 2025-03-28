@@ -32,16 +32,16 @@ void Collectable::Draw(Graphics& gfx) const
 	gfx.DrawImage(pos, point);
 }
 
-bool Collectable::Colliding(Jaz& jaz)
+bool Collectable::Colliding(Player& player)
 {
-	const float right0 = jaz.GetPos().x + jaz.GetWidth();
-	const float bottom0 = jaz.GetPos().y + jaz.GetHeight();
+	const float right0 = player.GetPos().x + player.GetWidth();
+	const float bottom0 = player.GetPos().y + player.GetHeight();
 	const float right1 = pos.x + width;
 	const float bottom1 = pos.y + height;
 
 	return
 		right0 >= pos.x &&
 		bottom0 >= pos.y &&
-		right1 >= jaz.GetPos().x &&
-		bottom1 >= jaz.GetPos().y;
+		right1 >= player.GetPos().x &&
+		bottom1 >= player.GetPos().y;
 }

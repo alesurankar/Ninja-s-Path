@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Jaz.h"
+#include "Player.h"
 #include "Config.h"
 #include "Vec2.h"
 #include "Bullet.h"
@@ -14,7 +14,7 @@ public:
 	void BorderCheck();
 	void Draw(Graphics& gfx) const;
 	void Update(float dt);
-	bool Colliding(Jaz& jaz);
+	bool Colliding(Player& player);
 	bool Colliding(Bullet& bul);
 	bool DestroyedStatus();
 	void Damaged();

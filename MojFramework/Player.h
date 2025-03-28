@@ -7,10 +7,10 @@
 #include "Vec2.h"
 #include "Surface.h"
 
-class Jaz
+class Player
 {
 public:
-	Jaz(const Vec2& pos_in);
+	Player(const Vec2& pos_in);
 	void BorderCheck();
 	void Draw(Graphics& gfx) const;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);

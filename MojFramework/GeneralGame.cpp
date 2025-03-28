@@ -6,16 +6,16 @@ GeneralGame::GeneralGame()
 	xRand(20.0f, 770.0f),
 	yRand(20.0f, 570.0f),
 	vRand(-Config::difficulty, Config::difficulty),
-	jaz(Vec2(xRand(rng), yRand(rng))),
+	player(Vec2(xRand(rng), yRand(rng))),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
-	jazDamaged(L"Sounds\\4_jazDamaged.wav"),
+	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
 	startGame(L"Sounds\\5_startGame.wav"),
 	gameMusic(L"Sounds\\6_gameMusic.wav")
 {
-	//Jaz
-	jaz.Respawn();
+	//Player
+	player.Respawn();
 
 	//Bullet
 	bul.clear();
@@ -67,15 +67,15 @@ bool GeneralGame::GameOverStatus()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	//Jaz
-	jaz.Update(mouse, kbd, dt);
-	if (jaz.FiringStatus())
+	//Player
+	player.Update(mouse, kbd, dt);
+	if (player.FiringStatus())
 	{
-		bul.emplace_back(jaz.GetCenter(), jaz.GetDirection(mouse));
+		bul.emplace_back(player.GetCenter(), player.GetDirection(mouse));
 		fireSound.Play();
 	}
 
-	if (jaz.DestroyedStatus())
+	if (player.DestroyedStatus())
 	{
 		gameOver = true;
 	}
@@ -105,10 +105,10 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(dt);
-		if (enemy[e].Colliding(jaz))
+		if (enemy[e].Colliding(player))
 		{
-			jaz.Damaged();
-			jazDamaged.Play();
+			player.Damaged();
+			playerDamaged.Play();
 		}
 		for (Bullet& b : bul)
 		{
@@ -133,7 +133,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//Collectable
 	for (int c = 0; c < coll.size();)
 	{
-		if (coll[c].Colliding(jaz))
+		if (coll[c].Colliding(player))
 		{
 			score++;
 			coll.erase(coll.begin() + c);
@@ -177,8 +177,8 @@ void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
-	//Jaz
-	jaz.Draw(gfx);
+	//Player
+	player.Draw(gfx);
 
 	//Bullet
 	for (Bullet& b : bul)

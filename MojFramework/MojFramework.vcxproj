@@ -97,7 +97,7 @@
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="GeneralGame.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Jaz.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -118,7 +118,7 @@
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GeneralGame.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="Jaz.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Menu.h" />

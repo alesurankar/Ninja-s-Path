@@ -9,7 +9,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Collectable.h"
-#include "Jaz.h"
+#include "Player.h"
 
 class GeneralGame
 {
@@ -29,7 +29,7 @@ private:
 	std::uniform_real_distribution<float> xRand;
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
-	Jaz jaz;
+	Player player;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
@@ -37,7 +37,7 @@ private:
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;
-	Sound jazDamaged;
+	Sound playerDamaged;
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;

@@ -48,18 +48,18 @@ void Enemy::Update(float dt)
 	BorderCheck();
 }
 
-bool Enemy::Colliding(Jaz& jaz)
+bool Enemy::Colliding(Player& player)
 {
-	const float right0 = jaz.GetPos().x + jaz.GetWidth();
-	const float bottom0 = jaz.GetPos().y + jaz.GetHeight();
+	const float right0 = player.GetPos().x + player.GetWidth();
+	const float bottom0 = player.GetPos().y + player.GetHeight();
 	const float right1 = pos.x + width;
 	const float bottom1 = pos.y + height;
 
 	return
 		right0 >= pos.x &&
 		bottom0 >= pos.y &&
-		right1 >= jaz.GetPos().x &&
-		bottom1 >= jaz.GetPos().y;
+		right1 >= player.GetPos().x &&
+		bottom1 >= player.GetPos().y;
 }
 
 bool Enemy::Colliding(Bullet& bul)

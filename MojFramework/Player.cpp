@@ -1,13 +1,13 @@
-#include "Jaz.h"
+#include "Player.h"
 
-Jaz::Jaz(const Vec2& pos_in)
+Player::Player(const Vec2& pos_in)
 {
 	pos = pos_in;
 	firing = false;
 	loaded = false;
 }
 
-void Jaz::BorderCheck()
+void Player::BorderCheck()
 {
 	if (pos.x <= float(Config::offset))
 	{
@@ -27,7 +27,7 @@ void Jaz::BorderCheck()
 	}
 }
 
-void Jaz::Draw(Graphics& gfx) const
+void Player::Draw(Graphics& gfx) const
 {
 	gfx.DrawImage(pos, s);
 	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width, 5.0f, Colors::Green);
@@ -35,7 +35,7 @@ void Jaz::Draw(Graphics& gfx) const
 	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width * float(lives) / float(maxLives), 5.0f, Colors::Green);
 }
 
-void Jaz::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
+void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	if (mouse.LeftIsPressed())
 	{
@@ -76,27 +76,27 @@ void Jaz::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	BorderCheck();
 }
 
-Vec2 Jaz::GetPos()
+Vec2 Player::GetPos()
 {
 	return pos;
 }
 
-float Jaz::GetWidth()
+float Player::GetWidth()
 {
 	return width;
 }
 
-float Jaz::GetHeight()
+float Player::GetHeight()
 {
 	return height;
 }
 
-bool Jaz::FiringStatus()
+bool Player::FiringStatus()
 {
 	return firing;
 }
 
-void Jaz::Fire()
+void Player::Fire()
 {
 	if (loaded)
 	{
@@ -109,40 +109,40 @@ void Jaz::Fire()
 	}
 }
 
-void Jaz::Reload()
+void Player::Reload()
 {
 	loaded = true;
 }
 
-Vec2 Jaz::GetCenter()
+Vec2 Player::GetCenter()
 {
 	return pos + Vec2(width / 2.0f, height / 2.0f);
 }
 
-Vec2 Jaz::GetDirection(const Mouse& mouse)
+Vec2 Player::GetDirection(const Mouse& mouse)
 {
 	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
 	return dir.GetNormalized();
 }
 
-void Jaz::Destroyed()
+void Player::Destroyed()
 {
 	destroyed = true;
 }
 
-void Jaz::Respawn()
+void Player::Respawn()
 {
 	lives = maxLives;
 	destroyed = false;
 	loaded = false;
 }
 
-bool Jaz::DestroyedStatus()
+bool Player::DestroyedStatus()
 {
 	return destroyed;
 }
 
-void Jaz::Damaged()
+void Player::Damaged()
 {
 	lives--;
 	if (lives <= 0)

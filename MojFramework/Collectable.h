@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Jaz.h"
+#include "Player.h"
 #include "Config.h"
 #include "Vec2.h"
 
@@ -11,7 +11,7 @@ public:
 	Collectable(const Vec2& pos_in);
 	void BorderCheck();
 	void Draw(Graphics& gfx) const;
-	bool Colliding(Jaz& jaz);
+	bool Colliding(Player& player);
 private:
 	Surface point = Surface("Images\\Point18x18.bmp");
 	Vec2 pos;
