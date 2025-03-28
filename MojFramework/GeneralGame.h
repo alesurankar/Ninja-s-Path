@@ -1,8 +1,15 @@
 #pragma once
-
+#include <random>
+#include <vector>
+#include "Keyboard.h"
+#include "Mouse.h"
 #include "Graphics.h"
-#include "Config.h"
 #include "Sound.h"
+#include "Config.h"
+#include "Bullet.h"
+#include "Enemy.h"
+#include "Collectable.h"
+#include "Jaz.h"
 
 class GeneralGame
 {
@@ -13,15 +20,26 @@ public:
 	void DrawScore(Graphics& gfx) const;
 	void DrawGameBorder(Graphics& gfx) const;
 	bool GameOverStatus();
-	int ScoreStatus();
 	void StartGame();
-	void GameOver();
-	void GameWon();
-	void AddScore();
 	void GameOverDrawLogic(Graphics& gfx) const;
-	void DrawGame(Graphics& gfx) const;
-	void UpdateGame(float dt);
+	void DrawGame(Graphics& gfx);
+	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
 private:
+	std::random_device rd;
+	std::mt19937 rng;
+	std::uniform_real_distribution<float> xRand;
+	std::uniform_real_distribution<float> yRand;
+	std::uniform_real_distribution<float> vRand;
+	Jaz jaz;
+	static constexpr int n = Config::enemyNum;
+	std::vector<Enemy> enemy;
+	Collectable coll;
+	std::vector<Bullet> bul;
+	Sound fireSound;
+	Sound objCollected;
+	Sound objDamaged;
+	Sound jazDamaged;
+	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
 	int score = 0;
