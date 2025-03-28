@@ -29,7 +29,7 @@ void Collectable::BorderCheck()
 
 void Collectable::Draw(Graphics& gfx) const
 {
-	gfx.DrawRect(pos, width, height, Colors::Blue);
+	gfx.DrawImage(pos, point);
 }
 
 bool Collectable::Colliding(Jaz& jaz)
