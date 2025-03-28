@@ -14,6 +14,25 @@ GeneralGame::GeneralGame()
 	startGame(L"Sounds\\5_startGame.wav"),
 	gameMusic(L"Sounds\\6_gameMusic.wav")
 {
+	//Jaz
+	jaz.Respawn();
+
+	//Bullet
+	bul.clear();
+
+	//Enemy
+	enemy.clear();
+
+	//Collectable
+	coll.clear();
+
+	//GeneralGame
+	score = 0;
+	gameOver = false;
+	gameWon = false;
+	frameCount = 1.3f;
+	count = 0.0f;
+	startGame.Play();
 }
 
 void GeneralGame::GameWonBanner(Graphics& gfx) const
@@ -44,29 +63,6 @@ void GeneralGame::DrawGameBorder(Graphics& gfx) const
 bool GeneralGame::GameOverStatus()
 {
 	return gameOver;
-}
-
-void GeneralGame::StartGame()
-{
-	//Jaz
-	jaz.Respawn();
-
-	//Bullet
-	bul.clear();
-
-	//Enemy
-	enemy.clear();
-
-	//Collectable
-	coll.clear();
-
-	//GeneralGame
-	score = 0;
-	gameOver = false;
-	gameWon = false;
-	frameCount = 1.3f;
-	count = 0.0f;
-	startGame.Play();
 }
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)

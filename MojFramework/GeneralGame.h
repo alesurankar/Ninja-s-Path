@@ -20,7 +20,6 @@ public:
 	void DrawScore(Graphics& gfx) const;
 	void DrawGameBorder(Graphics& gfx) const;
 	bool GameOverStatus();
-	void StartGame();
 	void GameOverDrawLogic(Graphics& gfx) const;
 	void DrawGame(Graphics& gfx);
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);

@@ -47,7 +47,6 @@ void App::UpdateModel()
 			{
 				DestroyMenu();
 				CreateGame();
-				gg->StartGame();
 				state = State::PlayGame;
 			}
 		}
