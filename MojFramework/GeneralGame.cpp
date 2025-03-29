@@ -106,20 +106,20 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		enemy[e].Update(dt);
 		if (enemy[e].Colliding(*player))
 		{
-			player->TakeDamage(enemy[e], 10.0f);
+			player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 			playerDamaged.Play();
-			enemy[e].TakeDamage(*player, 10.0f);
+			enemy[e].TakeDamage(*player, player->MeleDamage());
 			objDamaged.Play();
 		}
-		/*for (Bullet& b : bul)
+		for (Bullet& b : bul)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].TakeDamage(*player, 10);
+				enemy[e].TakeDamage(*player, b.DamageBonus());
 				b.Smashed();
 				objDamaged.Play();
 			}
-		}*/
+		}
 		if (enemy[e].DestroyedStatus())
 		{
 			coll.emplace_back(enemy[e].GetPos());

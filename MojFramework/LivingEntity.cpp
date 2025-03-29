@@ -38,6 +38,11 @@ bool LivingEntity::DestroyedStatus()
 	return destroyed;
 }
 
+float LivingEntity::MeleDamage()
+{
+	return power;
+}
+
 bool LivingEntity::FiringStatus()
 {
 	return firing;

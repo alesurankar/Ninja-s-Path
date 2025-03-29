@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "Surface.h"
 
 class NonLivingObject : public GameObject
 {

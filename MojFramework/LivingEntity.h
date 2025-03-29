@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "Surface.h"
 
 class LivingEntity : public GameObject
 {
@@ -14,6 +13,7 @@ public:
 	float DamageDeal();
 	void Destroyed();
 	bool DestroyedStatus();
+	float MeleDamage();
 public:
 	float maxHP;
 	float hp;

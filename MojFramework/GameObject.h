@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Surface.h"
 
 class GameObject
 {
