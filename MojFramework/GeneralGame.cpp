@@ -8,8 +8,10 @@ GeneralGame::GeneralGame()
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	enemyDestroyed(L"Sounds\\3_enemyDestroyed.wav"),
-	playerDamaged(L"Sounds\\4_playerDamaged.wav")
+	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
+	gameMusic(L"Sounds\\2.wav", Sound::LoopType::AutoFullSound)
 {
+	gameMusic.Play();
 	//Player
 	CreatePlayer();
 

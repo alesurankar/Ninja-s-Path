@@ -38,6 +38,7 @@ private:
 	Sound objCollected;
 	Sound enemyDestroyed;
 	Sound playerDamaged;
+	Sound gameMusic;
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
