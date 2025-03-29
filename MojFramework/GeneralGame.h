@@ -36,14 +36,11 @@ private:
 	std::vector<Bullet> bul;
 	Sound fireSound;
 	Sound objCollected;
-	Sound objDamaged;
+	Sound enemyDestroyed;
 	Sound playerDamaged;
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
-	float frameCount;
-	Sound startGame;
-	Sound gameMusic;
 	Surface lost = Surface("Images\\GameLost 400x200.bmp");
 	Surface won = Surface("Images\\GameWon 400x200.bmp");
 public:

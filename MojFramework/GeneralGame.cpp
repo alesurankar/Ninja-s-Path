@@ -7,10 +7,8 @@ GeneralGame::GeneralGame()
 	yRand(20.0f, 570.0f),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
-	objDamaged(L"Sounds\\3_objDamaged.wav"),
-	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	startGame(L"Sounds\\5_startGame.wav"),
-	gameMusic(L"Sounds\\6_gameMusic.wav")
+	enemyDestroyed(L"Sounds\\3_enemyDestroyed.wav"),
+	playerDamaged(L"Sounds\\4_playerDamaged.wav")
 {
 	//Player
 	CreatePlayer();
@@ -28,9 +26,7 @@ GeneralGame::GeneralGame()
 	score = 0;
 	gameOver = false;
 	gameWon = false;
-	frameCount = 1.3f;
 	count = 0.0f;
-	startGame.Play();
 }
 
 void GeneralGame::GameWonBanner(Graphics& gfx) const
@@ -104,7 +100,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 			playerDamaged.Play();
 			enemy[e].TakeDamage(*player, player->MeleDamage());
-			objDamaged.Play();
 		}
 		for (Bullet& b : bul)
 		{
@@ -112,13 +107,13 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			{
 				enemy[e].TakeDamage(*player, b.DamageBonus());
 				b.Smashed();
-				objDamaged.Play();
 			}
 		}
 		if (enemy[e].DestroyedStatus())
 		{
 			point.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
+			enemyDestroyed.Play();
 		}
 		else
 		{
@@ -150,13 +145,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	if (GameOverStatus())
 	{
 		DestroyPlayer();
-		gameMusic.StopAll();
-	}
-	frameCount += dt;
-	if (frameCount > 3.4f)
-	{
-		gameMusic.Play();
-		frameCount = 0.0f;
 	}
 }
 
