@@ -13,8 +13,8 @@ private:
 	Surface s = Surface("Images\\SpriteMe21x36.bmp");
 	static constexpr float width = 21.0f;
 	static constexpr float height = 36.0f;
-	static constexpr float maxHP = 1000.0f;
+	static constexpr float maxHP = 600.0f;
 	static constexpr float power = 6.0f;
 	static constexpr float speed = 200.0f;
-	static constexpr float shield = 20.0f;
+	static constexpr float shield = 6.0f;
 };

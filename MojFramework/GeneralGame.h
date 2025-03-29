@@ -8,7 +8,7 @@
 #include "Config.h"
 #include "Bullet.h"
 #include "Enemy.h"
-#include "Collectable.h"
+#include "Point.h"
 #include "Player.h"
 
 class GeneralGame
@@ -34,7 +34,7 @@ private:
 	Player* player = nullptr;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
-	std::vector<Collectable> coll;
+	std::vector<Point> point;
 	std::vector<Bullet> bul;
 	Sound fireSound;
 	Sound objCollected;

@@ -23,7 +23,7 @@ GeneralGame::GeneralGame()
 	enemy.clear();
 
 	//Collectable
-	coll.clear();
+	point.clear();
 
 	//GeneralGame
 	score = 0;
@@ -122,7 +122,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 		if (enemy[e].DestroyedStatus())
 		{
-			coll.emplace_back(enemy[e].GetPos());
+			point.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
 		}
 		else
@@ -132,12 +132,12 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Collectable
-	for (int c = 0; c < coll.size();)
+	for (int p = 0; p < point.size();)
 	{
-		if (coll[c].Colliding(*player))
+		if (point[p].Colliding(*player))
 		{
 			score++;
-			coll.erase(coll.begin() + c);
+			point.erase(point.begin() + p);
 			if (score >= Config::maxScore)
 			{
 				gameOver = true;
@@ -147,7 +147,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 		else
 		{
-			c++;
+			p++;
 		}
 	}
 
@@ -218,9 +218,9 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	}
 
 	//Collectable
-	for (Collectable& c : coll)
+	for (Point& p : point)
 	{
-		c.Draw(gfx);
+		p.Draw(gfx);
 	}
 
 	//GeneralGame

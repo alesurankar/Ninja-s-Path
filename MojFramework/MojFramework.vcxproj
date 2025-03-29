@@ -91,7 +91,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Collectable.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
@@ -114,7 +114,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Collectable.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="Config.h" />
