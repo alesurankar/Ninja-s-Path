@@ -13,7 +13,6 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_i
 	loaded(false)
 {}
 
-
 void LivingEntity::TakeDamage(LivingEntity& other, float weaponBonus)
 {
 	const float damageDone = (other.DamageDeal() + weaponBonus) / shield;

@@ -8,6 +8,20 @@ GameObject::GameObject(const Vec2& pos_in, const Vec2& vel_in, float width_in, f
 	height(height_in)
 {}
 
+bool GameObject::Colliding(GameObject& other)
+{
+	const float right0 = other.pos.x + other.width;
+	const float bottom0 = other.pos.y + other.height;
+	const float right1 = pos.x + width;
+	const float bottom1 = pos.y + height;
+
+	return
+		right0 >= pos.x &&
+		bottom0 >= pos.y &&
+		right1 >= other.pos.x &&
+		bottom1 >= other.pos.y;
+}
+
 void GameObject::BorderCheck()
 {
 	if (pos.x <= float(Config::offset))

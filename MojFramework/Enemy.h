@@ -3,26 +3,18 @@
 #include "Player.h"
 #include "Bullet.h"
 
-class Enemy// : LivingEntity
+class Enemy : public LivingEntity
 {
 public:
 	Enemy(const Vec2& pos_in, const Vec2& vel_in);
-	void BorderCheck();
-	void Draw(Graphics& gfx) const;
+	void Draw(Graphics& gfx) const override;
 	void Update(float dt);
-	bool Colliding(Player& player);
-	bool Colliding(Bullet& bul);
-	bool DestroyedStatus();
-	void Damaged();
-	Vec2 GetPos();
 private:
 	Surface s = Surface("Images\\SpriteEnemy24x24.bmp");
-	float inOff = 1.0f;
-	int lives;
-	bool destroyed;
-	Vec2 pos;
-	Vec2 vel;
 	static constexpr float width = 24.0f;
 	static constexpr float height = 24.0f;
-	static constexpr int maxLives = Config::enemyLives;
+	static constexpr float maxHP = 300.0f;
+	static constexpr float power = 2.0f;
+	static constexpr float speed = 150.0f;
+	static constexpr float shield = 10.0f;
 };

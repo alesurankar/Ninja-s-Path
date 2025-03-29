@@ -12,6 +12,5 @@ public:
 	static constexpr int enemyNum = 20;
 	static constexpr float bulSpeed = 500.0f;
 	static constexpr float bulDim = 6.0f;
-	static constexpr int enemyLives = 3;
 	static constexpr float enemyRespawnTime = 1.0f;
 };
