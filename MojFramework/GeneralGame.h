@@ -17,7 +17,6 @@ public:
 	GeneralGame();
 	void GameWonBanner(Graphics& gfx) const;
 	void GameLostBanner(Graphics& gfx) const;
-	void DrawScore(Graphics& gfx) const;
 	void DrawGameBorder(Graphics& gfx) const;
 	bool GameOverStatus();
 	void GameOverDrawLogic(Graphics& gfx) const;
@@ -32,7 +31,6 @@ private:
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
 	Player* player = nullptr;
-	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Point> point;
 	std::vector<Bullet> bul;
@@ -43,11 +41,16 @@ private:
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
-	int score = 0;
-	int scoreX = Graphics::ScreenWidth / Config::maxScore;
 	float frameCount;
 	Sound startGame;
 	Sound gameMusic;
 	Surface lost = Surface("Images\\GameLost 400x200.bmp");
 	Surface won = Surface("Images\\GameWon 400x200.bmp");
+public:
+	int maxScore = 6;
+	static constexpr int enemyNum = 20;
+	static constexpr float enemyRespawnTime = 1.0f;
+	int score = 0;
+	int scoreX = Graphics::ScreenWidth / maxScore;
+	static constexpr int n = enemyNum;
 };

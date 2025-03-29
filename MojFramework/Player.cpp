@@ -8,9 +8,6 @@ Player::Player(const Vec2& pos_in)
 void Player::Draw(Graphics& gfx) const
 {
 	gfx.DrawImage(pos, s);
-	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width, 5.0f, Colors::Green);
-	gfx.DrawRect(pos + Vec2(inOff, inOff - 6.0f), width - 2 * inOff, 5.0f - 2 * inOff, Colors::White);
-	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width * float(hp) / float(maxHP), 5.0f, Colors::Green);
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -65,4 +62,11 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 {
 	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
 	return dir.GetNormalized();
+}
+
+void Player::ShowHP(Graphics& gfx) const
+{
+	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Config::scoreY + 2*Config::offset, Colors::Green);
+	gfx.DrawRect(Config::offset, Config::offset, Graphics::ScreenWidth - Config::offset, Config::scoreY + Config::offset, Colors::White);
+	gfx.DrawRect(Config::offset, Config::offset, Graphics::ScreenWidth * int(hp) / int(maxHP) - Config::offset, Config::scoreY + Config::offset, Colors::Green);
 }

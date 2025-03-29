@@ -9,6 +9,7 @@ public:
 	void Draw(Graphics& gfx) const override;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	Vec2 GetDirection(const Mouse& mouse);
+	void ShowHP(Graphics& gfx) const;
 private:
 	Surface s = Surface("Images\\SpriteMe21x36.bmp");
 	static constexpr float width = 21.0f;

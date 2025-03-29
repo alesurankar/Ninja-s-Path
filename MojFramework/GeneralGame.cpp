@@ -5,7 +5,6 @@ GeneralGame::GeneralGame()
 	rng(rd()),
 	xRand(20.0f, 770.0f),
 	yRand(20.0f, 570.0f),
-	vRand(-Config::difficulty, Config::difficulty),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -46,14 +45,10 @@ void GeneralGame::GameLostBanner(Graphics& gfx) const
 	gfx.DrawImage(200, 200, lost);
 }
 
-void GeneralGame::DrawScore(Graphics& gfx) const
-{
-	gfx.DrawRect(Config::offset, Config::offset,scoreX * score, Config::scoreY,Colors::Blue);
-}
-
 void GeneralGame::DrawGameBorder(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 2* Config::offset + Config::scoreY, Config::offset, Graphics::ScreenHeight, Colors::Blue);
+
+	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Config::offset, Graphics::ScreenHeight, Colors::Blue);
 	gfx.DrawRect(0, Graphics::ScreenHeight - Config::offset, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
 	gfx.DrawRect(Graphics::ScreenWidth - Config::offset, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
 	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset, Colors::Blue);
@@ -95,7 +90,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 
 	//Enemy
 	count += dt;
-	if (count > Config::enemyRespawnTime && enemy.size() < n)
+	if (count > enemyRespawnTime && enemy.size() < n)
 	{
 		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)), Vec2(vRand(rng), vRand(rng)));
 		count = 0.0f;
@@ -138,7 +133,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			score++;
 			point.erase(point.begin() + p);
-			if (score >= Config::maxScore)
+			if (score >= maxScore)
 			{
 				gameOver = true;
 				gameWon = true;
@@ -224,6 +219,6 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	}
 
 	//GeneralGame
-	DrawScore(gfx);
+	player->ShowHP(gfx);
 	DrawGameBorder(gfx);
 }
