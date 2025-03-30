@@ -8,10 +8,8 @@ Player::Player(const Vec2& pos_in)
 	std::ifstream file("Config/player_config.txt");
 	if (file)
 	{
-		file >> level >> maxHP >> maxXP >> power >> shield;
+		file >> level >> maxHP >> hp >> maxXP >> xp >> power >> shield;
 	}
-	hp = maxHP;
-	xp = 0.0f;
 }
 
 void Player::Draw(Graphics& gfx) const
@@ -67,8 +65,8 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 
 void Player::DrawStats(Graphics& gfx) const
 {
-	int hpBarWidth = /*(maxHP > 0) ? */Graphics::ScreenWidth * int(hp) / int(maxHP)/* : 0*/;
-	int xpBarWidth = /*(maxXP > 0) ? */ImageWidth + Graphics::ScreenWidth * int(xp) / int(maxXP)/* : 0*/;
+	int hpBarWidth = /*(maxHP > 0) ? */Graphics::ScreenWidth * hp / maxHP +1/* : 0*/;
+	int xpBarWidth = /*(maxXP > 0) ? */ImageWidth + Graphics::ScreenWidth * xp / maxXP +1/* : 0*/;
 
 	hpBarWidth = std::clamp(hpBarWidth, 0, Graphics::ScreenWidth);
 	xpBarWidth = std::clamp(xpBarWidth, 0, Graphics::ScreenWidth);
@@ -85,7 +83,7 @@ void Player::DrawStats(Graphics& gfx) const
 	gfx.DrawRect(ImageWidth, HealthBarHeight, xpBarWidth, HealthBarHeight + XPBarHeight, Colors::Orange);
 }
 
-float Player::CheckXP()
+int Player::CheckXP()
 {
 	return xp;
 }

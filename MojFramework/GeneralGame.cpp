@@ -30,6 +30,11 @@ GeneralGame::GeneralGame()
 	count = 0.0f;
 }
 
+GeneralGame::~GeneralGame()
+{
+	player->SaveToFile("Config/player_config.txt");
+}
+
 void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Green);
@@ -112,7 +117,8 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 		if (enemy[e].DestroyedStatus())
 		{
-			point.emplace_back(enemy[e].GetPos());
+			player->CollectXP(enemy[e]);
+			//point.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
 			enemyDestroyed.Play();
 		}
@@ -123,13 +129,13 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Collectable
-	for (int p = 0; p < point.size();)
+	/*for (int p = 0; p < point.size();)
 	{
 		if (point[p].Colliding(*player))
 		{
-			player->CollectXP();
+			
 			point.erase(point.begin() + p);
-			if (player->CheckXP() >= 1000.0f)
+			if (player->CheckXP() >= 1000)
 			{
 				gameOver = true;
 				gameWon = true;
@@ -140,7 +146,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			p++;
 		}
-	}
+	}*/
 
 	//GeneralGame
 	if (GameOverStatus())

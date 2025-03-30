@@ -8,8 +8,8 @@ public:
 	void Draw(Graphics& gfx) const override;
 private:
 	Surface bullet = Surface("Images\\Bullet6x6.bmp");
+	static constexpr int damage = 500;
+	static constexpr float speed = 500.0f;
 	static constexpr float width = 6.0f;
 	static constexpr float height = 6.0f;
-	static constexpr float speed = 500.0f;
-	static constexpr float damage = 100.0f;
 };

@@ -10,7 +10,7 @@ public:
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	Vec2 GetDirection(const Mouse& mouse);
 	void DrawStats(Graphics& gfx) const;
-	float CheckXP();
+	int CheckXP();
 private:
 	Surface player = Surface("Images\\Player36x40.bmp");
 	Surface s = Surface("Images\\SpriteMe21x36.bmp");

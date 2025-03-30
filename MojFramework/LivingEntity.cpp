@@ -1,7 +1,7 @@
 #include "LivingEntity.h"
 #include <fstream>
 
-LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float speed_in, int level_in, float maxHP_in, float maxXP_in, float power_in, float shield_in)
+LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float speed_in, int level_in, int maxHP_in, int maxXP_in, int power_in, int shield_in)
 	:
 	GameObject(pos_in, vel_in, width_in, height_in),
 	level(level_in),
@@ -9,16 +9,15 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_i
 	maxXP(maxXP_in),
 	power(power_in),
 	shield(shield_in),
-	hp(maxHP_in),
 	speed(speed_in),
 	destroyed(false),
 	firing(false),
 	loaded(false)
 {}
 
-void LivingEntity::TakeDamage(LivingEntity& other, float weaponBonus)
+void LivingEntity::TakeDamage(LivingEntity& other, int weaponBonus)
 {
-	const float damageDone = (other.DamageDeal() + weaponBonus) / shield;
+	int damageDone = (other.DamageDeal() + weaponBonus) / shield;
 	hp -= damageDone;
 	if (hp <= 0)
 	{
@@ -26,7 +25,7 @@ void LivingEntity::TakeDamage(LivingEntity& other, float weaponBonus)
 	}
 }
 
-float LivingEntity::DamageDeal()
+int LivingEntity::DamageDeal()
 {
 	return power;
 }
@@ -41,7 +40,7 @@ bool LivingEntity::DestroyedStatus()
 	return destroyed;
 }
 
-float LivingEntity::MeleDamage()
+int LivingEntity::MeleDamage()
 {
 	return power;
 }
@@ -69,25 +68,31 @@ void LivingEntity::Reload()
 	loaded = true;
 }
 
-void LivingEntity::CollectXP()
+void LivingEntity::CollectXP(LivingEntity& other)
 {
-	xp += 45.0f;
-	if (xp > maxXP)
+	int levelDifference = other.GetLevel() - GetLevel();
+	if (levelDifference >= -3)
 	{
-		LevelUp();
-		SaveToFile("Config/player_config.txt");
+		int xp_increase = other.GetMaxXP() / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+		xp += xp_increase;
+		if (xp > maxXP)
+		{
+			xp_increase = xp - maxXP;
+			LevelUp();
+			xp = xp_increase / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+			//SaveToFile("Config/player_config.txt");
+		}
 	}
 }
 
 void LivingEntity::LevelUp()
 {
 	level++;
-	xp -= maxXP;
-	maxXP = RoundToOneDecimal(maxXP * 1.2f);
-	maxHP += 10*level;
+	maxXP = (maxXP * 115) / 100;
+	maxHP = (maxHP * 115) / 100;  // +30;
 	hp = maxHP;
-	power = RoundToOneDecimal(power * 1.2f);
-	shield = RoundToOneDecimal(shield * 1.1f);
+	power = (power * 115) / 100;
+	shield = (shield * 115) / 100;
 }
 
 void LivingEntity::SaveToFile(const std::string& filename) 
@@ -95,7 +100,17 @@ void LivingEntity::SaveToFile(const std::string& filename)
 	std::ofstream file(filename);
 	if (file) 
 	{
-		file << level << " " << maxHP << " " << maxXP << " " << power << " " << shield << "\n";
+		file << level << " " << maxHP << " " << hp << " " << maxXP << " " << xp << " " << power << " " << shield << "\n";
 		file.close();
 	}
+}
+
+int LivingEntity::GetLevel()
+{
+	return level;
+}
+
+int LivingEntity::GetMaxXP()
+{
+	return maxXP;
 }

@@ -18,7 +18,6 @@ public:
 	float GetWidth();
 	float GetHeight();
 	Vec2 GetCenter();
-	float RoundToOneDecimal(float value);
 public:
 	Vec2 pos;
 	Vec2 vel;

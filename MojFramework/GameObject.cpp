@@ -56,11 +56,6 @@ Vec2 GameObject::GetCenter()
 	return pos + Vec2(width / 2.0f, height / 2.0f);
 }
 
-float GameObject::RoundToOneDecimal(float value)
-{
-	return std::round (value * 10.0f) / 10.0f;
-}
-
 float GameObject::GetWidth()
 {
 	return width;

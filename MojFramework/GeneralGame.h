@@ -15,6 +15,7 @@ class GeneralGame
 {
 public:
 	GeneralGame();
+	~GeneralGame();
 	void GameWonBanner(Graphics& gfx) const;
 	void GameLostBanner(Graphics& gfx) const;
 	void DrawGameBorder(Graphics& gfx) const;
