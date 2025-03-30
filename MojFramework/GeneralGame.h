@@ -45,7 +45,7 @@ private:
 	Surface lost = Surface("Images\\GameLost 400x200.bmp");
 	Surface won = Surface("Images\\GameWon 400x200.bmp");
 public:
-	static constexpr int enemyNum = 20;
-	static constexpr float enemyRespawnTime = 1.0f;
+	static constexpr int enemyNum = 40;
+	static constexpr float enemyRespawnTime = 0.3f;
 	static constexpr int n = enemyNum;
 };

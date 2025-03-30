@@ -17,15 +17,10 @@ private:
 public:
 	static constexpr float width = 21.0f;
 	static constexpr float height = 36.0f;
-	static constexpr float maxHP = 600.0f;
-	static constexpr float power = 8.0f;
 	static constexpr float moveSlow = 200.0f;
 	static constexpr float moveFast = 400.0f;
-	static constexpr float shield = 6.0f;
-	static constexpr float maxXP = 1000.0f;
 	static constexpr int ImageWidth = 36;
 	static constexpr int ImageHeight = 40;
 	static constexpr int HealthBarHeight = 32;
 	static constexpr int XPBarHeight = 8;
-
 };

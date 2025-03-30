@@ -129,7 +129,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			player->CollectXP();
 			point.erase(point.begin() + p);
-			if (player->CheckXP() >= Player::maxXP)
+			if (player->CheckXP() >= 1000.0f)
 			{
 				gameOver = true;
 				gameWon = true;

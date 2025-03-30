@@ -4,7 +4,7 @@
 class LivingEntity : public GameObject
 {
 public:
-	LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float maxHP_in, float maxXP_in, float power_in, float speed_in, float shield_in);
+	LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float speed_in, int level_in, float maxHP_in, float maxXP_in, float power_in, float shield_in);
 	virtual void Draw(Graphics& gfx) const = 0;
 	bool FiringStatus();
 	void Fire();
@@ -15,13 +15,16 @@ public:
 	void Destroyed();
 	bool DestroyedStatus();
 	float MeleDamage();
+	void LevelUp();
+	void SaveToFile(const std::string& filename);
 public:
+	int level;
 	float maxHP;
 	float maxXP;
-	float hp;
 	float power;
-	float speed;
 	float shield;
+	float hp = maxHP;
+	float speed;
 	bool destroyed;
 	bool firing;
 	bool loaded;

@@ -1,9 +1,18 @@
 #include "Player.h"
+#include <fstream>
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, maxHP, maxXP, power, moveSlow, shield)
-{}
+	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, moveSlow, level, maxHP, maxXP, power, shield)
+{
+	std::ifstream file("Config/player_config.txt");
+	if (file)
+	{
+		file >> level >> maxHP >> maxXP >> power >> shield;
+	}
+	hp = maxHP;
+	xp = 0.0f;
+}
 
 void Player::Draw(Graphics& gfx) const
 {
@@ -58,17 +67,22 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 
 void Player::DrawStats(Graphics& gfx) const
 {
+	int hpBarWidth = /*(maxHP > 0) ? */Graphics::ScreenWidth * int(hp) / int(maxHP)/* : 0*/;
+	int xpBarWidth = /*(maxXP > 0) ? */ImageWidth + Graphics::ScreenWidth * int(xp) / int(maxXP)/* : 0*/;
+
+	hpBarWidth = std::clamp(hpBarWidth, 0, Graphics::ScreenWidth);
+	xpBarWidth = std::clamp(xpBarWidth, 0, Graphics::ScreenWidth);
+
 	//CharacterImage
 	gfx.DrawImage(Vec2(0.0f, 0.0f), player);
 	//HealthBar
 	gfx.DrawRect(ImageWidth, 0, Graphics::ScreenWidth, HealthBarHeight, Colors::Green);
 	gfx.DrawRect((ImageWidth + 2), 2, Graphics::ScreenWidth - 2, HealthBarHeight - 2, Colors::White);
-	gfx.DrawRect(ImageWidth, 0, Graphics::ScreenWidth * int(hp) / int(maxHP), HealthBarHeight, Colors::Green);
+	gfx.DrawRect(ImageWidth, 0, hpBarWidth, HealthBarHeight, Colors::Green);
 	//XPBar
 	gfx.DrawRect(ImageWidth, HealthBarHeight, Graphics::ScreenWidth, HealthBarHeight + XPBarHeight, Colors::Yellow);
 	gfx.DrawRect(ImageWidth + 2, HealthBarHeight + 2, Graphics::ScreenWidth - 2, HealthBarHeight + XPBarHeight - 2, Colors::White);
-	gfx.DrawRect(ImageWidth, HealthBarHeight, ImageWidth + (Graphics::ScreenWidth * int(xp) / int(maxXP)), HealthBarHeight + XPBarHeight, Colors::Orange);
-
+	gfx.DrawRect(ImageWidth, HealthBarHeight, xpBarWidth, HealthBarHeight + XPBarHeight, Colors::Orange);
 }
 
 float Player::CheckXP()

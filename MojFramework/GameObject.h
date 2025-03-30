@@ -5,6 +5,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Surface.h"
+#include <cmath>
 
 class GameObject
 {
@@ -17,6 +18,7 @@ public:
 	float GetWidth();
 	float GetHeight();
 	Vec2 GetCenter();
+	float RoundToOneDecimal(float value);
 public:
 	Vec2 pos;
 	Vec2 vel;

@@ -2,7 +2,7 @@
 
 Enemy::Enemy(const Vec2& pos_in, const Vec2& vel_in)
 	:
-	LivingEntity(pos_in, vel_in, width, height, maxHP, 0.0f, power, speed, shield)
+	LivingEntity(pos_in, vel_in, width, height, speed, level, maxHP, 0.0f, power, shield)
 {}
 
 void Enemy::Draw(Graphics & gfx) const
