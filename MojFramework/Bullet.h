@@ -11,5 +11,5 @@ private:
 	static constexpr float width = 6.0f;
 	static constexpr float height = 6.0f;
 	static constexpr float speed = 500.0f;
-	static constexpr float damage = 200.0f;
+	static constexpr float damage = 300.0f;
 };

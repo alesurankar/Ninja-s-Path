@@ -25,7 +25,6 @@ GeneralGame::GeneralGame()
 	point.clear();
 
 	//GeneralGame
-	score = 0;
 	gameOver = false;
 	gameWon = false;
 	count = 0.0f;
@@ -46,10 +45,10 @@ void GeneralGame::GameLostBanner(Graphics& gfx) const
 void GeneralGame::DrawGameBorder(Graphics& gfx) const
 {
 
-	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Config::offset, Graphics::ScreenHeight, Colors::Blue);
-	gfx.DrawRect(0, Graphics::ScreenHeight - Config::offset, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
-	gfx.DrawRect(Graphics::ScreenWidth - Config::offset, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
-	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset, Colors::Blue);
+	gfx.DrawRect(0, 40, 2, Graphics::ScreenHeight, Colors::Blue);
+	gfx.DrawRect(0, Graphics::ScreenHeight - 2, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
+	gfx.DrawRect(Graphics::ScreenWidth -2 , 40, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
+	gfx.DrawRect(0, 40, Graphics::ScreenWidth, 42, Colors::Blue);
 }
 
 bool GeneralGame::GameOverStatus()
@@ -128,9 +127,9 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		if (point[p].Colliding(*player))
 		{
-			score++;
+			player->CollectXP();
 			point.erase(point.begin() + p);
-			if (score >= maxScore)
+			if (player->CheckXP() >= Player::maxXP)
 			{
 				gameOver = true;
 				gameWon = true;
@@ -183,6 +182,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 {
 	//Player
 	player->Draw(gfx);
+	player->DrawStats(gfx);
 
 	//Bullet
 	for (Bullet& b : bul)
@@ -209,6 +209,5 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	}
 
 	//GeneralGame
-	player->ShowHP(gfx);
 	DrawGameBorder(gfx);
 }

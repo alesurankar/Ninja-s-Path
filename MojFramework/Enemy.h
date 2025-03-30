@@ -11,10 +11,12 @@ public:
 	void Update(float dt);
 private:
 	Surface s = Surface("Images\\SpriteEnemy24x24.bmp");
+public:
 	static constexpr float width = 24.0f;
 	static constexpr float height = 24.0f;
 	static constexpr float maxHP = 400.0f;
 	static constexpr float power = 4.0f;
 	static constexpr float speed = 100.0f;
 	static constexpr float shield = 4.0f;
+	static constexpr float maxXP = 1000.0f;
 };

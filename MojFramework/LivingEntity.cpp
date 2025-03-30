@@ -1,9 +1,10 @@
 #include "LivingEntity.h"
 
-LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float maxHP_in, float power_in, float speed_in, float shield_in)
+LivingEntity::LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float maxHP_in, float maxXP_in, float power_in, float speed_in, float shield_in)
 	:
 	GameObject(pos_in, vel_in, width_in, height_in),
 	maxHP(maxHP_in),
+	maxXP(maxXP_in),
 	hp(maxHP_in),
 	power(power_in),
 	speed(speed_in),
@@ -64,4 +65,9 @@ void LivingEntity::Fire()
 void LivingEntity::Reload()
 {
 	loaded = true;
+}
+
+void LivingEntity::CollectXP()
+{
+	xp += 50.0f;
 }

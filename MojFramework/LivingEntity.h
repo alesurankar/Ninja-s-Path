@@ -4,11 +4,12 @@
 class LivingEntity : public GameObject
 {
 public:
-	LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float maxHP_in, float power_in, float speed_in, float shield_in);
+	LivingEntity(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in, float maxHP_in, float maxXP_in, float power_in, float speed_in, float shield_in);
 	virtual void Draw(Graphics& gfx) const = 0;
 	bool FiringStatus();
 	void Fire();
 	void Reload();
+	void CollectXP();
 	void TakeDamage(LivingEntity& other, float weaponBonus);
 	float DamageDeal();
 	void Destroyed();
@@ -16,6 +17,7 @@ public:
 	float MeleDamage();
 public:
 	float maxHP;
+	float maxXP;
 	float hp;
 	float power;
 	float speed;
@@ -23,5 +25,6 @@ public:
 	bool destroyed;
 	bool firing;
 	bool loaded;
+	float xp = 0;
 	float inOff = 1.0f;
 };

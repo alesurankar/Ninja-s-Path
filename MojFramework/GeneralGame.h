@@ -45,10 +45,7 @@ private:
 	Surface lost = Surface("Images\\GameLost 400x200.bmp");
 	Surface won = Surface("Images\\GameWon 400x200.bmp");
 public:
-	int maxScore = 6;
 	static constexpr int enemyNum = 20;
 	static constexpr float enemyRespawnTime = 1.0f;
-	int score = 0;
-	int scoreX = Graphics::ScreenWidth / maxScore;
 	static constexpr int n = enemyNum;
 };

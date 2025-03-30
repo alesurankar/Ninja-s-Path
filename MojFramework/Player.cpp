@@ -2,7 +2,7 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, maxHP, power, moveSlow, shield)
+	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, maxHP, maxXP, power, moveSlow, shield)
 {}
 
 void Player::Draw(Graphics& gfx) const
@@ -56,9 +56,22 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 	return dir.GetNormalized();
 }
 
-void Player::ShowHP(Graphics& gfx) const
+void Player::DrawStats(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Config::scoreY + 2*Config::offset, Colors::Green);
-	gfx.DrawRect(Config::offset, Config::offset, Graphics::ScreenWidth - Config::offset, Config::scoreY + Config::offset, Colors::White);
-	gfx.DrawRect(Config::offset, Config::offset, Graphics::ScreenWidth * int(hp) / int(maxHP) - Config::offset, Config::scoreY + Config::offset, Colors::Green);
+	//CharacterImage
+	gfx.DrawImage(Vec2(0.0f, 0.0f), player);
+	//HealthBar
+	gfx.DrawRect(ImageWidth, 0, Graphics::ScreenWidth, HealthBarHeight, Colors::Green);
+	gfx.DrawRect((ImageWidth + 2), 2, Graphics::ScreenWidth - 2, HealthBarHeight - 2, Colors::White);
+	gfx.DrawRect(ImageWidth, 0, Graphics::ScreenWidth * int(hp) / int(maxHP), HealthBarHeight, Colors::Green);
+	//XPBar
+	gfx.DrawRect(ImageWidth, HealthBarHeight, Graphics::ScreenWidth, HealthBarHeight + XPBarHeight, Colors::Yellow);
+	gfx.DrawRect(ImageWidth + 2, HealthBarHeight + 2, Graphics::ScreenWidth - 2, HealthBarHeight + XPBarHeight - 2, Colors::White);
+	gfx.DrawRect(ImageWidth, HealthBarHeight, ImageWidth + (Graphics::ScreenWidth * int(xp) / int(maxXP)), HealthBarHeight + XPBarHeight, Colors::Orange);
+
+}
+
+float Player::CheckXP()
+{
+	return xp;
 }
