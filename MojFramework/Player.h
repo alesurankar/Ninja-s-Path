@@ -16,6 +16,7 @@ private:
 	static constexpr float height = 36.0f;
 	static constexpr float maxHP = 600.0f;
 	static constexpr float power = 6.0f;
-	static constexpr float speed = 200.0f;
+	static constexpr float moveSlow = 200.0f;
+	static constexpr float moveFast = 400.0f;
 	static constexpr float shield = 6.0f;
 };

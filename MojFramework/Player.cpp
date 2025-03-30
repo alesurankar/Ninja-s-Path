@@ -2,7 +2,7 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, maxHP, power, speed, shield)
+	LivingEntity(pos_in, Vec2(0.0f, 0.0f), width, height, maxHP, power, moveSlow, shield)
 {}
 
 void Player::Draw(Graphics& gfx) const
@@ -20,22 +20,14 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		Reload();
 	}
-	/*if (kbd.KeyIsPressed(VK_SPACE))
+	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		if (!speedIncreesed)
-		{
-			speed *= 3;
-			speedIncreesed = true;
-		}
+		speed = moveFast;
 	}
 	else
 	{
-		if (speedIncreesed)
-		{
-			speed /= 3;
-			speedIncreesed = false;
-		}
-	}*/
+		speed = moveSlow;
+	}
 	Vec2 dir(0.0f, 0.0f);
 	if (kbd.KeyIsPressed('W'))
 	{
