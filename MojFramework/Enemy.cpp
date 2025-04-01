@@ -5,7 +5,7 @@ Enemy::Enemy(const Vec2& pos_in, const Vec2& vel_in)
 	:
 	LivingEntity(pos_in, vel_in, width, height, speed, level, maxHP, maxXP, power, shield)
 {
-	std::ifstream file("Config/level1_enemy.txt");
+	std::ifstream file("Config/level3_enemy.txt");
 	if (file)
 	{
 		file >> level >> maxHP >> hp >> maxXP >> xp >> power >> shield;

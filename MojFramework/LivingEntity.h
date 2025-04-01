@@ -32,4 +32,5 @@ public:
 	bool firing;
 	bool loaded;
 	float inOff = 1.0f;
+	int addXP;
 };

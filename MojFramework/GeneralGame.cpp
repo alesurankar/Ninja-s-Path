@@ -30,11 +30,6 @@ GeneralGame::GeneralGame()
 	count = 0.0f;
 }
 
-GeneralGame::~GeneralGame()
-{
-	player->SaveToFile("Config/player_config.txt");
-}
-
 void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Green);

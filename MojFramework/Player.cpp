@@ -11,7 +11,6 @@ Player::Player(const Vec2& pos_in)
 		file >> level >> maxHP >> hp >> maxXP >> xp >> power >> shield;
 	}
 }
-
 void Player::Draw(Graphics& gfx) const
 {
 	gfx.DrawImage(pos, s);
@@ -53,6 +52,8 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 		dir.x += 1.0f;
 	}
 	pos += dir.GetNormalized() * speed * dt;
+
+	SaveToFile("Config/player_config.txt");
 
 	BorderCheck();
 }

@@ -73,14 +73,13 @@ void LivingEntity::CollectXP(LivingEntity& other)
 	int levelDifference = other.GetLevel() - GetLevel();
 	if (levelDifference >= -3)
 	{
-		int xp_increase = other.GetMaxXP() / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+		int xp_increase = (other.GetMaxXP()) / (8 * GetLevel());
 		xp += xp_increase;
 		if (xp > maxXP)
 		{
 			xp_increase = xp - maxXP;
 			LevelUp();
 			xp = xp_increase / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
-			//SaveToFile("Config/player_config.txt");
 		}
 	}
 }
@@ -88,7 +87,7 @@ void LivingEntity::CollectXP(LivingEntity& other)
 void LivingEntity::LevelUp()
 {
 	level++;
-	maxXP = (maxXP * 115) / 100;
+	maxXP += 300 + 90* level;//(maxXP * 115) / 100;
 	maxHP = (maxHP * 115) / 100;  // +30;
 	hp = maxHP;
 	power = (power * 115) / 100;
