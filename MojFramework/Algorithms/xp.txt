@@ -1,4 +1,12 @@
+for maxXP increase on level up:
+maxXP that is needed to reach next level:
 maxXP += 300 + (90* level);
 
+for xp Gain on Destroying an Enemy:
 xp_increase = (other.GetMaxXP()) / (8 * GetLevel());
+
+//for excess xp on Level UP:
+xp_increase = xp - maxXP;
+LevelUp();
+xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
 

@@ -73,13 +73,13 @@ void LivingEntity::CollectXP(LivingEntity& other)
 	int levelDifference = other.GetLevel() - GetLevel();
 	if (levelDifference >= -3)
 	{
-		int xp_increase = (other.GetMaxXP()) / (8 * GetLevel());
+		int xp_increase = other.GetMaxXP() / (8 * GetLevel());
 		xp += xp_increase;
 		if (xp > maxXP)
 		{
 			xp_increase = xp - maxXP;
 			LevelUp();
-			xp = xp_increase / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+			xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
 		}
 	}
 }
