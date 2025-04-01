@@ -1,0 +1,4 @@
+maxXP += 300 + (90* level);
+
+xp_increase = (other.GetMaxXP()) / (8 * GetLevel());
+
