@@ -38,14 +38,12 @@ private:
 	Sound objCollected;
 	Sound objDamaged;
 	Sound playerDamaged;
+	Sound gameMusic;
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
 	int score = 0;
 	int scoreX = Graphics::ScreenWidth / Config::maxScore;
-	float frameCount;
-	Sound startGame;
-	Sound gameMusic;
 	Surface lost = Surface("Images\\GameLost 400x200.bmp");
 	Surface won = Surface("Images\\GameWon 400x200.bmp");
 };

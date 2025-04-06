@@ -11,9 +11,9 @@ GeneralGame::GeneralGame()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	startGame(L"Sounds\\5_startGame.wav"),
-	gameMusic(L"Sounds\\6_gameMusic.wav")
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
 {
+	gameMusic.Play(1.0f, 0.4f);
 	//Player
 	player.Respawn();
 
@@ -30,9 +30,7 @@ GeneralGame::GeneralGame()
 	score = 0;
 	gameOver = false;
 	gameWon = false;
-	frameCount = 1.3f;
 	count = 0.0f;
-	startGame.Play();
 }
 
 void GeneralGame::GameWonBanner(Graphics& gfx) const
@@ -154,12 +152,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	if (GameOverStatus())
 	{
 		gameMusic.StopAll();
-	}
-	frameCount += dt;
-	if (frameCount > 3.4f)
-	{
-		gameMusic.Play();
-		frameCount = 0.0f;
 	}
 }
 
