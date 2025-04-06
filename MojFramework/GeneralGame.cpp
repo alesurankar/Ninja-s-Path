@@ -5,7 +5,6 @@ GeneralGame::GeneralGame()
 	rng(rd()),
 	xRand(20.0f, 770.0f),
 	yRand(20.0f, 570.0f),
-	vRand(-Config::difficulty, Config::difficulty),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -16,8 +15,8 @@ GeneralGame::GeneralGame()
 	//Player
 	CreatePlayer();
 
-	////Bullet
-	//bul.clear();
+	//Bullet
+	bul.clear();
 	
 	//Enemy
 	enemy.clear();
@@ -82,26 +81,27 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//	gameOver = true;
 	//}
 	//
-	////Bullet
-	//for (int b = 0; b < bul.size(); )
-	//{
-	//	bul[b].Update(dt);
-	//	if (bul[b].SmashedStatus())
-	//	{
-	//		bul.erase(bul.begin() + b);
-	//	}
-	//	else
-	//	{
-	//		b++;
-	//	}
-	//}
+	//Bullet
+	for (int b = 0; b < bul.size(); )
+	{
+		bul[b].Update(dt);
+		if (bul[b].SmashedStatus())
+		{
+			bul.erase(bul.begin() + b);
+		}
+		else
+		{
+			b++;
+		}
+	}
 	
 	//Enemy
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
 		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
-		coll.emplace_back(Vec2(xRand(rng), yRand(rng)));
+		coll.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		bul.emplace_back(Vec2(40.0f,40.0f), Vec2(1.0f,1.0f));
 		count = 0.0f;
 	}
 	
@@ -194,15 +194,15 @@ void GeneralGame::DrawGame(Graphics& gfx)
 {
 	//Player
 	player->Draw(gfx);
-	//
-	////Bullet
-	//for (Bullet& b : bul)
-	//{
-	//	if (!b.SmashedStatus())
-	//	{
-	//		b.Draw(gfx);
-	//	}
-	//}
+	
+	//Bullet
+	for (Bullet& b : bul)
+	{
+		if (!b.SmashedStatus())
+		{
+			b.Draw(gfx);
+		}
+	}
 	
 	//Enemy
 	for (Enemy& e : enemy)

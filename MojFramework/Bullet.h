@@ -1,22 +1,15 @@
 #pragma once
 #include "Projectile.h"
 
-class Bullet// : public Projectile
+class Bullet : public Projectile
 {
 public:
-	Bullet(const Vec2& center_in, const Vec2& vel_in);
-	void Draw(Graphics& gfx) const;
+	Bullet(const Vec2& pos_in, const Vec2& dir_in);
 	void Update(float dt);
 	void BorderCheck();
-	void Smashed();
-	bool SmashedStatus();
-	Vec2 GetPos();
-	float GetDim();
 private:
-	bool smashed;
-	Vec2 center;
-	Vec2 pos;
-	Vec2 vel;
-	static constexpr float dim = Config::bulDim;
-	static constexpr float speed = Config::bulSpeed;
+	Vec2 dir;
+	static constexpr int width = 6;
+	static constexpr int height = 6;
+	static constexpr float speed = 500.0f;
 };

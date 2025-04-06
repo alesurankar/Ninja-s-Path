@@ -36,7 +36,7 @@ private:
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
-	//std::vector<Bullet> bul;
+	std::vector<Bullet> bul;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;
