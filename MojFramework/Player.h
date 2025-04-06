@@ -9,11 +9,7 @@ public:
 	bool FiringStatus();
 	void Fire();
 	void Reload();
-	//Vec2 GetCenter();
 	Vec2 GetDirection(const Mouse& mouse);
-	//void Destroyed();
-	//void Respawn();
-	//bool DestroyedStatus();
 	//void Damaged();
 private:
 	//float inOff = 1.0f;

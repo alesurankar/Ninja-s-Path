@@ -107,50 +107,51 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
-	//	if (enemy[e].Colliding(*player))
-	//	{
-	//		player->Damaged();
-	//		playerDamaged.Play();
-	//	}
-	//	for (Bullet& b : bul)
-	//	{
-	//		if (enemy[e].Colliding(b))
-	//		{
-	//			enemy[e].Damaged();
-	//			b.Smashed();
-	//			objDamaged.Play();
-	//		}
-	//	}
-	//	if (enemy[e].DestroyedStatus())
-	//	{
-	//		coll.emplace_back(enemy[e].GetPos());
-	//		enemy.erase(enemy.begin() + e);
-	//	}
-	//	else
-	//	{
+		if (enemy[e].Colliding(*player))
+		{
+			//player->Damaged();
+			playerDamaged.Play();
+		}
+		for (Bullet& b : bul)
+		{
+			if (enemy[e].Colliding(b))
+			{
+				//enemy[e].Damaged();
+				enemy[e].Destroyed();
+				b.Smashed();
+				objDamaged.Play();
+			}
+		}
+		if (enemy[e].DestroyedStatus())
+		{
+			coll.emplace_back(enemy[e].GetPos());
+			enemy.erase(enemy.begin() + e);
+		}
+		else
+		{
 			e++;
-	//	}
+		}
 	}
-	//
-	////Collectable
-	//for (int c = 0; c < coll.size();)
-	//{
-	//	if (coll[c].Colliding(*player))
-	//	{
-	//		score++;
-	//		coll.erase(coll.begin() + c);
-	//		if (score >= Config::maxScore)
-	//		{
-	//			gameOver = true;
-	//			gameWon = true;
-	//		}
-	//		objCollected.Play();
-	//	}
-	//	else
-	//	{
-	//		c++;
-	//	}
-	//}
+	
+	//Collectable
+	for (int c = 0; c < coll.size();)
+	{
+		if (coll[c].Colliding(*player))
+		{
+			score++;
+			coll.erase(coll.begin() + c);
+			if (score >= Config::maxScore)
+			{
+				gameOver = true;
+				gameWon = true;
+			}
+			objCollected.Play();
+		}
+		else
+		{
+			c++;
+		}
+	}
 
 	//GeneralGame
 	if (GameOverStatus())
