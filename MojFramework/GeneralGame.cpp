@@ -69,8 +69,8 @@ bool GeneralGame::GameOverStatus()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	////Player
-	//player->Update(mouse, kbd, dt);
+	//Player
+	player->Update(mouse, kbd, dt);
 	//if (player->FiringStatus())
 	//{
 	//	bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
@@ -191,8 +191,8 @@ void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
-	////Player
-	//player->Draw(gfx);
+	//Player
+	player->Draw(gfx);
 	//
 	////Bullet
 	//for (Bullet& b : bul)

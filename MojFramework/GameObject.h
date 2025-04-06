@@ -1,16 +1,19 @@
 #pragma once
+#include "Keyboard.h"
+#include "Mouse.h"
 #include "Graphics.h"
 #include "Vec2.h"
 #include "Config.h"
+#include "Surface.h"
 
 class GameObject
 {
 public:
-	GameObject(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in);
-	Vec2 GetPos();
+	GameObject(const Vec2& pos_in, int width_in, int height_in);
+	virtual void Draw(Graphics& gfx) const = 0;
+	const Vec2& GetPos() const;
 public:
 	Vec2 pos;
-	Vec2 vel;
-	float width;
-	float height;
+	int width;
+	int height;
 };

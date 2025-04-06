@@ -1,15 +1,11 @@
 #pragma once
 #include "LivingEntity.h"
-#include "Keyboard.h"
-#include "Mouse.h"
 
-class Player// : LivingEntity
+class Player : public LivingEntity
 {
 public:
 	Player(const Vec2& pos_in);
-	//void BorderCheck();
-	//void Draw(Graphics& gfx) const;
-	//void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
+	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	//Vec2 GetPos();
 	//float GetWidth();
 	//float GetHeight();
@@ -23,15 +19,14 @@ public:
 	//bool DestroyedStatus();
 	//void Damaged();
 private:
-	//Surface s = Surface("Images\\SpriteMe21x36.bmp");
 	//float inOff = 1.0f;
 	//bool destroyed = false;
 	//int lives;
 	//bool firing;
 	//bool loaded;
 	//Vec2 pos;
-	//float speed;
-	//static constexpr float width = 21.0f;
-	//static constexpr float height = 36.0f;
+	float speed = 100.0f;
+	static constexpr int width = 21;
+	static constexpr int height = 36;
 	//static constexpr int maxLives = Config::myLives;
 };

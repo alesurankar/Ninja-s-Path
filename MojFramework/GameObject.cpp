@@ -1,14 +1,13 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const Vec2& pos_in, const Vec2& vel_in, float width_in, float height_in)
+GameObject::GameObject(const Vec2& pos_in, int width_in, int height_in)
 	:
 	pos(pos_in),
-	vel(vel_in),
 	width(width_in),
 	height(height_in)
 {}
 
-Vec2 GameObject::GetPos()
+const Vec2& GameObject::GetPos() const
 {
 	return pos;
 }
