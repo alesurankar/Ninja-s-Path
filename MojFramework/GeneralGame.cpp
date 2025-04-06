@@ -18,10 +18,10 @@ GeneralGame::GeneralGame()
 
 	////Bullet
 	//bul.clear();
-	//
-	////Enemy
-	//enemy.clear();
-	//
+	
+	//Enemy
+	enemy.clear();
+	
 	////Collectable
 	//coll.clear();
 
@@ -95,18 +95,18 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//		b++;
 	//	}
 	//}
-	//
-	////Enemy
-	//count += dt;
-	//if (count > Config::enemyRespawnTime && enemy.size() < n)
-	//{
-	//	enemy.emplace_back(Vec2(xRand(rng), yRand(rng)), Vec2(vRand(rng), vRand(rng)));
-	//	count = 0.0f;
-	//}
-	//
-	//for (int e = 0; e < enemy.size();)
-	//{
-	//	enemy[e].Update(dt);
+	
+	//Enemy
+	count += dt;
+	if (count > Config::enemyRespawnTime && enemy.size() < n)
+	{
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
+		count = 0.0f;
+	}
+	
+	for (int e = 0; e < enemy.size();)
+	{
+		enemy[e].Update(*player, dt);
 	//	if (enemy[e].Colliding(*player))
 	//	{
 	//		player->Damaged();
@@ -128,9 +128,9 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//	}
 	//	else
 	//	{
-	//		e++;
+			e++;
 	//	}
-	//}
+	}
 	//
 	////Collectable
 	//for (int c = 0; c < coll.size();)
@@ -202,16 +202,16 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//		b.Draw(gfx);
 	//	}
 	//}
-	//
-	////Enemy
-	//for (Enemy& e : enemy)
-	//{
-	//	if (!e.DestroyedStatus())
-	//	{
-	//		e.Draw(gfx);
-	//	}
-	//}
-	//
+	
+	//Enemy
+	for (Enemy& e : enemy)
+	{
+		if (!e.DestroyedStatus())
+		{
+			e.Draw(gfx);
+		}
+	}
+	
 	////Collectable
 	//for (Collectable& c : coll)
 	//{

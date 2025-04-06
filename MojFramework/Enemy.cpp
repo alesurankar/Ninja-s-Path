@@ -1,53 +1,39 @@
-//#include "Enemy.h"
-//
-//Enemy::Enemy(const Vec2& pos_in, const Vec2& vel_in)
-//{
-//	pos = pos_in;
-//	vel = vel_in;
-//	lives = maxLives;
-//	destroyed = false;
-//}
-//
-//void Enemy::BorderCheck()
-//{
-//	if (pos.x <= float(Config::offset))
-//	{
-//		pos.x = float(Config::offset);
-//		vel.x = -vel.x;
-//	}
-//	if (pos.y <= float(Config::yOffset))
-//	{
-//		pos.y = float(Config::yOffset);
-//		vel.y = -vel.y;
-//	}
-//	if (pos.x >= float(Graphics::ScreenWidth - Config::offset) - width)
-//	{
-//		pos.x = float(Graphics::ScreenWidth - Config::offset) - width;
-//		vel.x = -vel.x;
-//	}
-//	if (pos.y >= float(Graphics::ScreenHeight - Config::offset) - height)
-//	{
-//		pos.y = float(Graphics::ScreenHeight - Config::offset) - height;
-//		vel.y = -vel.y;
-//	}
-//}
-//
-//
-//void Enemy::Draw(Graphics& gfx) const
-//{
-//	gfx.DrawImage(pos,s);
-//	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width, 5.0f, Colors::Red);
-//	gfx.DrawRect(pos + Vec2(inOff, inOff - 6.0f), width - 2 * inOff, 5.0f - 2 * inOff, Colors::White);
-//	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), width * float(lives) / float(maxLives), 5.0f, Colors::Red);
-//}
-//
-//void Enemy::Update(float dt)
-//{
-//	pos += vel * dt;
-//
-//	BorderCheck();
-//}
-//
+#include "Enemy.h"
+
+Enemy::Enemy(const Vec2& pos_in)
+	:
+	LivingEntity(pos_in, Surface("Images\\SpriteEnemy24x24.bmp"), width, height)
+{}
+void Enemy::Update(GameObject& other, float dt)
+{
+	Vec2 delta = other.GetPos() - GetPos();
+	Vec2 dir(0.0f, 0.0f);
+	if (delta.GetLengthSq() > 100.0f)
+	{
+		if (delta.y < 0.0f)
+		{
+			dir.y -= 1.0f;
+		}
+		if (delta.y > 0.0f)
+		{
+			dir.y += 1.0f;
+		}
+		if (delta.x < 0.0f)
+		{
+			dir.x -= 1.0f;
+		}
+		if (delta.x > 0.0f)
+		{
+			dir.x += 1.0f;
+		}
+	}
+	else
+	{
+		Vec2 dir(0.0f, 0.0f);
+	}
+	pos += dir.GetNormalized() * speed * dt;
+}
+
 //bool Enemy::Colliding(Player& player)
 //{
 //	const float right0 = player.GetPos().x + player.GetWidth();
