@@ -2,19 +2,21 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\SpriteMe21x36.bmp"), width, height)
+	LivingEntity(pos_in, Surface("Images\\SpriteMe21x36.bmp"), width, height),
+	firing(false),
+	loaded(false)
 {}
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	//if (mouse.LeftIsPressed())
-	//{
-	//	Fire();
-	//}
-	//else
-	//{
-	//	Reload();
-	//}
+	if (mouse.LeftIsPressed())
+	{
+		Fire();
+	}
+	else
+	{
+		Reload();
+	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
 		speed = Config::mySpeed * 3;
@@ -44,55 +46,35 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	pos += dir.GetNormalized() * speed * dt;
 }
 
-//Vec2 Player::GetPos()
-//{
-//	return pos;
-//}
-//
-//float Player::GetWidth()
-//{
-//	return width;
-//}
-//
-//float Player::GetHeight()
-//{
-//	return height;
-//}
-//
-//bool Player::FiringStatus()
-//{
-//	return firing;
-//}
-//
-//void Player::Fire()
-//{
-//	if (loaded)
-//	{
-//		firing = true;
-//		loaded = false;
-//	}
-//	else
-//	{
-//		firing = false;
-//	}
-//}
-//
-//void Player::Reload()
-//{
-//	loaded = true;
-//}
-//
-//Vec2 Player::GetCenter()
-//{
-//	return pos + Vec2(width / 2.0f, height / 2.0f);
-//}
-//
-//Vec2 Player::GetDirection(const Mouse& mouse)
-//{
-//	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
-//	return dir.GetNormalized();
-//}
-//
+bool Player::FiringStatus()
+{
+	return firing;
+}
+
+void Player::Fire()
+{
+	if (loaded)
+	{
+		firing = true;
+		loaded = false;
+	}
+	else
+	{
+		firing = false;
+	}
+}
+
+void Player::Reload()
+{
+	loaded = true;
+}
+
+Vec2 Player::GetDirection(const Mouse& mouse)
+{
+	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
+	return dir.GetNormalized();
+}
+
 //void Player::Destroyed()
 //{
 //	destroyed = true;

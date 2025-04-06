@@ -70,17 +70,17 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	//Player
 	player->Update(mouse, kbd, dt);
-	//if (player->FiringStatus())
-	//{
-	//	bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
-	//	fireSound.Play();
-	//}
-	//
-	//if (player->DestroyedStatus())
-	//{
-	//	gameOver = true;
-	//}
-	//
+	if (player->FiringStatus())
+	{
+		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
+		fireSound.Play();
+	}
+	
+	if (player->DestroyedStatus())
+	{
+		gameOver = true;
+	}
+	
 	//Bullet
 	for (int b = 0; b < bul.size(); )
 	{
@@ -101,7 +101,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
 		coll.emplace_back(Vec2(xRand(rng), yRand(rng))); 
-		bul.emplace_back(Vec2(40.0f,40.0f), Vec2(1.0f,1.0f));
 		count = 0.0f;
 	}
 	

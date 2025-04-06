@@ -6,14 +6,11 @@ class Player : public LivingEntity
 public:
 	Player(const Vec2& pos_in);
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
-	//Vec2 GetPos();
-	//float GetWidth();
-	//float GetHeight();
-	//bool FiringStatus();
-	//void Fire();
-	//void Reload();
+	bool FiringStatus();
+	void Fire();
+	void Reload();
 	//Vec2 GetCenter();
-	//Vec2 GetDirection(const Mouse& mouse);
+	Vec2 GetDirection(const Mouse& mouse);
 	//void Destroyed();
 	//void Respawn();
 	//bool DestroyedStatus();
@@ -22,9 +19,8 @@ private:
 	//float inOff = 1.0f;
 	//bool destroyed = false;
 	//int lives;
-	//bool firing;
-	//bool loaded;
-	//Vec2 pos;
+	bool firing;
+	bool loaded;
 	float speed = 100.0f;
 	static constexpr int width = 21;
 	static constexpr int height = 36;
