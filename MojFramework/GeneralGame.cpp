@@ -6,7 +6,6 @@ GeneralGame::GeneralGame()
 	xRand(20.0f, 770.0f),
 	yRand(20.0f, 570.0f),
 	vRand(-Config::difficulty, Config::difficulty),
-	player(Vec2(xRand(rng), yRand(rng))),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -15,7 +14,7 @@ GeneralGame::GeneralGame()
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Player
-	player.Respawn();
+	CreatePlayer();
 
 	//Bullet
 	bul.clear();
@@ -31,6 +30,11 @@ GeneralGame::GeneralGame()
 	gameOver = false;
 	gameWon = false;
 	count = 0.0f;
+}
+
+GeneralGame::~GeneralGame()
+{
+	DestroyPlayer();
 }
 
 void GeneralGame::GameWonBanner(Graphics& gfx) const
@@ -66,14 +70,14 @@ bool GeneralGame::GameOverStatus()
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	//Player
-	player.Update(mouse, kbd, dt);
-	if (player.FiringStatus())
+	player->Update(mouse, kbd, dt);
+	if (player->FiringStatus())
 	{
-		bul.emplace_back(player.GetCenter(), player.GetDirection(mouse));
+		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
 		fireSound.Play();
 	}
 
-	if (player.DestroyedStatus())
+	if (player->DestroyedStatus())
 	{
 		gameOver = true;
 	}
@@ -103,9 +107,9 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(dt);
-		if (enemy[e].Colliding(player))
+		if (enemy[e].Colliding(*player))
 		{
-			player.Damaged();
+			player->Damaged();
 			playerDamaged.Play();
 		}
 		for (Bullet& b : bul)
@@ -131,7 +135,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//Collectable
 	for (int c = 0; c < coll.size();)
 	{
-		if (coll[c].Colliding(player))
+		if (coll[c].Colliding(*player))
 		{
 			score++;
 			coll.erase(coll.begin() + c);
@@ -151,7 +155,25 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//GeneralGame
 	if (GameOverStatus())
 	{
+		DestroyPlayer();
 		gameMusic.StopAll();
+	}
+}
+
+void GeneralGame::CreatePlayer()
+{
+	if (player == nullptr)
+	{
+		player = new Player(Vec2(xRand(rng), yRand(rng)));
+	}
+}
+
+void GeneralGame::DestroyPlayer()
+{
+	if (player != nullptr)
+	{
+		delete player;
+		player = nullptr;
 	}
 }
 
@@ -170,7 +192,7 @@ void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
 void GeneralGame::DrawGame(Graphics& gfx)
 {
 	//Player
-	player.Draw(gfx);
+	player->Draw(gfx);
 
 	//Bullet
 	for (Bullet& b : bul)

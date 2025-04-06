@@ -15,6 +15,7 @@ class GeneralGame
 {
 public:
 	GeneralGame();
+	~GeneralGame();
 	void GameWonBanner(Graphics& gfx) const;
 	void GameLostBanner(Graphics& gfx) const;
 	void DrawScore(Graphics& gfx) const;
@@ -23,13 +24,15 @@ public:
 	void GameOverDrawLogic(Graphics& gfx) const;
 	void DrawGame(Graphics& gfx);
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
+	void CreatePlayer();
+	void DestroyPlayer();
 private:
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xRand;
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
-	Player player;
+	Player* player = nullptr;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;

@@ -5,6 +5,8 @@ Player::Player(const Vec2& pos_in)
 	pos = pos_in;
 	firing = false;
 	loaded = false;
+	lives = maxLives;
+	destroyed = false;
 }
 
 void Player::BorderCheck()
@@ -128,13 +130,6 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 void Player::Destroyed()
 {
 	destroyed = true;
-}
-
-void Player::Respawn()
-{
-	lives = maxLives;
-	destroyed = false;
-	loaded = false;
 }
 
 bool Player::DestroyedStatus()
