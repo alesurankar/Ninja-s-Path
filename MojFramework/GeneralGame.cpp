@@ -3,8 +3,8 @@
 GeneralGame::GeneralGame()
 	:
 	rng(rd()),
-	xRand(20.0f, 770.0f),
-	yRand(20.0f, 570.0f),
+	xRand(20.0f, 740.0f),
+	yRand(20.0f, 540.0f),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -109,15 +109,15 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		enemy[e].Update(*player, dt);
 		if (enemy[e].Colliding(*player))
 		{
-			//player->Damaged();
+			player->Damaged();
 			playerDamaged.Play();
 		}
 		for (Bullet& b : bul)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				//enemy[e].Damaged();
-				enemy[e].Destroyed();
+				enemy[e].Damaged();
+				//enemy[e].Destroyed();
 				b.Smashed();
 				objDamaged.Play();
 			}

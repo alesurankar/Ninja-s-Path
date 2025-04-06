@@ -10,15 +10,12 @@ public:
 	void Fire();
 	void Reload();
 	Vec2 GetDirection(const Mouse& mouse);
-	//void Damaged();
 private:
-	//float inOff = 1.0f;
-	//bool destroyed = false;
-	//int lives;
 	bool firing;
 	bool loaded;
 	float speed = 100.0f;
 	static constexpr int width = 21;
 	static constexpr int height = 36;
-	//static constexpr int maxLives = Config::myLives;
+	static constexpr int maxLives = 100;
+	static constexpr Color c = Colors::Green;
 };

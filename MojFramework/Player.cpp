@@ -2,7 +2,7 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\SpriteMe21x36.bmp"), width, height),
+	LivingEntity(pos_in, Surface("Images\\SpriteMe21x36.bmp"), width, height, maxLives, c),
 	firing(false),
 	loaded(false)
 {}
@@ -74,22 +74,3 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
 	return dir.GetNormalized();
 }
-
-//void Player::Destroyed()
-//{
-//	destroyed = true;
-//}
-//
-//bool Player::DestroyedStatus()
-//{
-//	return destroyed;
-//}
-//
-//void Player::Damaged()
-//{
-//	lives--;
-//	if (lives <= 0)
-//	{
-//		Destroyed();
-//	}
-//}
