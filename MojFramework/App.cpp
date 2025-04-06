@@ -17,7 +17,7 @@ App::~App()
 
 void App::Go()
 {
-	gfx.BeginFrame();
+	gfx.BeginFrame(Colors::DarkGray);
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();

@@ -33,7 +33,7 @@ public:
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	void EndFrame();
-	void BeginFrame();
+	void BeginFrame(Color bg);
 	void PutPixel(int x, int y, int r, int g, int b)
 	{
 		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) });
