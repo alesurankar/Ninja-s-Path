@@ -22,8 +22,8 @@ GeneralGame::GeneralGame()
 	//Enemy
 	enemy.clear();
 	
-	////Collectable
-	//coll.clear();
+	//Collectable
+	coll.clear();
 
 	//GeneralGame
 	score = 0;
@@ -100,7 +100,8 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
-		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		coll.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
 	
@@ -212,11 +213,11 @@ void GeneralGame::DrawGame(Graphics& gfx)
 		}
 	}
 	
-	////Collectable
-	//for (Collectable& c : coll)
-	//{
-	//	c.Draw(gfx);
-	//}
+	//Collectable
+	for (Collectable& c : coll)
+	{
+		c.Draw(gfx);
+	}
 
 	//GeneralGame
 	DrawScore(gfx);
