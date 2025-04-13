@@ -66,11 +66,12 @@ void Player::Fire()
 
 void Player::Reload()
 {
+	firing = false;
 	loaded = true;
 }
 
 Vec2 Player::GetDirection(const Mouse& mouse)
 {
-	Vec2 dir = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY())) - GetCenter();
+	Vec2 dir = Vec2(mouse.GetPos()) - GetCenter();
 	return dir.GetNormalized();
 }

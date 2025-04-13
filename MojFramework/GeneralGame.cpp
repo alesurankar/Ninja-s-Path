@@ -55,9 +55,6 @@ void GeneralGame::DrawScore(Graphics& gfx) const
 
 void GeneralGame::DrawGameBorder(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 2* Config::offset + Config::scoreY, Config::offset, Graphics::ScreenHeight, Colors::Blue);
-	gfx.DrawRect(0, Graphics::ScreenHeight - Config::offset, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
-	gfx.DrawRect(Graphics::ScreenWidth - Config::offset, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Blue);
 	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset, Colors::Blue);
 }
 
@@ -100,7 +97,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
 		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
-		coll.emplace_back(Vec2(xRand(rng), yRand(rng))); 
 		count = 0.0f;
 	}
 	
@@ -117,7 +113,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			if (enemy[e].Colliding(b))
 			{
 				enemy[e].Damaged();
-				//enemy[e].Destroyed();
 				b.Smashed();
 				objDamaged.Play();
 			}

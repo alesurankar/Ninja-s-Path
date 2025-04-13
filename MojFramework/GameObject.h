@@ -16,7 +16,7 @@ public:
 	Vec2 GetCenter() const;
 	int GetWidth() const;
 	int GetHeight() const;
-public:
+protected:
 	Vec2 pos;
 	int width;
 	int height;

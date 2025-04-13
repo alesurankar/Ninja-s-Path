@@ -7,7 +7,7 @@ public:
 	Enemy(const Vec2& pos_in);
 	void Update(GameObject& other, float dt);
 private:
-	float speed = 80.0f;
+	float speed = 50.0f;
 	static constexpr int width = 24;
 	static constexpr int height = 24;
 	static constexpr int maxLives = 4;

@@ -32,28 +32,23 @@ void App::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
 			DestroyGame();
-			CreateMenu();
 			state = State::Menu;
 		}
 	}
 
-
-	while (!wnd.mouse.IsEmpty())
+	if (state == State::Menu)
 	{
-		const auto m = wnd.mouse.Read();
-		if (state == State::Menu)
+		CreateMenu();
+		if (wnd.mouse.LeftIsPressed())
 		{
-			if (m.GetType() == Mouse::Event::Type::LPress)
-			{
-				DestroyMenu();
-				CreateGame();
-				state = State::PlayGame;
-			}
+			DestroyMenu();
+			state = State::PlayGame;
 		}
 	}
 
 	if (state == State::PlayGame)
 	{
+		CreateGame();
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
 		if (gg->GameOverStatus())
 		{
