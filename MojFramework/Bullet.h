@@ -5,8 +5,7 @@ class Bullet : public Projectile
 {
 public:
 	Bullet(const Vec2& pos_in, const Vec2& dir_in);
-	void Update(float dt);
-	void BorderCheck();
+	void Update(const GameObject& other, float dt);
 private:
 	Vec2 dir;
 	static constexpr int width = 6;

@@ -86,7 +86,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//Bullet
 	for (int b = 0; b < bul.size(); )
 	{
-		bul[b].Update(dt);
+		bul[b].Update(*player, dt);
 		if (bul[b].SmashedStatus())
 		{
 			bul.erase(bul.begin() + b);

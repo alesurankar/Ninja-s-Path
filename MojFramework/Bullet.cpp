@@ -6,29 +6,12 @@ Bullet::Bullet(const Vec2& pos_in, const Vec2& dir_in)
 	dir(dir_in)
 {}
 
-void Bullet::Update(float dt)
+void Bullet::Update(const GameObject& other, float dt)
 {
+	Vec2 distance = other.GetCenter() - GetCenter();
+	if (distance.GetLengthSq() > 60000)
+	{
+		Smashed();
+	}
 	pos += dir.GetNormalized() * speed * dt;
-
-	BorderCheck();
-}
-
-void Bullet::BorderCheck()
-{
-	if (pos.x <= float(Config::offset))
-	{
-		Smashed();
-	}
-	if (pos.y <= float(Config::yOffset))
-	{
-		Smashed();
-	}
-	if (pos.x >= float(Graphics::ScreenWidth - Config::offset) - width)
-	{
-		Smashed();
-	}
-	if (pos.y >= float(Graphics::ScreenHeight - Config::offset) - height)
-	{
-		Smashed();
-	}
 }
