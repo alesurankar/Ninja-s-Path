@@ -232,6 +232,11 @@ Graphics::~Graphics()
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
+RectI Graphics::GetScreenRect()
+{
+	return { 0,0,ScreenWidth, ScreenHeight };
+}
+
 void Graphics::EndFrame()
 {
 	HRESULT hr;
@@ -298,6 +303,27 @@ void Graphics::PutPixel(int x, int y, Color c)
 
 void Graphics::DrawRect(RectI srcRect, Color c)
 {
+	DrawRect(srcRect, GetScreenRect(), c);
+}
+
+void Graphics::DrawRect(RectI srcRect, const RectI& clip, Color c)
+{
+	if (srcRect.left < clip.left)
+	{
+		srcRect.left = clip.left;
+	}
+	if (srcRect.top < clip.top)
+	{
+		srcRect.top = clip.top;
+	}
+	if (srcRect.right > clip.right)
+	{
+		srcRect.right = clip.right;
+	}
+	if (srcRect.bottom > clip.bottom)
+	{
+		srcRect.bottom = clip.bottom;
+	}
 	for (int sx = srcRect.left; sx < srcRect.right; sx++)
 	{
 		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
@@ -319,18 +345,46 @@ void Graphics::DrawImage(const Vec2& pos, const Surface& s)
 
 void Graphics::DrawImage(int x, int y, const RectI& srcRect, const Surface& s)
 {
-	for (int sx = srcRect.left; sx < srcRect.right; sx++)
-	{
-		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
-		{
-			PutPixel(sx + x, sy + y, s.GetPixel(sx, sy));
-		}
-	}
+	DrawImage(x, y, srcRect, GetScreenRect(), s);
 }
 
 void Graphics::DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s)
 {
 	DrawImage(int(pos.x), int(pos.y), srcRect, s);
+}
+
+void Graphics::DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s)
+{
+	if (x < clip.left)
+	{
+		srcRect.left += clip.left - x;
+		x = clip.left;
+	}
+	if (y < clip.top)
+	{
+		srcRect.top += clip.top - y;
+		y = clip.top;
+	}
+	if (x + srcRect.GetWidth() > clip.right)
+	{
+		srcRect.right -= x + srcRect.GetWidth() - clip.right;
+	}
+	if (y + srcRect.GetHeight() > clip.bottom)
+	{
+		srcRect.bottom -= y + srcRect.GetHeight() - clip.bottom;
+	}
+	for (int sx = srcRect.left; sx < srcRect.right; sx++)
+	{
+		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
+		{
+			PutPixel(sx + x - srcRect.left, sy + y - srcRect.top, s.GetPixel(sx, sy));
+		}
+	}
+}
+
+void Graphics::DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s)
+{
+	DrawImage(int(pos.x), int(pos.y), srcRect, clip, s);
 }
 
 

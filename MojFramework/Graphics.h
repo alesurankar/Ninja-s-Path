@@ -41,10 +41,13 @@ public:
 	}
 	void PutPixel(int x, int y, Color c);
 	void DrawRect(RectI srcRect, Color c);
+	void DrawRect(RectI srcRect, const RectI& clip, Color c);
 	void DrawImage(int x, int y, const Surface& s);
 	void DrawImage(const Vec2& pos, const Surface& s);
 	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s);
 	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s);
+	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s);
+	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
@@ -63,4 +66,5 @@ private:
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;
+	static RectI GetScreenRect();
 };
