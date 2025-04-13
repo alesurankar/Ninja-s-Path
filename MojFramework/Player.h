@@ -5,12 +5,14 @@ class Player : public LivingEntity
 {
 public:
 	Player(const Vec2& pos_in);
+	void DrawHOD(Graphics& gfx) const;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	bool FiringStatus();
 	void Fire();
 	void Reload();
 	Vec2 GetDirection(const Mouse& mouse);
 private:
+	Surface face = ("Images\\face36x40.bmp");
 	bool firing;
 	bool loaded;
 	float speed = 100.0f;

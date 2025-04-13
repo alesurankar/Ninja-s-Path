@@ -7,6 +7,11 @@ Player::Player(const Vec2& pos_in)
 	loaded(false)
 {}
 
+void Player::DrawHOD(Graphics& gfx) const
+{
+	gfx.DrawImage(0, 0, face);
+}
+
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	if (mouse.LeftIsPressed())

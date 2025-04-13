@@ -222,4 +222,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//GeneralGame
 	DrawScore(gfx);
 	DrawGameBorder(gfx);
+
+	//Player
+	player->DrawHOD(gfx);
 }
