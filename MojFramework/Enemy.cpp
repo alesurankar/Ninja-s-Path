@@ -2,7 +2,7 @@
 
 Enemy::Enemy(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\SpriteEnemy24x24.bmp"), width, height, ("Config\\enemy_config.txt"), c)
+	LivingEntity(pos_in, Surface("Images\\enemy64x64.bmp"), width, height, ("Config\\enemy_config.txt"), c)
 {}
 void Enemy::Update(GameObject& other, float dt)
 {

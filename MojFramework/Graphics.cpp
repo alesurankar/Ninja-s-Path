@@ -309,20 +309,28 @@ void Graphics::DrawRect(RectI srcRect, Color c)
 
 void Graphics::DrawImage(int x, int y, const Surface& s)
 {
-	const int width = s.GetWidth();
-	const int height = s.GetHeight();
-	for (int sx = 0; sx < width; sx++)
+	DrawImage(x,y,s.GetRect(),s);
+}
+
+void Graphics::DrawImage(const Vec2& pos, const Surface& s)
+{
+	DrawImage(int(pos.x), int(pos.y), s);
+}
+
+void Graphics::DrawImage(int x, int y, const RectI& srcRect, const Surface& s)
+{
+	for (int sx = srcRect.left; sx < srcRect.right; sx++)
 	{
-		for (int sy = 0; sy < height; sy++)
+		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
 		{
 			PutPixel(sx + x, sy + y, s.GetPixel(sx, sy));
 		}
 	}
 }
 
-void Graphics::DrawImage(const Vec2& pos, const Surface& s)
+void Graphics::DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s)
 {
-	DrawImage(int(pos.x), int(pos.y), s);
+	DrawImage(int(pos.x), int(pos.y), srcRect, s);
 }
 
 

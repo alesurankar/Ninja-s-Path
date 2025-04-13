@@ -43,6 +43,8 @@ public:
 	void DrawRect(RectI srcRect, Color c);
 	void DrawImage(int x, int y, const Surface& s);
 	void DrawImage(const Vec2& pos, const Surface& s);
+	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s);
+	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

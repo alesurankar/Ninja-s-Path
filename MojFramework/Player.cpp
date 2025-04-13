@@ -2,7 +2,7 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\SpriteMe21x36.bmp"), width, height, ("Config\\player_config.txt"), c),
+	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c),
 	firing(false),
 	loaded(false)
 {}

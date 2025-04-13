@@ -8,8 +8,8 @@ public:
 	void Update(GameObject& other, float dt);
 private:
 	float speed = 50.0f;
-	static constexpr int width = 24;
-	static constexpr int height = 24;
+	static constexpr int width = 64;
+	static constexpr int height = 64;
 	static constexpr int maxLives = 4;
 	static constexpr Color c = Colors::Red;
 };
