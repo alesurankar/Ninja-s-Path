@@ -355,6 +355,16 @@ void Graphics::DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s
 
 void Graphics::DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s)
 {
+	DrawImage(x, y, srcRect, GetScreenRect(), s, Colors::Magenta);
+}
+
+void Graphics::DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s)
+{
+	DrawImage(int(pos.x), int(pos.y), srcRect, clip, s);
+}
+
+void Graphics::DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, Color chroma)
+{
 	if (x < clip.left)
 	{
 		srcRect.left += clip.left - x;
@@ -377,14 +387,18 @@ void Graphics::DrawImage(int x, int y, RectI srcRect, const RectI& clip, const S
 	{
 		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
 		{
-			PutPixel(sx + x - srcRect.left, sy + y - srcRect.top, s.GetPixel(sx, sy));
+			const Color srcPixel = s.GetPixel(sx, sy);
+			if (srcPixel != chroma)
+			{
+				PutPixel(sx + x - srcRect.left, sy + y - srcRect.top, srcPixel);
+			}
 		}
 	}
 }
 
-void Graphics::DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s)
+void Graphics::DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s, Color chroma)
 {
-	DrawImage(int(pos.x), int(pos.y), srcRect, clip, s);
+	DrawImage(int(pos.x), int(pos.y), srcRect, clip, s, chroma);
 }
 
 
