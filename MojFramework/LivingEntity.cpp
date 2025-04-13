@@ -1,14 +1,16 @@
 #include "LivingEntity.h"
+#include <fstream>
 
-LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, int maxLives_in, Color c_in)
+LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in)
 	:
 	GameObject(pos_in, width_in, height_in),
 	object(object_in),
 	destroyed(false),
-	maxLives(maxLives_in),
-	lives(maxLives_in),
+	filename(filename_in),
 	c(c_in)
-{}
+{
+	LoadFromFile(filename);
+}
 
 void LivingEntity::Draw(Graphics & gfx) const
 {
@@ -34,5 +36,23 @@ void LivingEntity::Damaged()
 	if (lives <= 0)
 	{
 		Destroyed();
+	}
+}
+
+void LivingEntity::SaveToFile(std::string filename)
+{
+	std::ofstream file(filename);
+	if (file)
+	{
+		file << maxLives << " " << lives << "\n";
+	}
+}
+
+void LivingEntity::LoadFromFile(const std::string& filename)
+{
+	std::ifstream file(filename);
+	if (file)
+	{
+		file >> maxLives >> lives;
 	}
 }

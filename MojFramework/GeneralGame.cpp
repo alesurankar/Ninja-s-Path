@@ -33,6 +33,7 @@ GeneralGame::GeneralGame()
 
 GeneralGame::~GeneralGame()
 {
+	//player->SaveToFile("Config\\player_config.txt");
 	DestroyPlayer();
 }
 
