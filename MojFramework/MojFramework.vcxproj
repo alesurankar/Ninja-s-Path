@@ -134,6 +134,7 @@
     <ClInclude Include="MyWin.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />

@@ -39,24 +39,28 @@ GeneralGame::~GeneralGame()
 
 void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Green);
+	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
+	gfx.DrawRect(rect, Colors::Green);
 	gfx.DrawImage(200, 200, won);
 }
 
 void GeneralGame::GameLostBanner(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Red);
+	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
+	gfx.DrawRect(rect, Colors::Red);
 	gfx.DrawImage(200, 200, lost);
 }
 
 void GeneralGame::DrawScore(Graphics& gfx) const
 {
-	gfx.DrawRect(Config::offset, Config::offset,scoreX * score, Config::scoreY,Colors::Blue);
+	RectI rect(Config::offset, Config::offset, scoreX * score, Config::scoreY);
+	gfx.DrawRect(rect,Colors::Blue);
 }
 
 void GeneralGame::DrawGameBorder(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset, Colors::Blue);
+	RectI rect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset);
+	gfx.DrawRect(rect, Colors::Blue);
 }
 
 bool GeneralGame::GameOverStatus()

@@ -296,56 +296,15 @@ void Graphics::PutPixel(int x, int y, Color c)
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-void Graphics::DrawRect(int x1, int y1, int x2, int y2, Color c)
+void Graphics::DrawRect(RectI srcRect, Color c)
 {
-	if (x1 > x2)
+	for (int sx = srcRect.left; sx < srcRect.right; sx++)
 	{
-		std::swap(x1, x2);
-	}
-	if (y1 > y2)
-	{
-		std::swap(y1, y2);
-	}
-
-	for (int i = x1; i < x2; i++)
-	{
-		for (int j = y1; j < y2; j++)
+		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
 		{
-			PutPixel(i, j, c);
+			PutPixel(sx, sy, c);
 		}
 	}
-}
-
-void Graphics::DrawRect(const Vec2& topLeft, const Vec2& bottomRight, Color c)
-{
-	DrawRect(int(topLeft.x), int(topLeft.y), int(bottomRight.x), int(bottomRight.y), c);
-}
-
-void Graphics::DrawRect(const Vec2& topLeft, float width, float height, Color c)
-{
-	DrawRect(topLeft, topLeft + Vec2(width, height), c);
-}
-
-void Graphics::DrawCircle(int x, int y, int rad, Color c)
-{
-	const int rad_sq = rad * rad;
-	for (int i = x - rad; i < x + rad; i++)
-	{
-		for (int j = y - rad; j < y + rad; j++)
-		{
-			const int x_dif = x - i;
-			const int y_dif = y - j;
-			if (x_dif * x_dif + y_dif * y_dif <= rad_sq)
-			{
-				PutPixel(i, j, c);
-			}
-		}
-	}
-}
-
-void Graphics::DrawCircle(const Vec2& center, float rad, Color c)
-{
-	DrawCircle(int(center.x), int(center.y), int(rad), c);
 }
 
 void Graphics::DrawImage(int x, int y, const Surface& s)

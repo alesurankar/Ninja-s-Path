@@ -6,6 +6,7 @@
 #include "Colors.h"
 #include "Vec2.h"
 #include "Surface.h"
+#include "Rect.h"
 
 class Graphics
 {
@@ -39,11 +40,7 @@ public:
 		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) });
 	}
 	void PutPixel(int x, int y, Color c);
-	void DrawRect(int x1, int y1, int x2, int y2, Color c);
-	void DrawRect(const Vec2& topLeft, const Vec2& bottomRight, Color c);
-	void DrawRect(const Vec2& topLeft, float width, float height, Color c);
-	void DrawCircle(int x, int y, int rad, Color c);
-	void DrawCircle(const Vec2& center, float rad, Color c);
+	void DrawRect(RectI srcRect, Color c);
 	void DrawImage(int x, int y, const Surface& s);
 	void DrawImage(const Vec2& pos, const Surface& s);
 	~Graphics();

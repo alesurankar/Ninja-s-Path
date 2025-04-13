@@ -2,6 +2,7 @@
 
 void Menu::Draw(Graphics& gfx) const
 {
-	gfx.DrawRect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, Colors::Black);
+	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
+	gfx.DrawRect(rect, Colors::Black);
 	gfx.DrawImage(200, 200, menu);
 }

@@ -15,9 +15,11 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 void LivingEntity::Draw(Graphics & gfx) const
 {
 	gfx.DrawImage(pos, object);
-	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), float(width), 5.0f, c);
-	gfx.DrawRect(pos + Vec2(inOff, inOff - 6.0f), float(width) - 2.0f * inOff, 5.0f - 2.0f * inOff, Colors::White);
-	gfx.DrawRect(pos - Vec2(0.0f, 6.0f), float(width) * float(lives) / float(maxLives), 5.0f, c);
+	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
+	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
+	gfx.DrawRect(wholeBar, c);
+	gfx.DrawRect(wholeBar, Colors::White);
+	gfx.DrawRect(diminBar, c);
 }
 
 bool LivingEntity::DestroyedStatus()
