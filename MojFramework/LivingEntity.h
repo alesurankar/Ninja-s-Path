@@ -20,6 +20,7 @@ public:
 	bool DestroyedStatus();
 	void Damaged();
 	void SaveToFile(std::string filename);
+	virtual void Heal(float dt) = 0;
 private:
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();

@@ -53,6 +53,7 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		dir.x += 1.0f;
 	}
+	Heal(dt);
 	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
@@ -86,4 +87,18 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 {
 	Vec2 dir = Vec2(mouse.GetPos()) - GetCenter();
 	return dir.GetNormalized();
+}
+
+void Player::Heal(float dt)
+{
+	time += dt;
+	if (time > 1.0f)
+	{
+		lives++;
+		time = 0.0f;
+	}
+	if (lives >= maxLives)
+	{
+		lives = maxLives;
+	}
 }

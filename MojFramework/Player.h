@@ -11,7 +11,8 @@ public:
 	bool FiringStatus();
 	void Fire();
 	void Reload();
-	Vec2 GetDirection(const Mouse& mouse);
+	Vec2 GetDirection(const Mouse& mouse); 
+	void Heal(float dt) override;
 private:
 	Surface face = ("Images\\face36x40.bmp");
 	bool firing;
@@ -23,4 +24,5 @@ private:
 	static constexpr Color c = Colors::Green;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	float time = 0.0f;
 };
