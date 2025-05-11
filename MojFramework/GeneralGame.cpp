@@ -41,14 +41,14 @@ void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
 	gfx.DrawRect(rect, Colors::Green);
-	gfx.DrawImage(200, 200, won);
+	gfx.DrawImage(200, 200, won, ImageEffect::NoEffect{});
 }
 
 void GeneralGame::GameLostBanner(Graphics& gfx) const
 {
 	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
 	gfx.DrawRect(rect, Colors::Red);
-	gfx.DrawImage(200, 200, lost);
+	gfx.DrawImage(200, 200, lost, ImageEffect::NoEffect{});
 }
 
 void GeneralGame::DrawScore(Graphics& gfx) const

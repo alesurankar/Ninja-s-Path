@@ -9,7 +9,7 @@ Projectile::Projectile(const Vec2& pos_in, const Surface& object_in, int width_i
 
 void Projectile::Draw(Graphics & gfx) const
 {
-	gfx.DrawImage(pos, object);
+	gfx.DrawImage(pos, object, ImageEffect::NoEffect{});
 }
 
 void Projectile::Smashed()

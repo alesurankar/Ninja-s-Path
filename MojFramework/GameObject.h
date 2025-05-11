@@ -5,6 +5,7 @@
 #include "Vec2.h"
 #include "Config.h"
 #include "Surface.h"
+#include "ImageEffect.h"
 
 class GameObject
 {

@@ -9,7 +9,7 @@ Player::Player(const Vec2& pos_in)
 
 void Player::DrawHOD(Graphics& gfx) const
 {
-	gfx.DrawImage(0, 0, face);
+	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)

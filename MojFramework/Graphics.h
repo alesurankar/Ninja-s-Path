@@ -42,14 +42,60 @@ public:
 	void PutPixel(int x, int y, Color c);
 	void DrawRect(RectI srcRect, Color c);
 	void DrawRect(RectI srcRect, const RectI& clip, Color c);
-	void DrawImage(int x, int y, const Surface& s);
-	void DrawImage(const Vec2& pos, const Surface& s);
-	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s);
-	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s);
-	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s);
-	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s);
-	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, Color chroma);
-	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s, Color chroma);
+	template<typename E>
+	void DrawImage(int x, int y, const Surface& s, E effect)
+	{
+		DrawImage(x, y, s.GetRect(), s, effect);
+	}
+	template<typename E>
+	void DrawImage(const Vec2& pos, const Surface& s, E effect)
+	{
+		DrawImage(int(pos.x), int(pos.y), s, effect);
+	}
+	template<typename E>
+	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s, E effect)
+	{
+		DrawImage(x, y, srcRect, GetScreenRect(), s, effect);
+	}
+	template<typename E>
+	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s, E effect)
+	{
+		DrawImage(int(pos.x), int(pos.y), srcRect, s, effect);
+	}
+	template<typename E>
+	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, E effect)
+	{
+		if (x < clip.left)
+		{
+			srcRect.left += clip.left - x;
+			x = clip.left;
+		}
+		if (y < clip.top)
+		{
+			srcRect.top += clip.top - y;
+			y = clip.top;
+		}
+		if (x + srcRect.GetWidth() > clip.right)
+		{
+			srcRect.right -= x + srcRect.GetWidth() - clip.right;
+		}
+		if (y + srcRect.GetHeight() > clip.bottom)
+		{
+			srcRect.bottom -= y + srcRect.GetHeight() - clip.bottom;
+		}
+		for (int sx = srcRect.left; sx < srcRect.right; sx++)
+		{
+			for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
+			{
+				effect(s.GetPixel(sx, sy), sx + x - srcRect.left, sy + y - srcRect.top, *this);
+			}
+		}
+	}
+	template<typename E>
+	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s, E effect)
+	{
+		DrawImage(int(pos.x), int(pos.y), srcRect, clip, s, effect);
+	}
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

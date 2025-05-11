@@ -1,4 +1,5 @@
 #include "Animation.h"
+#include "ImageEffect.h"
 
 Animation::Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in)
 	:
@@ -13,7 +14,8 @@ Animation::Animation(int x, int y, int width, int height, int frameCount, const 
 
 void Animation::Draw(const Vec2& pos, Graphics& gfx) const
 {
-	gfx.DrawImage(pos, frame[curFrame], image);
+	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Chroma{Colors::Magenta});
+	//gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::NoEffect{ });
 }
 
 void Animation::Update(float dt)
