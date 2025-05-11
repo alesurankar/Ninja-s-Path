@@ -7,9 +7,14 @@ Player::Player(const Vec2& pos_in)
 	loaded(false)
 {}
 
-void Player::DrawHOD(Graphics& gfx) const
+void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
+	RectI wholeBar(36, 0, gfx.ScreenWidth / 2, 40);
+	RectI diminBar(36, 0, (gfx.ScreenWidth * lives / maxLives) / 2, 40);
+	gfx.DrawRect(wholeBar, Colors::White);
+	gfx.DrawRect(diminBar, c);
+	smallFont.DrawText(std::to_string(maxLives) + " / " + std::to_string(lives), { 100, 10 }, Colors::Black, gfx);
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)

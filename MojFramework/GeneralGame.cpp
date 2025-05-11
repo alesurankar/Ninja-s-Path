@@ -53,18 +53,6 @@ void GeneralGame::GameLostBanner(Graphics& gfx) const
 	smallFont.DrawText("press return key...", { 200, 250 }, Colors::Yellow, gfx);
 }
 
-void GeneralGame::DrawScore(Graphics& gfx) const
-{
-	RectI rect(Config::offset, Config::offset, scoreX * score, Config::scoreY);
-	gfx.DrawRect(rect,Colors::Blue);
-}
-
-void GeneralGame::DrawGameBorder(Graphics& gfx) const
-{
-	RectI rect(0, 2 * Config::offset + Config::scoreY, Graphics::ScreenWidth, Config::yOffset);
-	gfx.DrawRect(rect, Colors::Blue);
-}
-
 bool GeneralGame::GameOverStatus()
 {
 	return gameOver;
@@ -194,8 +182,11 @@ void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
-	//Player
-	player->Draw(gfx);
+	//Collectable
+	for (Collectable& c : coll)
+	{
+		c.Draw(gfx);
+	}
 	
 	//Bullet
 	for (Bullet& b : bul)
@@ -211,23 +202,12 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	{
 		if (!e.DestroyedStatus())
 		{
-			e.Draw(gfx);
+			e.Draw(gfx); 
+			e.DrawStatus(gfx);
 		}
 	}
-	
-	//Collectable
-	for (Collectable& c : coll)
-	{
-		c.Draw(gfx);
-	}
-
-	//GeneralGame
-	DrawScore(gfx);
-	DrawGameBorder(gfx);
 
 	//Player
-	player->DrawHOD(gfx);
-
-	smallFont.DrawText("Ninja\n in ninja", { 200, 200 }, Colors::Yellow, gfx);
-	bigFont.DrawText("Ninja\n in ninja", {200, 240}, Colors::Green, gfx);
+	player->Draw(gfx);
+	player->DrawStatus(gfx);
 }

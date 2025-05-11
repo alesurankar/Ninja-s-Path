@@ -23,7 +23,10 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 void LivingEntity::Draw(Graphics & gfx) const
 {
 	animations[(int)curSequence].Draw(pos, gfx, facingLeft);
+}
 
+void LivingEntity::DrawStatus(Graphics& gfx) const
+{
 	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
 	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
 	gfx.DrawRect(wholeBar, c);

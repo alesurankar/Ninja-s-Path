@@ -19,8 +19,6 @@ public:
 	~GeneralGame();
 	void GameWonBanner(Graphics& gfx) const;
 	void GameLostBanner(Graphics& gfx) const;
-	void DrawScore(Graphics& gfx) const;
-	void DrawGameBorder(Graphics& gfx) const;
 	bool GameOverStatus();
 	void GameOverDrawLogic(Graphics& gfx) const;
 	void DrawGame(Graphics& gfx);

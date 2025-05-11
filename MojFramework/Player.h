@@ -1,11 +1,12 @@
 #pragma once
 #include "LivingEntity.h"
+#include "Fonts.h"
 
 class Player : public LivingEntity
 {
 public:
 	Player(const Vec2& pos_in);
-	void DrawHOD(Graphics& gfx) const;
+	void DrawStatus(Graphics& gfx) const override;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	bool FiringStatus();
 	void Fire();
@@ -20,4 +21,6 @@ private:
 	static constexpr int height = 58;
 	static constexpr int maxLives = 100;
 	static constexpr Color c = Colors::Green;
+	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
+	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 };
