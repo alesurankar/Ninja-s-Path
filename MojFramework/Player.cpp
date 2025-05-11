@@ -48,7 +48,9 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		dir.x += 1.0f;
 	}
+	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
+	animations[(int)curSequence].Update(dt);
 }
 
 bool Player::FiringStatus()

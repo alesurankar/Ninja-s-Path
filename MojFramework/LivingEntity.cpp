@@ -10,12 +10,19 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	c(c_in)
 {
 	LoadFromFile(filename);
-	animations.emplace_back(0, 0, width, height, object);
+	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
+	{
+		animations.emplace_back(0, 0, width, height, 1, object, 1.0f);
+	}
+	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::COUNT; i++)
+	{
+		animations.emplace_back(0, 0, width, height, 9, object, 0.06f);
+	}
 }
 
 void LivingEntity::Draw(Graphics & gfx) const
 {
-	animations[0].Draw(pos, gfx);
+	animations[(int)curSequence].Draw(pos, gfx);
 
 	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
 	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
@@ -32,6 +39,44 @@ bool LivingEntity::DestroyedStatus()
 void LivingEntity::Destroyed()
 {
 	destroyed = true;
+}
+
+void LivingEntity::ReadDirection(Vec2 dir)
+{
+	
+	if (dir.x > 0.0f)
+	{
+		curSequence = Sequence::WALKING_LEFT;
+	}
+	else if (dir.x < 0.0f)
+	{
+		curSequence = Sequence::WALKING_RIGHT;
+	}
+	else if (dir.x == 0.0f)
+	{
+		if (dir.y != 0)
+		{
+			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
+			{
+				curSequence = Sequence::WALKING_LEFT;
+			}
+			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
+			{
+				curSequence = Sequence::WALKING_RIGHT;
+			}
+		}
+		else if (dir.y == 0)
+		{
+			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
+			{
+				curSequence = Sequence::STANDING_LEFT;
+			}
+			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
+			{
+				curSequence = Sequence::STANDING_RIGHT;
+			}
+		}
+	}
 }
 
 void LivingEntity::Damaged()

@@ -6,6 +6,14 @@
 class LivingEntity : public GameObject
 {
 public:
+	enum class Sequence
+	{
+		STANDING_RIGHT,
+		STANDING_LEFT,
+		WALKING_RIGHT,
+		WALKING_LEFT,
+		COUNT
+	};
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
 	void Draw(Graphics& gfx) const override;
 	bool DestroyedStatus();
@@ -15,6 +23,8 @@ private:
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();
 protected:
+	void ReadDirection(Vec2 dir);
+protected:
 	std::string filename;
 	Surface object;
 	bool destroyed;
@@ -23,4 +33,5 @@ protected:
 	int lives;
 	Color c;
 	std::vector<Animation> animations;
+	Sequence curSequence = Sequence::STANDING_RIGHT;
 };

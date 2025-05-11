@@ -31,5 +31,7 @@ void Enemy::Update(GameObject& other, float dt)
 	{
 		Vec2 dir(0.0f, 0.0f);
 	}
+	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
+	animations[(int)curSequence].Update(dt);
 }
