@@ -225,4 +225,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 
 	//Player
 	player->DrawHOD(gfx);
+
+	smallFont.DrawText("Ninja\n in ninja", { 200, 200 }, gfx);
+	bigFont.DrawText("Ninja\n in ninja", {200, 240}, gfx);
 }

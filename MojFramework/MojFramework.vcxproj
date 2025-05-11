@@ -95,6 +95,7 @@
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
+    <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeneralGame.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DXErr.h" />
+    <ClInclude Include="Fonts.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeneralGame.h" />
