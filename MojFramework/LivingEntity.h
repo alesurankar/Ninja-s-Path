@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.h"
+#include <vector>
 
 class LivingEntity : public GameObject
 {
@@ -20,4 +22,5 @@ protected:
 	int maxLives;
 	int lives;
 	Color c;
+	std::vector<Animation> animations;
 };

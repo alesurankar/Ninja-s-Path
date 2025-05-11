@@ -10,11 +10,13 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	c(c_in)
 {
 	LoadFromFile(filename);
+	animations.emplace_back(0, 0, width, height, object);
 }
 
 void LivingEntity::Draw(Graphics & gfx) const
 {
-	gfx.DrawImage(pos, { 0,0,width, height }, object);
+	animations[0].Draw(pos, gfx);
+
 	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
 	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
 	gfx.DrawRect(wholeBar, c);
