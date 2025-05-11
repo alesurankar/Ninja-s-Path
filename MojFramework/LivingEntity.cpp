@@ -22,7 +22,7 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 
 void LivingEntity::Draw(Graphics & gfx) const
 {
-	animations[(int)curSequence].Draw(pos, gfx);
+	animations[(int)curSequence].Draw(pos, gfx, facingLeft);
 
 	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
 	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
@@ -44,13 +44,15 @@ void LivingEntity::Destroyed()
 void LivingEntity::ReadDirection(Vec2 dir)
 {
 	
-	if (dir.x > 0.0f)
+	if (dir.x < 0.0f)
 	{
 		curSequence = Sequence::WALKING_LEFT;
+		facingLeft = true;
 	}
-	else if (dir.x < 0.0f)
+	else if (dir.x > 0.0f)
 	{
 		curSequence = Sequence::WALKING_RIGHT;
+		facingLeft = false;
 	}
 	else if (dir.x == 0.0f)
 	{
@@ -59,10 +61,12 @@ void LivingEntity::ReadDirection(Vec2 dir)
 			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
 			{
 				curSequence = Sequence::WALKING_LEFT;
+				facingLeft = true;
 			}
 			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
 			{
 				curSequence = Sequence::WALKING_RIGHT;
+				facingLeft = false;
 			}
 		}
 		else if (dir.y == 0)
@@ -70,10 +74,12 @@ void LivingEntity::ReadDirection(Vec2 dir)
 			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
 			{
 				curSequence = Sequence::STANDING_LEFT;
+				facingLeft = true;
 			}
 			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
 			{
 				curSequence = Sequence::STANDING_RIGHT;
+				facingLeft = false;
 			}
 		}
 	}

@@ -12,9 +12,9 @@ Animation::Animation(int x, int y, int width, int height, int frameCount, const 
 	}
 }
 
-void Animation::Draw(const Vec2& pos, Graphics& gfx) const
+void Animation::Draw(const Vec2& pos, Graphics& gfx, bool mirrored) const
 {
-	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Chroma{Colors::Magenta});
+	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Chroma{Colors::Magenta}, mirrored);
 	//gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::NoEffect{ });
 }
 

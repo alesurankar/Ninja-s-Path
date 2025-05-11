@@ -9,7 +9,7 @@ class Animation
 {
 public:
 	Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in);
-	void Draw(const Vec2& pos, Graphics& gfx) const;
+	void Draw(const Vec2& pos, Graphics& gfx, bool mirrored = false) const;
 	void Update(float dt);
 private:
 	void Advance();

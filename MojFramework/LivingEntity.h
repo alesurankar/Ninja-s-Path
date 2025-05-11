@@ -34,4 +34,5 @@ protected:
 	Color c;
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
+	bool facingLeft = true;
 };
