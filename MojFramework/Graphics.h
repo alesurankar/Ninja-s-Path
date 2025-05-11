@@ -74,7 +74,7 @@ public:
 			}
 			else
 			{
-				srcRect.left -= clip.left - x;
+				srcRect.right -= clip.left - x;
 				x = clip.left;
 			}
 		}
@@ -91,7 +91,7 @@ public:
 			}
 			else
 			{
-				srcRect.right += x + srcRect.GetWidth() - clip.right;
+				srcRect.left += x + srcRect.GetWidth() - clip.right;
 			}
 		}
 		if (y + srcRect.GetHeight() > clip.bottom)
@@ -120,6 +120,8 @@ public:
 	{
 		DrawImage(int(pos.x), int(pos.y), srcRect, clip, s, effect, reversed);
 	}
+
+
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
