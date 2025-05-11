@@ -1,15 +1,16 @@
 #include "Fonts.h"
 #include "ImageEffect.h"
 
-Fonts::Fonts(const std::string filename)
+Fonts::Fonts(const std::string filename, Color chroma_in)
 	:
 	sheet(filename),
 	glyphWidth(sheet.GetWidth() / nColumns),
-	glyphHeight(sheet.GetHeight() / nRows)
+	glyphHeight(sheet.GetHeight() / nRows),
+	chroma(chroma_in)
 {
 }
 
-void Fonts::DrawText(const std::string text, const Vei2& pos, Graphics& gfx) const
+void Fonts::DrawText(const std::string text, const Vei2& pos, Color color, Graphics& gfx) const
 {
 	auto curPos = pos;
 	for (auto chr : text)
@@ -22,7 +23,7 @@ void Fonts::DrawText(const std::string text, const Vei2& pos, Graphics& gfx) con
 		}
 		else if (chr >= firstChar + 1 && chr <= lastChar)
 		{
-			gfx.DrawImage(curPos.x, curPos.y, GlyphRect(chr), sheet, ImageEffect::NoEffect{});
+			gfx.DrawImage(curPos.x, curPos.y, GlyphRect(chr), sheet, ImageEffect::OneColor{chroma, color});
 		}
 		curPos.x += glyphWidth;
 	}

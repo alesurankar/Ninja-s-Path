@@ -41,14 +41,16 @@ void GeneralGame::GameWonBanner(Graphics& gfx) const
 {
 	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
 	gfx.DrawRect(rect, Colors::Green);
-	gfx.DrawImage(200, 200, won, ImageEffect::NoEffect{});
+	bigFont.DrawText("Game Won", { 200, 200 }, Colors::Green, gfx);
+	smallFont.DrawText("press return key...", { 200, 250 }, Colors::Yellow, gfx);
 }
 
 void GeneralGame::GameLostBanner(Graphics& gfx) const
 {
 	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
 	gfx.DrawRect(rect, Colors::Red);
-	gfx.DrawImage(200, 200, lost, ImageEffect::NoEffect{});
+	bigFont.DrawText("Game Lost", { 200, 200 }, Colors::Green, gfx);
+	smallFont.DrawText("press return key...", { 200, 250 }, Colors::Yellow, gfx);
 }
 
 void GeneralGame::DrawScore(Graphics& gfx) const
@@ -226,6 +228,6 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//Player
 	player->DrawHOD(gfx);
 
-	smallFont.DrawText("Ninja\n in ninja", { 200, 200 }, gfx);
-	bigFont.DrawText("Ninja\n in ninja", {200, 240}, gfx);
+	smallFont.DrawText("Ninja\n in ninja", { 200, 200 }, Colors::Yellow, gfx);
+	bigFont.DrawText("Ninja\n in ninja", {200, 240}, Colors::Green, gfx);
 }
