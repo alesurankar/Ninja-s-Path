@@ -1,10 +1,11 @@
 /****************************************************************************************************** 
 This Framework is Cloned and modified from PlanetChili - chili_framework <http://www.planetchili.net> 
 *******************************************************************************************************/	
-
 #include "MainWindow.h"
 #include "App.h"
 #include "MyException.h"
+
+#include <boost/asio.hpp>
 
 int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 // target Windows 7 or later
-#define _WIN32_WINNT 0x0601
+#define _WIN32_WINNT 0x0A00
 #include <sdkddkver.h>
 // The following #defines disable a bunch of unused windows stuff. If you 
 // get weird errors when trying to do some windows stuff, try removing some
@@ -19,8 +19,8 @@
 #define NOCOLOR
 #define NOCTLMGR
 #define NODRAWTEXT
-#define NOKERNEL
-#define NONLS
+//#define NOKERNEL
+//#define NONLS
 #define NOMEMMGR
 #define NOMETAFILE
 #define NOMINMAX
@@ -30,7 +30,7 @@
 #define NOSOUND
 #define NOTEXTMETRIC
 #define NOWH
-#define NOCOMM
+//#define NOCOMM
 #define NOKANJI
 #define NOHELP
 #define NOPROFILER
