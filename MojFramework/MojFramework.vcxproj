@@ -101,6 +101,7 @@
     <ClCompile Include="GeneralGame.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="LivingEntity.cpp" />
+    <ClCompile Include="MessageHandler.cpp" />
     <ClCompile Include="NonLivingObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="TCP_Client.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -129,6 +131,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImageEffect.h" />
     <ClInclude Include="LivingEntity.h" />
+    <ClInclude Include="MessageHandler.h" />
     <ClInclude Include="NonLivingObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Keyboard.h" />
@@ -144,6 +147,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="TCP_Client.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>

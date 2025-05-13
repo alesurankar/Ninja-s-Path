@@ -1,11 +1,15 @@
 #include "MainWindow.h"
 #include "App.h"
 
-App::App(MainWindow& wnd)
+App::App(MainWindow& wnd, std::atomic<bool>& runFlag, std::shared_ptr<MessageHandler> msgHandler_in)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	msgHandler(msgHandler_in),
+	running(runFlag),
+	nextFrame(true)
 {
+	//InputThread = std::thread(&App::InputLoop, this);
 	CreateMenu();
 }
 
@@ -13,6 +17,10 @@ App::~App()
 {
 	DestroyGame();
 	DestroyMenu();
+	//if (InputThread.joinable())
+	//{
+	//	InputThread.join();
+	//}
 }
 
 void App::Go()
