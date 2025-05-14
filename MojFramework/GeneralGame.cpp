@@ -60,7 +60,17 @@ bool GeneralGame::GameOverStatus()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	FPS = dt * 1000;
+	frameTimes.push_back(static_cast<int>(dt * 1000));
+	if (frameTimes.size() > 16)
+	{
+		frameTimes.pop_front();
+	}
+
+	if (frameTimes.size() == 16)
+	{
+		int sum = std::accumulate(frameTimes.begin(), frameTimes.end(), 0);
+		latency = static_cast<int>(sum / frameTimes.size());
+	}
 
 	//Player
 	player->Update(mouse, kbd, dt);
@@ -213,5 +223,5 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
 
-	bigFont.DrawText("FPS: " + std::to_string(FPS) + "ms", {200, 200}, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {550, 550}, Colors::Red, gfx);
 }

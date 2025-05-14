@@ -11,6 +11,8 @@
 #include "Collectable.h"
 #include "Player.h"
 #include "Fonts.h"
+#include <deque>
+#include <numeric>
 
 class GeneralGame
 {
@@ -46,7 +48,8 @@ private:
 	bool gameWon = true;
 	int score = 0;
 	int scoreX = Graphics::ScreenWidth / Config::maxScore;
-	float FPS;
+	std::deque<int> frameTimes;
+	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 };
