@@ -60,6 +60,8 @@ bool GeneralGame::GameOverStatus()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
+	FPS = dt * 1000;
+
 	//Player
 	player->Update(mouse, kbd, dt);
 	if (player->FiringStatus())
@@ -210,4 +212,6 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//Player
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
+
+	bigFont.DrawText("FPS: " + std::to_string(FPS) + "ms", {200, 200}, Colors::Red, gfx);
 }
