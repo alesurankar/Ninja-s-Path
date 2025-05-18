@@ -34,6 +34,7 @@ GeneralGame::~GeneralGame()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
+	//Latency
 	frameTimes.push_back(static_cast<int>(dt * 1000));
 	if (frameTimes.size() > 16)
 	{
@@ -167,6 +168,8 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//Player
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
+
+	gfx.DrawImage({ 680.0f,10.0f }, altar, ImageEffect::Chroma{ Colors::Magenta });
 
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {550, 550}, Colors::Red, gfx);
 }

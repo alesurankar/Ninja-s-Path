@@ -103,14 +103,17 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 
 void Player::Heal(float dt)
 {
-	time += dt;
-	if (time > 1.0f)
+	if (!destroyed)
 	{
-		lives++;
-		time = 0.0f;
-	}
-	if (lives >= maxLives)
-	{
-		lives = maxLives;
+		time += dt;
+		if (time > 1.0f)
+		{
+			lives++;
+			time = 0.0f;
+		}
+		if (lives >= maxLives)
+		{
+			lives = maxLives;
+		}
 	}
 }
