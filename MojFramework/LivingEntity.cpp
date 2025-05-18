@@ -208,7 +208,7 @@ void LivingEntity::LevelUp()
 	stamina += 3;
 	maxHP = 100 + (stamina * 10);
 	strength += 2;
-	armour += 1;
+	armour += 2;
 	hp = maxHP;
 }
 
