@@ -42,13 +42,16 @@ void Player::DrawStatus(Graphics& gfx) const
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	if (mouse.LeftIsPressed())
+	if (!destroyed)
 	{
-		Fire();
-	}
-	else
-	{
-		Reload();
+		if (mouse.LeftIsPressed())
+		{
+			Fire();
+		}
+		else
+		{
+			Reload();
+		}
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
@@ -114,17 +117,18 @@ Vec2 Player::GetDirection(const Mouse& mouse)
 
 void Player::Heal(float dt)
 {
-	if (!destroyed)
+	time += dt;
+	if (time > 1.0f)
 	{
-		time += dt;
-		if (time > 1.0f)
-		{
-			hp++;
-			time = 0.0f;
-		}
-		if (hp >= maxHP)
-		{
-			hp = maxHP;
-		}
+		hp++;
+		time = 0.0f;
+	}
+	if (hp >= maxHP)
+	{
+		hp = maxHP;
+	}
+	if (destroyed && hp > 10)
+	{
+		Respawn();
 	}
 }

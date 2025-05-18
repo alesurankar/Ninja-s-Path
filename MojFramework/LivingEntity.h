@@ -27,6 +27,7 @@ public:
 	void LevelUp();
 	int GetLevel();
 	int GetMaxXP();
+	void Respawn();
 private:
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();

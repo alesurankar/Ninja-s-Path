@@ -41,12 +41,15 @@ bool LivingEntity::DestroyedStatus()
 
 void LivingEntity::TakeDamage(LivingEntity& other, int weaponBonus)
 {
-	int damageDone = (other.DamageDeal() + weaponBonus) / shield;
-	hp -= damageDone;
-	if (hp <= 0)
+	if (!destroyed)
 	{
-		Destroyed();
-		hp = 0;
+		int damageDone = (other.DamageDeal() + weaponBonus) / shield;
+		hp -= damageDone;
+		if (hp <= 0)
+		{
+			Destroyed();
+			hp = 0;
+		}
 	}
 }
 
@@ -161,4 +164,9 @@ int LivingEntity::GetLevel()
 int LivingEntity::GetMaxXP()
 {
 	return maxXP;
+}
+
+void LivingEntity::Respawn()
+{
+	destroyed = false;
 }
