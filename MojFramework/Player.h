@@ -1,6 +1,5 @@
 #pragma once
 #include "LivingEntity.h"
-#include "Fonts.h"
 
 class Player : public LivingEntity
 {
@@ -24,7 +23,5 @@ private:
 	static constexpr int width = 33;
 	static constexpr int height = 58;
 	static constexpr Color c = Colors::Green;
-	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
-	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 	float time = 0.0f;
 };

@@ -11,6 +11,6 @@ public:
 	int DamageBonus();
 protected:
 	Surface object;
-	int damage = 10;
+	int damage = 20;
 	bool smashed;
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.h"
+#include "Fonts.h"
 #include <vector>
 
 class LivingEntity : public GameObject
@@ -50,4 +51,6 @@ protected:
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
 	bool facingLeft = true;
+	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
+	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 };
