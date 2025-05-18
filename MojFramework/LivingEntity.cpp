@@ -39,6 +39,27 @@ bool LivingEntity::DestroyedStatus()
 	return destroyed;
 }
 
+void LivingEntity::TakeDamage(LivingEntity& other, int weaponBonus)
+{
+	int damageDone = (other.DamageDeal() + weaponBonus) / shield;
+	hp -= damageDone;
+	if (hp <= 0)
+	{
+		Destroyed();
+		hp = 0;
+	}
+}
+
+int LivingEntity::DamageDeal()
+{
+	return power;
+}
+
+int LivingEntity::MeleDamage()
+{
+	return power;
+}
+
 void LivingEntity::Destroyed()
 {
 	destroyed = true;
@@ -88,16 +109,6 @@ void LivingEntity::ReadDirection(Vec2 dir)
 	}
 }
 
-void LivingEntity::Damaged()
-{
-	hp--;
-	if (hp <= 0)
-	{
-		Destroyed();
-		hp = 0;
-	}
-}
-
 void LivingEntity::SaveToFile(std::string filename)
 {
 	std::ofstream file(filename);
@@ -121,14 +132,13 @@ void LivingEntity::CollectXP(LivingEntity& other)
 	int levelDifference = other.GetLevel() - GetLevel();
 	if (levelDifference >= -3)
 	{
-		int xp_increase = other.GetMaxXP() / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+		int xp_increase = other.GetMaxXP() / (8 * GetLevel());
 		xp += xp_increase;
 		if (xp > maxXP)
 		{
 			xp_increase = xp - maxXP;
 			LevelUp();
-			xp = xp_increase / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
-			//SaveToFile("Config/player_config.txt");
+			xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
 		}
 	}
 }
@@ -136,7 +146,7 @@ void LivingEntity::CollectXP(LivingEntity& other)
 void LivingEntity::LevelUp()
 {
 	level++;
-	maxXP = (maxXP * 115) / 100;
+	maxXP += 300 + 90 * level;//(maxXP * 115) / 100;
 	maxHP = (maxHP * 115) / 100;  // +30;
 	hp = maxHP;
 	power = (power * 115) / 100;

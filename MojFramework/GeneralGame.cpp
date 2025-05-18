@@ -82,13 +82,13 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		enemy[e].Update(*player, dt);
 		if (enemy[e].Colliding(*player))
 		{
-			player->Damaged();
+			player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 		}
 		for (Bullet& b : bul)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].Damaged();
+				enemy[e].TakeDamage(*player, b.DamageBonus());
 				b.Smashed();
 			}
 		}

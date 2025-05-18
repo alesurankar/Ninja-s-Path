@@ -36,6 +36,8 @@ void Player::DrawStatus(Graphics& gfx) const
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
 	smallFont.DrawText(std::to_string(maxHP) + " / " + std::to_string(hp), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText("Lvl: ", { 340, 10 }, Colors::Red, gfx);
+	bigFont.DrawText(std::to_string(level), {370, 10}, Colors::Red, gfx);
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
