@@ -29,7 +29,7 @@ GeneralGame::GeneralGame()
 
 GeneralGame::~GeneralGame()
 {
-	//player->SaveToFile("Config\\player_config.txt");
+	player->SaveToFile("Config\\player_config.txt");
 	DestroyPlayer();
 }
 
@@ -57,7 +57,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 	if (player->Colliding(altar))
 	{
-		player->Heal(dt);
+		player->ActiveRegenerate(dt);
 	}
 	
 	//Bullet
@@ -85,15 +85,21 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
-		if (enemy[e].Colliding(*player))
+		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
-			player->TakeDamage(enemy[e], enemy[e].MeleDamage());
+			int damage = player->TakeDamage(enemy[e], enemy[e].MeleDamage());
+			Vei2 pos = Vei2(player->GetPos());
+			damagePopups.push_back({ damage, pos });
+			enemy[e].ResetHitCooldown();
 		}
 		for (Bullet& b : bul)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].TakeDamage(*player, b.DamageBonus());
+				int damage = enemy[e].TakeDamage(*player, b.DamageBonus());
+				Vei2 pos = Vei2(enemy[e].GetPos());
+				damagePopups.push_back({ damage, pos });
+
 				b.Smashed();
 			}
 		}
@@ -110,6 +116,16 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 	}
 	
+	//Damage Popups
+	for (int i = 0; i < damagePopups.size(); )
+	{
+		damagePopups[i].timeLeft -= dt;
+		if (damagePopups[i].timeLeft <= 0.0f)
+			damagePopups.erase(damagePopups.begin() + i);
+		else
+			++i;
+	}
+
 	//Collectable
 	for (int c = 0; c < coll.size();)
 	{
@@ -178,5 +194,12 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	player->DrawStatus(gfx);
 	player->DrawXP(gfx);
 
+	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {550, 550}, Colors::Red, gfx);
+
+	//Damage Popups
+	for (const DamagePopup& popup : damagePopups)
+	{
+		bigFont.DrawText(std::to_string(popup.damage), popup.pos, Colors::Red, gfx);
+	}
 }

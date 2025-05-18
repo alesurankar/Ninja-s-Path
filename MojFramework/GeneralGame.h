@@ -15,6 +15,14 @@
 #include <deque>
 #include <numeric>
 
+
+struct DamagePopup
+{
+	int damage;
+	Vei2 pos;
+	float timeLeft = 0.2f;
+};
+
 class GeneralGame
 {
 public:
@@ -45,5 +53,6 @@ private:
 	std::deque<int> frameTimes;
 	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
-	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp"); 
+	std::vector<DamagePopup> damagePopups;
 };

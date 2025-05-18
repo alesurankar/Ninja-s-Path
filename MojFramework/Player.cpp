@@ -24,7 +24,7 @@ void Player::DrawXP(Graphics& gfx) const
 	RectI wholeBar(0, gfx.ScreenHeight - 10, gfx.ScreenWidth, gfx.ScreenHeight);
 	RectI diminBar(0, gfx.ScreenHeight - 10, (gfx.ScreenWidth * xp / maxXP), gfx.ScreenHeight);
 	gfx.DrawRect(wholeBar, Colors::Gray);
-	gfx.DrawRect(diminBar, Colors::Yellow);
+	gfx.DrawRect(diminBar, Colors::Orange);
 	smallFont.DrawText("XP: " + std::to_string(xp) + " / " + std::to_string(maxXP), {gfx.ScreenWidth / 2 - 20, gfx.ScreenHeight - 11}, Colors::Black, gfx);
 }
 
@@ -42,16 +42,13 @@ void Player::DrawStatus(Graphics& gfx) const
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	if (!destroyed)
+	if (mouse.LeftIsPressed())
 	{
-		if (mouse.LeftIsPressed())
-		{
-			Fire();
-		}
-		else
-		{
-			Reload();
-		}
+		Fire();
+	}
+	else
+	{
+		Reload();
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
@@ -79,7 +76,7 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		dir.x += 1.0f;
 	}
-	Recover(dt);
+	PassiveRegenerate(dt);
 	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
@@ -92,14 +89,17 @@ bool Player::FiringStatus()
 
 void Player::Fire()
 {
-	if (loaded)
+	if (!destroyed)
 	{
-		firing = true;
-		loaded = false;
-	}
-	else
-	{
-		firing = false;
+		if (loaded)
+		{
+			firing = true;
+			loaded = false;
+		}
+		else
+		{
+			firing = false;
+		}
 	}
 }
 

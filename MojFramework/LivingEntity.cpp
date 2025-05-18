@@ -18,6 +18,7 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	{
 		animations.emplace_back(0, 0, width, height, 9, object, 0.06f);
 	}
+	maxHP = baseHP + (stamina * 10);
 }
 
 void LivingEntity::Draw(Graphics & gfx) const
@@ -40,28 +41,41 @@ bool LivingEntity::DestroyedStatus()
 	return destroyed;
 }
 
-void LivingEntity::TakeDamage(LivingEntity& other, int weaponBonus)
+int LivingEntity::TakeDamage(LivingEntity& attacker, int weaponBonus)
 {
+	int finalDamage = 0;
 	if (!destroyed)
 	{
-		int damageDone = (other.DamageDeal() + weaponBonus) / shield;
-		hp -= damageDone;
+		int baseDamage = attacker.DamageDeal() + weaponBonus;
+
+		// Optional: add randomness or critical hit chance
+		// baseDamage *= CritMultiplierOrVariance();
+
+		float armourReduction = static_cast<float>(armour) /
+			(static_cast<float>(armour) + 400.0f + 85.0f * attacker.GetLevel());
+		finalDamage = std::max(1, int(baseDamage * (1.0f - armourReduction)));
+
+		hp -= finalDamage;
 		if (hp <= 0)
 		{
 			Destroyed();
 			hp = 0;
 		}
 	}
+	return finalDamage;
 }
 
 int LivingEntity::DamageDeal()
 {
-	return power;
+	return strength;
 }
 
 int LivingEntity::MeleDamage()
 {
-	return power;
+	int weaponBase = 1;
+	int power = 0;
+	int meleDamage = weaponBase + static_cast<int>(strength * 1.5) + power;
+	return meleDamage;
 }
 
 void LivingEntity::Destroyed()
@@ -118,42 +132,45 @@ void LivingEntity::SaveToFile(std::string filename)
 	std::ofstream file(filename);
 	if (file)
 	{
-		file << level << " " << maxHP << " " << hp << " " << maxXP << " " << xp << " " << power << " " << shield << "\n";
+		file << level << " " << hp << " " << maxXP << " " << xp << " " << " " << stamina << " " << strength << " " << armour << "\n";
 	}
 }
 
-void LivingEntity::Recover(float dt)
+void LivingEntity::ActiveRegenerate(float dt)
 {
+	const int percent = maxHP / 20;
+	time += dt;
+	if (time > 0.4f)
+	{
+		ReceiveHealing(percent);
+		time = 0.0f;
+	}
+	if (destroyed && maxHP < hp * 10)
+	{
+		Respawn();
+	}
+}
+
+void LivingEntity::PassiveRegenerate(float dt)
+{
+	const int percent = maxHP / 50;
 	if (!destroyed)
 	{
 		time += dt;
-		if (time > 1.0f)
+		if (time > 2.0f)
 		{
-			hp++;
+			ReceiveHealing(percent);
 			time = 0.0f;
-		}
-		if (hp >= maxHP)
-		{
-			hp = maxHP;
 		}
 	}
 }
 
-void LivingEntity::Heal(float dt)
+void LivingEntity::ReceiveHealing(int amount)
 {
-	time += dt;
-	if (time > 0.2f)
-	{
-		hp += 2;
-		time = 0.0f;
-	}
+	hp += amount;
 	if (hp >= maxHP)
 	{
 		hp = maxHP;
-	}
-	if (hp > 10)
-	{
-		Respawn();
 	}
 }
 
@@ -162,34 +179,37 @@ void LivingEntity::LoadFromFile(const std::string& filename)
 	std::ifstream file(filename);
 	if (file)
 	{
-		file >> level >> maxHP >> hp >> maxXP >> xp >> power >> shield;
+		file >> level >> hp >> maxXP >> xp >> stamina >> strength >> armour;
 	}
 }
 
 void LivingEntity::CollectXP(LivingEntity& other)
 {
-	int levelDifference = other.GetLevel() - GetLevel();
-	if (levelDifference >= -3)
-	{
-		int xp_increase = other.GetMaxXP() / (8 * GetLevel());
+	//int levelDifference = other.GetLevel() - GetLevel();
+	//if (levelDifference >= -3)
+	//{
+		//int xp_increase = other.GetMaxXP() / (8 * GetLevel());
+		const int xp_increase = (maxXP / 2) + 1;
 		xp += xp_increase;
 		if (xp > maxXP)
 		{
-			xp_increase = xp - maxXP;
+			//xp_increase = xp - maxXP;
 			LevelUp();
-			xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
+			xp = 0;
+			//xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
 		}
-	}
+	//}
 }
 
 void LivingEntity::LevelUp()
 {
 	level++;
-	maxXP += 300 + 90 * level;//(maxXP * 115) / 100;
-	maxHP = (maxHP * 115) / 100;  // +30;
+	maxXP += 300 + 90 * level;
+	stamina += 3;
+	maxHP = 100 + (stamina * 10);
+	strength += 2;
+	armour += 1;
 	hp = maxHP;
-	power = (power * 115) / 100;
-	shield = (shield * 115) / 100;
 }
 
 int LivingEntity::GetLevel()
