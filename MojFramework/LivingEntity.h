@@ -20,7 +20,11 @@ public:
 	bool DestroyedStatus();
 	void Damaged();
 	void SaveToFile(std::string filename);
-	virtual void Heal(float dt) = 0;
+	virtual void Heal(float dt) = 0; 
+	void CollectXP(LivingEntity& other); 
+	void LevelUp();
+	int GetLevel();
+	int GetMaxXP();
 private:
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();
@@ -30,10 +34,13 @@ protected:
 	std::string filename;
 	Surface object;
 	bool destroyed;
-	int maxLives;
-	int lives;
+	int level;
+	int maxHP;
 	int maxXP;
-	int xp = 10;
+	int power;
+	int shield;
+	int xp;
+	int hp;
 	float speed;
 	Color c;
 	std::vector<Animation> animations;

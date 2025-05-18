@@ -2,7 +2,7 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c),
+	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config/player_config.txt"), c),
 	firing(false),
 	loaded(false)
 {}
@@ -32,10 +32,10 @@ void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
 	RectI wholeBar(36, 0, gfx.ScreenWidth / 2, 40);
-	RectI diminBar(36, 0, (gfx.ScreenWidth * lives / maxLives) / 2, 40);
+	RectI diminBar(36, 0, (gfx.ScreenWidth * hp / maxHP) / 2, 40);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
-	smallFont.DrawText(std::to_string(maxLives) + " / " + std::to_string(lives), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText(std::to_string(maxHP) + " / " + std::to_string(hp), { 100, 10 }, Colors::Black, gfx);
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -117,12 +117,12 @@ void Player::Heal(float dt)
 		time += dt;
 		if (time > 1.0f)
 		{
-			lives++;
+			hp++;
 			time = 0.0f;
 		}
-		if (lives >= maxLives)
+		if (hp >= maxHP)
 		{
-			lives = maxLives;
+			hp = maxHP;
 		}
 	}
 }

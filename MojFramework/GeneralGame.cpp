@@ -90,14 +90,14 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			{
 				enemy[e].Damaged();
 				b.Smashed();
-				objDamaged.Play();
 			}
 		}
 		if (enemy[e].DestroyedStatus())
 		{
 			coll.emplace_back(enemy[e].GetPos());
-			enemy.erase(enemy.begin() + e);
-			playerDamaged.Play();
+			enemy.erase(enemy.begin() + e); 
+			player->CollectXP(enemy[e]);
+			objDamaged.Play();
 		}
 		else
 		{

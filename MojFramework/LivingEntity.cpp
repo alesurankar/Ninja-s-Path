@@ -28,7 +28,7 @@ void LivingEntity::Draw(Graphics & gfx) const
 void LivingEntity::DrawStatus(Graphics& gfx) const
 {
 	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
-	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
+	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * hp / maxHP, 5);
 	gfx.DrawRect(wholeBar, c);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
@@ -90,11 +90,11 @@ void LivingEntity::ReadDirection(Vec2 dir)
 
 void LivingEntity::Damaged()
 {
-	lives--;
-	if (lives <= 0)
+	hp--;
+	if (hp <= 0)
 	{
 		Destroyed();
-		lives = 0;
+		hp = 0;
 	}
 }
 
@@ -103,7 +103,7 @@ void LivingEntity::SaveToFile(std::string filename)
 	std::ofstream file(filename);
 	if (file)
 	{
-		file << maxLives << " " << lives << "\n";
+		file << level << " " << maxHP << " " << hp << " " << maxXP << " " << xp << " " << power << " " << shield << "\n";
 	}
 }
 
@@ -112,6 +112,43 @@ void LivingEntity::LoadFromFile(const std::string& filename)
 	std::ifstream file(filename);
 	if (file)
 	{
-		file >> maxLives >> lives;
+		file >> level >> maxHP >> hp >> maxXP >> xp >> power >> shield;
 	}
+}
+
+void LivingEntity::CollectXP(LivingEntity& other)
+{
+	int levelDifference = other.GetLevel() - GetLevel();
+	if (levelDifference >= -3)
+	{
+		int xp_increase = other.GetMaxXP() / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+		xp += xp_increase;
+		if (xp > maxXP)
+		{
+			xp_increase = xp - maxXP;
+			LevelUp();
+			xp = xp_increase / ((4 * GetLevel() * GetLevel()) / other.GetLevel());
+			//SaveToFile("Config/player_config.txt");
+		}
+	}
+}
+
+void LivingEntity::LevelUp()
+{
+	level++;
+	maxXP = (maxXP * 115) / 100;
+	maxHP = (maxHP * 115) / 100;  // +30;
+	hp = maxHP;
+	power = (power * 115) / 100;
+	shield = (shield * 115) / 100;
+}
+
+int LivingEntity::GetLevel()
+{
+	return level;
+}
+
+int LivingEntity::GetMaxXP()
+{
+	return maxXP;
 }
