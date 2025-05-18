@@ -11,7 +11,7 @@ void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();
 	Vec2 dir = delta;
-	if (other.DestroyedStatus() || delta.GetLengthSq() > 50000.0f)
+	if (other.DestroyedStatus() || delta.GetLengthSq() > 65000.0f)
 	{
 		dir = Vec2(vRand(*rng), vRand(*rng));
 	}
@@ -38,11 +38,8 @@ void Enemy::Update(LivingEntity& other, float dt)
 	{
 		dir = Vec2(0.0f, 0.0f);
 	}
+	Recover(dt);
 	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
-}
-
-void Enemy::Heal(float dt)
-{
 }

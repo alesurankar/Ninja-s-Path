@@ -13,7 +13,6 @@ public:
 	void Fire();
 	void Reload();
 	Vec2 GetDirection(const Mouse& mouse); 
-	void Heal(float dt) override;
 private:
 	Surface face = Surface("Images\\face36x40.bmp");
 	bool firing;
@@ -23,5 +22,4 @@ private:
 	static constexpr int width = 33;
 	static constexpr int height = 58;
 	static constexpr Color c = Colors::Green;
-	float time = 0.0f;
 };

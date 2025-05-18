@@ -122,6 +122,41 @@ void LivingEntity::SaveToFile(std::string filename)
 	}
 }
 
+void LivingEntity::Recover(float dt)
+{
+	if (!destroyed)
+	{
+		time += dt;
+		if (time > 1.0f)
+		{
+			hp++;
+			time = 0.0f;
+		}
+		if (hp >= maxHP)
+		{
+			hp = maxHP;
+		}
+	}
+}
+
+void LivingEntity::Heal(float dt)
+{
+	time += dt;
+	if (time > 0.2f)
+	{
+		hp += 2;
+		time = 0.0f;
+	}
+	if (hp >= maxHP)
+	{
+		hp = maxHP;
+	}
+	if (hp > 10)
+	{
+		Respawn();
+	}
+}
+
 void LivingEntity::LoadFromFile(const std::string& filename)
 {
 	std::ifstream file(filename);

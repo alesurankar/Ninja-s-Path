@@ -1,6 +1,4 @@
 #pragma once
-#include <random>
-#include <vector>
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
@@ -11,6 +9,9 @@
 #include "Collectable.h"
 #include "Player.h"
 #include "Fonts.h"
+#include "Altar.h"
+#include <random>
+#include <vector>
 #include <deque>
 #include <numeric>
 
@@ -33,6 +34,7 @@ private:
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
+	Altar altar;
 	std::vector<Bullet> bul;
 	Sound fireSound;
 	Sound objCollected;
@@ -44,5 +46,4 @@ private:
 	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
-	Surface altar = Surface("Images\\altar119x119.bmp");
 };

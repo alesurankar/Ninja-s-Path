@@ -9,7 +9,8 @@ GeneralGame::GeneralGame()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
+	altar(Vec2(680.0f,10.0f))
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Player
@@ -53,6 +54,10 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
 		fireSound.Play();
+	}
+	if (player->Colliding(altar))
+	{
+		player->Heal(dt);
 	}
 	
 	//Bullet
@@ -140,6 +145,9 @@ void GeneralGame::DestroyPlayer()
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
+	//Altar
+	altar.Draw(gfx);
+
 	//Collectable
 	for (Collectable& c : coll)
 	{
@@ -169,8 +177,6 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
 	player->DrawXP(gfx);
-
-	gfx.DrawImage({ 680.0f,10.0f }, altar, ImageEffect::Chroma{ Colors::Magenta });
 
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {550, 550}, Colors::Red, gfx);
 }

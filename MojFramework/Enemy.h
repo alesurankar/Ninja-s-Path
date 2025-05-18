@@ -8,7 +8,6 @@ class Enemy : public LivingEntity
 public:
 	Enemy(const Vec2& pos_in);
 	void Update(LivingEntity& other, float dt);
-	void Heal(float dt) override;
 private:
 	std::unique_ptr<std::mt19937> rng;
 	std::uniform_real_distribution<float> vRand;

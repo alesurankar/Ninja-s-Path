@@ -23,7 +23,8 @@ public:
 	int MeleDamage();
 	bool DestroyedStatus();
 	void SaveToFile(std::string filename);
-	virtual void Heal(float dt) = 0; 
+	void Recover(float dt);
+	void Heal(float dt);
 	void CollectXP(LivingEntity& other); 
 	void LevelUp();
 	int GetLevel();
@@ -53,4 +54,5 @@ protected:
 	bool facingLeft = true;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	float time = 0.0f;
 };
