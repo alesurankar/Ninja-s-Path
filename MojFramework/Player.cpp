@@ -19,6 +19,15 @@ void Player::Draw(Graphics& gfx) const
 	}
 }
 
+void Player::DrawXP(Graphics& gfx) const
+{
+	RectI wholeBar(0, gfx.ScreenHeight - 10, gfx.ScreenWidth, gfx.ScreenHeight);
+	RectI diminBar(0, gfx.ScreenHeight - 10, (gfx.ScreenWidth * xp / maxXP), gfx.ScreenHeight);
+	gfx.DrawRect(wholeBar, Colors::Gray);
+	gfx.DrawRect(diminBar, Colors::Yellow);
+	smallFont.DrawText("XP: " + std::to_string(xp) + " / " + std::to_string(maxXP), {gfx.ScreenWidth / 2 - 20, gfx.ScreenHeight - 11}, Colors::Black, gfx);
+}
+
 void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});

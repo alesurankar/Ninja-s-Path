@@ -7,6 +7,7 @@ class Player : public LivingEntity
 public:
 	Player(const Vec2& pos_in); 
 	void Draw(Graphics& gfx) const override;
+	void DrawXP(Graphics& gfx) const;
 	void DrawStatus(Graphics& gfx) const override;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	bool FiringStatus();
@@ -17,7 +18,8 @@ public:
 private:
 	Surface face = Surface("Images\\face36x40.bmp");
 	bool firing;
-	bool loaded;
+	bool loaded; 
+	static constexpr int maxXP = 1000;
 	static constexpr float moveSlow = 100.0f;
 	static constexpr float moveFast = 200.0f;
 	static constexpr int width = 33;

@@ -168,6 +168,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//Player
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
+	player->DrawXP(gfx);
 
 	gfx.DrawImage({ 680.0f,10.0f }, altar, ImageEffect::Chroma{ Colors::Magenta });
 

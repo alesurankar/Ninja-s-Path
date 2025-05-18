@@ -30,9 +30,10 @@ protected:
 	std::string filename;
 	Surface object;
 	bool destroyed;
-	float inOff = 1.0f;
 	int maxLives;
 	int lives;
+	int maxXP;
+	int xp = 10;
 	float speed;
 	Color c;
 	std::vector<Animation> animations;
