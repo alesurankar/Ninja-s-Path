@@ -46,8 +46,6 @@ private:
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
-	int score = 0;
-	int scoreX = Graphics::ScreenWidth / Config::maxScore;
 	std::deque<int> frameTimes;
 	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
