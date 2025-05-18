@@ -41,11 +41,11 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		speed = Config::mySpeed * 3;
+		speed = moveFast;
 	}
 	else
 	{
-		speed = Config::mySpeed;
+		speed = moveSlow;
 	}
 
 	Vec2 dir(0.0f, 0.0f);

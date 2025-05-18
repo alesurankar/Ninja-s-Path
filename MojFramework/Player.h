@@ -18,7 +18,8 @@ private:
 	Surface face = Surface("Images\\face36x40.bmp");
 	bool firing;
 	bool loaded;
-	float speed = 100.0f;
+	static constexpr float moveSlow = 100.0f;
+	static constexpr float moveFast = 200.0f;
 	static constexpr int width = 33;
 	static constexpr int height = 58;
 	static constexpr int maxLives = 100;

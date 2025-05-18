@@ -33,6 +33,7 @@ protected:
 	float inOff = 1.0f;
 	int maxLives;
 	int lives;
+	float speed;
 	Color c;
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
