@@ -20,41 +20,16 @@ GeneralGame::GeneralGame()
 	
 	//Enemy
 	enemy.clear();
+	count = 0.0f;
 	
 	//Collectable
 	coll.clear();
-
-	//GeneralGame
-	gameOver = false;
-	gameWon = false;
-	count = 0.0f;
 }
 
 GeneralGame::~GeneralGame()
 {
 	//player->SaveToFile("Config\\player_config.txt");
 	DestroyPlayer();
-}
-
-void GeneralGame::GameWonBanner(Graphics& gfx) const
-{
-	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
-	gfx.DrawRect(rect, Colors::Green);
-	bigFont.DrawText("Game Won", { 200, 200 }, Colors::Green, gfx);
-	smallFont.DrawText("press return key...", { 200, 250 }, Colors::Yellow, gfx);
-}
-
-void GeneralGame::GameLostBanner(Graphics& gfx) const
-{
-	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
-	gfx.DrawRect(rect, Colors::Red);
-	bigFont.DrawText("Game Lost", { 200, 200 }, Colors::Green, gfx);
-	smallFont.DrawText("press return key...", { 200, 250 }, Colors::Yellow, gfx);
-}
-
-bool GeneralGame::GameOverStatus()
-{
-	return gameOver;
 }
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -77,11 +52,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
 		fireSound.Play();
-	}
-	
-	if (player->DestroyedStatus())
-	{
-		gameOver = true;
 	}
 	
 	//Bullet
@@ -147,13 +117,6 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			c++;
 		}
 	}
-
-	//GeneralGame
-	if (GameOverStatus())
-	{
-		DestroyPlayer();
-		gameMusic.StopAll();
-	}
 }
 
 void GeneralGame::CreatePlayer()
@@ -173,17 +136,6 @@ void GeneralGame::DestroyPlayer()
 	}
 }
 
-void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
-{
-	if (gameWon)
-	{
-		GameWonBanner(gfx);
-	}
-	else
-	{
-		GameLostBanner(gfx);
-	}
-}
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {

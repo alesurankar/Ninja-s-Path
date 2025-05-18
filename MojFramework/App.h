@@ -10,7 +10,6 @@ class App
 public:
 	enum class State
 	{
-		GameOver,
 		Menu,
 		PlayGame
 	};

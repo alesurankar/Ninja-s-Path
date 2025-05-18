@@ -35,15 +35,6 @@ void App::UpdateModel()
 {
 	float dt = ft.CheckPoint();
 
-	if (state == State::GameOver)
-	{
-		if (wnd.kbd.KeyIsPressed(VK_RETURN))
-		{
-			DestroyGame();
-			state = State::Menu;
-		}
-	}
-
 	if (state == State::Menu)
 	{
 		CreateMenu();
@@ -58,10 +49,6 @@ void App::UpdateModel()
 	{
 		CreateGame();
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
-		if (gg->GameOverStatus())
-		{
-			state = State::GameOver;
-		}
 	}
 }
 
@@ -101,11 +88,6 @@ void App::DestroyMenu()
 
 void App::ComposeFrame()
 {
-	if (state == State::GameOver)
-	{
-		gg->GameOverDrawLogic(gfx);
-	}
-
 	if (state == State::Menu)
 	{
 		menu->Draw(gfx);

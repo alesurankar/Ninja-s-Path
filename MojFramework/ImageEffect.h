@@ -50,4 +50,29 @@ namespace ImageEffect
 		Color chroma;
 		Color oneColor;
 	};
+
+	class Ghost
+	{
+	public:
+		Ghost(Color chroma_in)
+			:
+			chroma(chroma_in)
+		{}
+		void operator()(Color color, int xDest, int yDest, Graphics& gfx) const
+		{
+			if (color != chroma)
+			{
+				const Color dest = gfx.GetPixel(xDest, yDest);
+				const Color blend = 
+				{
+					unsigned char((color.GetR() + dest.GetR()) / 3),
+					unsigned char((color.GetG() + dest.GetG()) / 3),
+					unsigned char((color.GetB() + dest.GetB()) / 3)
+				};
+				gfx.PutPixel(xDest, yDest, blend);
+			}
+		}
+	private:
+		Color chroma;
+	};
 }

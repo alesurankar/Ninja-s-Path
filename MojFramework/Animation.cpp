@@ -18,6 +18,11 @@ void Animation::Draw(const Vec2& pos, Graphics& gfx, bool mirrored) const
 	//gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::NoEffect{ });
 }
 
+void Animation::DrawGhost(const Vec2& pos, Graphics& gfx, bool mirrored) const
+{
+	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Ghost{ Colors::Magenta }, mirrored);
+}
+
 void Animation::Update(float dt)
 {
 	frameTime += dt;

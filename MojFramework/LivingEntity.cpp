@@ -94,6 +94,7 @@ void LivingEntity::Damaged()
 	if (lives <= 0)
 	{
 		Destroyed();
+		lives = 0;
 	}
 }
 
