@@ -14,7 +14,7 @@ public:
 	Vec2 GetDirection(const Mouse& mouse); 
 	void Heal(float dt) override;
 private:
-	Surface face = ("Images\\face36x40.bmp");
+	Surface face = Surface("Images\\face36x40.bmp");
 	bool firing;
 	bool loaded;
 	float speed = 100.0f;

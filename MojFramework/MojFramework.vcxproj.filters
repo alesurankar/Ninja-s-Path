@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -16,17 +12,27 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{b58e38a6-d085-487e-a172-ee86f8c533f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Framework">
+      <UniqueIdentifier>{924c0309-1dde-4e13-b5c4-36412e56f752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay">
+      <UniqueIdentifier>{1137efce-3497-4cef-88ee-deb81fe7df45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
     <Filter Include="Header Files\Framework">
       <UniqueIdentifier>{5bef1e38-9a85-4fbe-ad99-206db34b261e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Gameplay">
       <UniqueIdentifier>{c6f28ceb-0a36-41dc-aecc-fa80b566199a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Framework">
-      <UniqueIdentifier>{924c0309-1dde-4e13-b5c4-36412e56f752}</UniqueIdentifier>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{2fc37089-479e-4760-b564-ac9de7f5d93b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameplay">
-      <UniqueIdentifier>{1137efce-3497-4cef-88ee-deb81fe7df45}</UniqueIdentifier>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{5540bdde-b7d7-4cf3-8967-d2415bcc341b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,17 +99,17 @@
     <ClCompile Include="Surface.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Fonts.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="MessageHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Networking</Filter>
     </ClCompile>
     <ClCompile Include="TCP_Client.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,23 +194,23 @@
     <ClInclude Include="Vec2.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Fonts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageEffect.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Rect.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="TCP_Client.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageEffect.h">
+      <Filter>Header Files\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="MessageHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="TCP_Client.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

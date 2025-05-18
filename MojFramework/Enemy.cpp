@@ -6,8 +6,8 @@ Enemy::Enemy(const Vec2& pos_in)
 {}
 void Enemy::Update(GameObject& other, float dt)
 {
-	Vec2 delta = other.GetPos() - GetPos();
-	Vec2 dir(0.0f, 0.0f);
+	Vec2 delta = other.GetPos() - GetCenter();
+	Vec2 dir = delta;
 	if (delta.GetLengthSq() > 100.0f)
 	{
 		if (delta.y < 0.0f)
