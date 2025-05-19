@@ -10,34 +10,21 @@ Enemy::Enemy(const Vec2& pos_in)
 void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();
-	Vec2 dir = delta;
-	if (other.DestroyedStatus() || delta.GetLengthSq() > 65000.0f)
+	//dir = Vec2(vRand(*rng), vRand(*rng));
+	if (delta.GetLengthSq() < 40000.0f && delta.GetLengthSq() > 100.0f)
 	{
-		dir = Vec2(vRand(*rng), vRand(*rng));
+		dir = delta;
 	}
-	else if (delta.GetLengthSq() > 100.0f)
+	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.0f)
 	{
-		if (delta.y < 0.0f)
+		dirWalk++;
+		if (dirWalk > 10)
 		{
-			dir.y -= 1.0f;
-		}
-		if (delta.y > 0.0f)
-		{
-			dir.y += 1.0f;
-		}
-		if (delta.x < 0.0f)
-		{
-			dir.x -= 1.0f;
-		}
-		if (delta.x > 0.0f)
-		{
-			dir.x += 1.0f;
+			dir = Vec2(vRand(*rng), vRand(*rng));
+			dirWalk = 0;
 		}
 	}
-	else
-	{
-		dir = Vec2(0.0f, 0.0f);
-	}
+	
 	if (hitColldownTime > 0.0f)
 	{
 		hitColldownTime -= dt;
@@ -55,5 +42,5 @@ float Enemy::GetHitColldown()
 
 void Enemy::ResetHitCooldown()
 {
-	hitColldownTime = 2.0f;
+	hitColldownTime = constHitCooldownTime;
 }

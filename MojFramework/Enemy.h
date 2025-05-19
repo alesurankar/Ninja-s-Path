@@ -17,5 +17,8 @@ private:
 	static constexpr int width = 64;
 	static constexpr int height = 64;
 	static constexpr Color c = Colors::Red; 
-	float hitColldownTime = 2.0f;
+	static constexpr float constHitCooldownTime = 2.0f;
+	float hitColldownTime = constHitCooldownTime;
+	int dirWalk = 0;
+	Vec2 dir = Vec2(vRand(*rng), vRand(*rng));
 };
