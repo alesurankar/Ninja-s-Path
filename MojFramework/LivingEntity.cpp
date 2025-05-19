@@ -188,17 +188,30 @@ void LivingEntity::CollectXP(LivingEntity& other)
 	//int levelDifference = other.GetLevel() - GetLevel();
 	//if (levelDifference >= -3)
 	//{
-		//int xp_increase = other.GetMaxXP() / (8 * GetLevel());
-		const int xp_increase = (maxXP / 2) + 1;
-		xp += xp_increase;
+	//	int xp_increase = other.GetMaxXP() / (8 * GetLevel());
+	//	xp += xp_increase;
+	//	if (xp > maxXP)
+	//	{
+	//		xp_increase = xp - maxXP;
+	//		LevelUp();
+	//		xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
+	//	}
+	//}
+
+	/////////////////
+
+	int levelDifference = other.GetLevel() - GetLevel();
+	if (levelDifference >= -3)
+	{
+		int xp_increase = other.GetMaxXP() / (8 * GetLevel());
+		xp += xp_increase * 1; //Faster leveling
 		if (xp > maxXP)
 		{
-			//xp_increase = xp - maxXP;
+			xp_increase = xp - maxXP;
 			LevelUp();
-			xp = 0;
-			//xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
+			xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
 		}
-	//}
+	}
 }
 
 void LivingEntity::LevelUp()
