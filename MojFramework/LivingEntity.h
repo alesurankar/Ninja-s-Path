@@ -12,8 +12,7 @@ public:
 		STANDING_RIGHT,
 		STANDING_LEFT,
 		WALKING_RIGHT,
-		WALKING_LEFT,
-		COUNT
+		WALKING_LEFT
 	};
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
 	void Draw(Graphics& gfx) const override;

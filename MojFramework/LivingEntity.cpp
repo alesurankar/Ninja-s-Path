@@ -14,7 +14,7 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	{
 		animations.emplace_back(0, 0, width, height, 1, object, 1.0f);
 	}
-	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::COUNT; i++)
+	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::WALKING_LEFT; i++)
 	{
 		animations.emplace_back(0, 0, width, height, 9, object, 0.06f);
 	}

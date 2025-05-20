@@ -10,16 +10,17 @@ Enemy::Enemy(const Vec2& pos_in)
 void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();
-	//dir = Vec2(vRand(*rng), vRand(*rng));
 	if (delta.GetLengthSq() < 40000.0f && delta.GetLengthSq() > 100.0f)
 	{
+		speed = 40.0f;
 		dir = delta;
 	}
 	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.0f)
 	{
 		dirWalk++;
-		if (dirWalk > 10)
+		if (dirWalk > 20)
 		{
+			speed = 10.0f;
 			dir = Vec2(vRand(*rng), vRand(*rng));
 			dirWalk = 0;
 		}
