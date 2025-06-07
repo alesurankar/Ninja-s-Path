@@ -1,16 +1,18 @@
 #pragma once
 #include "Graphics.h"
-#include "Config.h"
 #include "Surface.h"
 #include "Fonts.h"
+#include "Mouse.h"
+#include "Button.h"
+#include <vector>
 
 class Menu
 {
 public:
+	Menu();
 	void Draw(Graphics& gfx);
+	void Update(const Mouse& mouse);
 private:
-	void DrawButton(int x, int y, std::string text, Graphics& gfx);
-private:
-	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
-	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	Surface logo = Surface("Images\\menu.bmp");
+	std::vector<Button> buttons;
 };
