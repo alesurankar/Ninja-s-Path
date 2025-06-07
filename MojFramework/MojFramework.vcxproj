@@ -102,6 +102,7 @@
     <ClCompile Include="GeneralGame.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="LivingEntity.cpp" />
+    <ClCompile Include="MapGrid.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
     <ClCompile Include="NonLivingObject.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -133,6 +134,8 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImageEffect.h" />
     <ClInclude Include="LivingEntity.h" />
+    <ClInclude Include="TestMap.h" />
+    <ClInclude Include="MapGrid.h" />
     <ClInclude Include="MessageHandler.h" />
     <ClInclude Include="NonLivingObject.h" />
     <ClInclude Include="Player.h" />

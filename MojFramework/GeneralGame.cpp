@@ -10,7 +10,8 @@ GeneralGame::GeneralGame()
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
 	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
-	altar(Vec2(680.0f,10.0f))
+	altar(Vec2(680.0f,10.0f)),
+	mapGrid(5,4)
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Player
@@ -161,6 +162,9 @@ void GeneralGame::DestroyPlayer()
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
+	mapGrid.Draw(gfx);
+	
+
 	//Altar
 	altar.Draw(gfx);
 
