@@ -12,7 +12,16 @@ void Menu::Update(const Mouse& mouse)
 	for (auto& b : buttons)
 	{
 		b.Update(mouse);
+		if (b.GetEffect())
+		{
+			TakeEffect(b.GetText());
+		}
 	}
+}
+
+void Menu::TakeEffect(const std::string& effect)
+{
+	std::string text = effect;
 }
 
 void Menu::Draw(Graphics& gfx)

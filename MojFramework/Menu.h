@@ -12,6 +12,7 @@ public:
 	Menu();
 	void Draw(Graphics& gfx);
 	void Update(const Mouse& mouse);
+	void TakeEffect(const std::string& effect);
 private:
 	Surface logo = Surface("Images\\menu.bmp");
 	std::vector<Button> buttons;
