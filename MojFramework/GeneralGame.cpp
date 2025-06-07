@@ -32,16 +32,40 @@ GeneralGame::~GeneralGame()
 {
 	//player->SaveToFile("Config\\player_config.txt");
 	DestroyPlayer();
+	DestroyMenu();
 }
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
+	if (kbd.KeyIsPressed(VK_ESCAPE))
+	{
+		CreateMenu();
+	}
+	if (menu != nullptr)
+	{
+		menu->Update(mouse);
+		std::string menuMessage = menu->GetMessage();
+		if (menuMessage == "Close")
+		{
+			DestroyMenu();
+		}
+		if (menuMessage == "Quit to Main Menu")
+		{
+			gameMessage = "Menu";
+		}
+		if (menuMessage == "Quit and Exit")
+		{
+			gameMessage = "Exit";
+		}
+	}
+
 	//Latency
 	frameTimes.push_back(static_cast<int>(dt * 1000));
 	if (frameTimes.size() > 16)
 	{
 		frameTimes.pop_front();
 	}
+	
 
 	if (frameTimes.size() == 16)
 	{
@@ -160,10 +184,34 @@ void GeneralGame::DestroyPlayer()
 }
 
 
+void GeneralGame::CreateMenu()
+{
+	if (menu == nullptr)
+	{
+		menu = new Menu(Menu::MenuType::IN_GAME);
+	}
+}
+
+
+void GeneralGame::DestroyMenu()
+{
+	if (menu != nullptr)
+	{
+		delete menu;
+		menu = nullptr;
+	}
+}
+
+std::string GeneralGame::GetMessage()
+{
+	return gameMessage;
+}
+
+
 void GeneralGame::DrawGame(Graphics& gfx)
 {
 	//mapGrid.Draw(gfx);
-	
+
 
 	//Altar
 	altar.Draw(gfx);
@@ -173,7 +221,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	{
 		c.Draw(gfx);
 	}
-	
+
 	//Bullet
 	for (Bullet& b : bul)
 	{
@@ -182,13 +230,13 @@ void GeneralGame::DrawGame(Graphics& gfx)
 			b.Draw(gfx);
 		}
 	}
-	
+
 	//Enemy
 	for (Enemy& e : enemy)
 	{
 		if (!e.DestroyedStatus())
 		{
-			e.Draw(gfx); 
+			e.Draw(gfx);
 			e.DrawStatus(gfx);
 		}
 	}
@@ -199,11 +247,17 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	player->DrawXP(gfx);
 
 	//Latency
-	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {550, 550}, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 550, 550 }, Colors::Red, gfx);
 
 	//Damage Popups
 	for (const DamagePopup& popup : damagePopups)
 	{
 		bigFont.DrawText(std::to_string(popup.damage), popup.pos, Colors::Red, gfx);
+	}
+
+	//Menu
+	if (menu != nullptr)
+	{
+		menu->Draw(gfx);
 	}
 }

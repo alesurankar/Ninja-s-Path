@@ -9,13 +9,19 @@
 class Menu
 {
 public:
-	Menu();
+	enum class MenuType
+	{
+		MAIN,
+		IN_GAME
+	};
+	Menu(MenuType type_in);
 	void Draw(Graphics& gfx);
 	void Update(const Mouse& mouse);
 	void TakeEffect(const std::string& effect);
 	std::string GetMessage();
 private:
 	std::string message;
-	Surface logo = Surface("Images\\menu.bmp");
+	Surface logo;
 	std::vector<Button> buttons;
+	MenuType type;
 };

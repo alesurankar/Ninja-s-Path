@@ -14,6 +14,7 @@
 #include <vector>
 #include <deque>
 #include <numeric>
+#include "Menu.h"
 
 #include "MapGrid.h"
 
@@ -34,13 +35,18 @@ public:
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
 	void CreatePlayer();
 	void DestroyPlayer();
+	void CreateMenu();
+	void DestroyMenu();
+	std::string GetMessage();
 private:
+	std::string gameMessage;
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xRand;
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
 	Player* player = nullptr;
+	Menu* menu = nullptr;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;

@@ -21,7 +21,7 @@ private:
 	int x;
 	int y;
 	std::string text;
-	static constexpr int width = 120;
+	static constexpr int width = 140;
 	static constexpr int height = 30;
 	static constexpr int offset = 1;
 	bool onTop;
