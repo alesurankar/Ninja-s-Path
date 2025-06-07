@@ -4,7 +4,8 @@
 Menu::Menu()
 {
 	buttons.emplace_back( 100, 180 , "New Character");
-	buttons.emplace_back( 100, 220 , "Play now!");
+	buttons.emplace_back( 100, 220 , "Play now");
+	buttons.emplace_back(600, 400, "Quit");
 }
 
 void Menu::Update(const Mouse& mouse)
@@ -21,7 +22,12 @@ void Menu::Update(const Mouse& mouse)
 
 void Menu::TakeEffect(const std::string& effect)
 {
-	std::string text = effect;
+	message = effect;
+}
+
+std::string Menu::GetMessage()
+{
+	return message;
 }
 
 void Menu::Draw(Graphics& gfx)

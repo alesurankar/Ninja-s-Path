@@ -39,11 +39,16 @@ void App::UpdateModel()
 	{
 		CreateMenu();
 		menu->Update(wnd.mouse);
-		//if (wnd.mouse.LeftIsPressed())
-		//{
-		//	DestroyMenu();
-		//	state = State::PlayGame;
-		//}
+		std::string message = menu->GetMessage();
+		if (message == "Quit")
+		{
+			wnd.Kill();
+		}
+		if (message == "Play now")
+		{
+			DestroyMenu();
+			state = State::PlayGame;
+		}
 	}
 
 	if (state == State::PlayGame)
