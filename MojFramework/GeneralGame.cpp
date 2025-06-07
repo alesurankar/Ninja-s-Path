@@ -162,7 +162,7 @@ void GeneralGame::DestroyPlayer()
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
-	mapGrid.Draw(gfx);
+	//mapGrid.Draw(gfx);
 	
 
 	//Altar
