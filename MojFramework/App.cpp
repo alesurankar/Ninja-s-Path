@@ -50,6 +50,7 @@ void App::UpdateModel()
 			DestroyMenu();
 			state = State::PlayGame;
 		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 	}
 
 	if (state == State::PlayGame)

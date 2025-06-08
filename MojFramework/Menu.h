@@ -12,16 +12,17 @@ public:
 	enum class MenuType
 	{
 		MAIN,
-		IN_GAME
+		SETTINGS
 	};
 	Menu(MenuType type_in);
 	void Draw(Graphics& gfx);
 	void Update(const Mouse& mouse);
 	void TakeEffect(const std::string& effect);
+	static std::string GetLogo(MenuType type);
 	std::string GetMessage();
 private:
 	std::string message;
+	MenuType type;
 	Surface logo;
 	std::vector<Button> buttons;
-	MenuType type;
 };

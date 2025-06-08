@@ -74,7 +74,10 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Player
-	player->Update(mouse, kbd, dt);
+	if (menu == nullptr)
+	{
+		player->Update(mouse, kbd, dt);
+	}
 	if (player->FiringStatus())
 	{
 		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
@@ -188,7 +191,7 @@ void GeneralGame::CreateMenu()
 {
 	if (menu == nullptr)
 	{
-		menu = new Menu(Menu::MenuType::IN_GAME);
+		menu = new Menu(Menu::MenuType::SETTINGS);
 	}
 }
 
