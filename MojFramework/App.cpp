@@ -37,35 +37,33 @@ void App::UpdateModel()
 
 	if (state == State::Menu)
 	{
-		CreateMenu();
 		menu->Update(wnd.mouse);
 		std::string message = menu->GetMessage();
 		if (message == "Exit")
 		{
-			DestroyMenu();
 			wnd.Kill();
 		}
 		if (message == "Play now")
 		{
 			DestroyMenu();
 			state = State::PlayGame;
+			CreateGame();
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 	}
 
 	if (state == State::PlayGame)
 	{
-		CreateGame();
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt); 
-		std::string message = gg->GetMessage(); 
+		std::string message = gg->GetGameMessage(); 
 		if (message == "Menu")
 		{
 			DestroyGame();
 			state = State::Menu;
+			CreateMenu();
 		}
 		if (message == "Exit")
 		{
-			DestroyGame();
 			wnd.Kill();
 		}
 	}

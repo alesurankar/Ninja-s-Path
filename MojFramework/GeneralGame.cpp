@@ -205,7 +205,7 @@ void GeneralGame::DestroyMenu()
 	}
 }
 
-std::string GeneralGame::GetMessage()
+std::string GeneralGame::GetGameMessage()
 {
 	return gameMessage;
 }

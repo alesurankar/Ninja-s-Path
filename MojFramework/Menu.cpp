@@ -17,7 +17,7 @@ Menu::Menu(MenuType type_in)
 	{
 		buttons.emplace_back(250, 220, "Close");
 		buttons.emplace_back(250, 320, "Quit to Main Menu");
-		buttons.emplace_back(250, 360, "Quit to Exit");
+		buttons.emplace_back(250, 360, "Quit and Exit");
 	}
 }
 

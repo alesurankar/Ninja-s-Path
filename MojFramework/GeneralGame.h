@@ -37,7 +37,7 @@ public:
 	void DestroyPlayer();
 	void CreateMenu();
 	void DestroyMenu();
-	std::string GetMessage();
+	std::string GetGameMessage();
 private:
 	std::string gameMessage;
 	std::random_device rd;
