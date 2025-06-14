@@ -63,7 +63,7 @@ void Menu::Draw(Graphics& gfx)
 	}
 	else if (type == MenuType::SETTINGS)
 	{
-		gfx.DrawImage(180, 90, logo, ImageEffect::NoEffect{});
+		gfx.DrawImage(180, 90, logo, ImageEffect::Chroma{Colors::Magenta});
 	}
 	for (auto& b : buttons)
 	{
