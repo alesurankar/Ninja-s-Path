@@ -42,6 +42,7 @@ bool LivingEntity::DestroyedStatus()
 void LivingEntity::Destroyed()
 {
 	destroyed = true;
+	lives = 0;
 }
 
 void LivingEntity::ReadDirection(Vec2 dir)

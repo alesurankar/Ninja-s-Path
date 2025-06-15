@@ -66,7 +66,7 @@ bool Player::FiringStatus()
 
 void Player::Fire()
 {
-	if (loaded)
+	if (!DestroyedStatus() && loaded)
 	{
 		firing = true;
 		loaded = false;

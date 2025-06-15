@@ -6,7 +6,7 @@ class Enemy : public LivingEntity
 {
 public:
 	Enemy(const Vec2& pos_in);
-	void Update(GameObject& other, float dt);
+	void Update(LivingEntity& other, float dt);
 	void Heal(float dt) override;
 private:
 	std::mt19937 rng;

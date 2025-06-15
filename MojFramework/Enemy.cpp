@@ -6,11 +6,11 @@ Enemy::Enemy(const Vec2& pos_in)
 	rng(std::random_device{}()),
 	vRand(-1.0f, 1.0f)
 {}
-void Enemy::Update(GameObject& other, float dt)
+void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();
 	Vec2 dir = delta;
-	if (delta.GetLengthSq() > 40000.f)
+	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.f)
 	{
 		dir = Vec2(vRand(rng), vRand(rng));
 	}

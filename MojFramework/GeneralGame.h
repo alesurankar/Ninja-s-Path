@@ -20,10 +20,6 @@ class GeneralGame
 public:
 	GeneralGame();
 	~GeneralGame();
-	void GameWonBanner(Graphics& gfx) const;
-	void GameLostBanner(Graphics& gfx) const;
-	bool GameOverStatus();
-	void GameOverDrawLogic(Graphics& gfx) const;
 	void DrawGame(Graphics& gfx);
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
 	void CreatePlayer();
@@ -46,8 +42,6 @@ private:
 	Sound playerDamaged;
 	Sound gameMusic;
 	float count;
-	bool gameOver = true; 
-	bool gameWon = true;
 	std::deque<int> frameTimes;
 	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
