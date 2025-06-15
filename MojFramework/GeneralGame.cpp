@@ -59,6 +59,19 @@ bool GeneralGame::GameOverStatus()
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
+	//Latency
+	const int refreshRate = 16;
+	frameTimes.push_back(static_cast<int>(dt * 1000));
+	if (frameTimes.size() > refreshRate)
+	{
+		frameTimes.pop_front();
+	}
+	if (frameTimes.size() == refreshRate)
+	{
+		int sum = std::accumulate(frameTimes.begin(), frameTimes.end(), 0);
+		latency = static_cast<int>(sum / frameTimes.size());
+	}
+
 	//Player
 	player->Update(mouse, kbd, dt);
 	if (player->FiringStatus())
@@ -203,4 +216,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	//Player
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
+
+	//Latency
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 500, 500 }, Colors::Red, gfx);
 }
