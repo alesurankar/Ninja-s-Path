@@ -9,7 +9,8 @@ GeneralGame::GeneralGame()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
+	altar(Vec2(680.0f,10.0f))
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Player
@@ -188,6 +189,9 @@ void GeneralGame::GameOverDrawLogic(Graphics& gfx) const
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
+	//Altar
+	altar.Draw(gfx);
+
 	//Collectable
 	for (Collectable& c : coll)
 	{
@@ -218,5 +222,5 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	player->DrawStatus(gfx);
 
 	//Latency
-	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 500, 500 }, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 550, 550 }, Colors::Red, gfx);
 }

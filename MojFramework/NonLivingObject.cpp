@@ -8,5 +8,5 @@ NonLivingObject::NonLivingObject(const Vec2& pos_in, const Surface& object_in, i
 
 void NonLivingObject::Draw(Graphics & gfx) const
 {
-	gfx.DrawImage(pos, object, ImageEffect::NoEffect{});
+	gfx.DrawImage(pos, object, ImageEffect::Chroma{Colors::Magenta});
 }

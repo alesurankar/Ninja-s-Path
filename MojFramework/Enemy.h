@@ -1,5 +1,6 @@
 #pragma once
 #include "LivingEntity.h"
+#include <random>
 
 class Enemy : public LivingEntity
 {
@@ -8,6 +9,8 @@ public:
 	void Update(GameObject& other, float dt);
 	void Heal(float dt) override;
 private:
+	std::mt19937 rng;
+	std::uniform_real_distribution<float> vRand;
 	float speed = 50.0f;
 	static constexpr int width = 64;
 	static constexpr int height = 64;

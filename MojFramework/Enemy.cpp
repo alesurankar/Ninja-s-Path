@@ -2,13 +2,19 @@
 
 Enemy::Enemy(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\enemy64x64.bmp"), width, height, ("Config\\enemy_config.txt"), c)
+	LivingEntity(pos_in, Surface("Images\\enemy64x64.bmp"), width, height, ("Config\\enemy_config.txt"), c),
+	rng(std::random_device{}()),
+	vRand(-1.0f, 1.0f)
 {}
 void Enemy::Update(GameObject& other, float dt)
 {
-	Vec2 delta = other.GetPos() - GetPos();
-	Vec2 dir(0.0f, 0.0f);
-	if (delta.GetLengthSq() > 100.0f)
+	Vec2 delta = other.GetPos() - GetCenter();
+	Vec2 dir = delta;
+	if (delta.GetLengthSq() > 40000.f)
+	{
+		dir = Vec2(vRand(rng), vRand(rng));
+	}
+	else if (delta.GetLengthSq() > 100.0f)
 	{
 		if (delta.y < 0.0f)
 		{
