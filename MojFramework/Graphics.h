@@ -35,6 +35,7 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	void EndFrame();
 	void BeginFrame(Color bg);
+	Color GetPixel(int x, int y) const;
 	void PutPixel(int x, int y, int r, int g, int b)
 	{
 		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) });

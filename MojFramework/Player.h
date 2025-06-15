@@ -6,6 +6,7 @@ class Player : public LivingEntity
 {
 public:
 	Player(const Vec2& pos_in);
+	void Draw(Graphics& gfx) const override;
 	void DrawStatus(Graphics& gfx) const override;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	bool FiringStatus();

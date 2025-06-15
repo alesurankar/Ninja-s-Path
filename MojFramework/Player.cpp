@@ -7,6 +7,18 @@ Player::Player(const Vec2& pos_in)
 	loaded(false)
 {}
 
+void Player::Draw(Graphics& gfx) const
+{
+	if (!destroyed)
+	{
+		animations[(int)curSequence].Draw(pos, gfx, facingLeft);
+	}
+	else
+	{
+		animations[(int)curSequence].DrawGhost(pos, gfx, facingLeft);
+	}
+}
+
 void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
