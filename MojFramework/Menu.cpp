@@ -1,10 +1,25 @@
 #include "Menu.h"
 #include "ImageEffect.h"
 
+Menu::Menu()
+{
+	buttons.emplace_back(100, 180, "New Character");
+	buttons.emplace_back(100, 220, "Play Now");
+}
+
 void Menu::Draw(Graphics& gfx) const
 {
-	RectI rect(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight);
-	gfx.DrawRect(rect, Colors::Black);
-	bigFont.DrawText("Menu", { 200, 200 }, Colors::Green, gfx);
-	smallFont.DrawText("left click...", { 200, 250 }, Colors::Yellow, gfx);
+	gfx.DrawImage(0, 0, logo, ImageEffect::NoEffect{});
+	for (auto& b : buttons)
+	{
+		b.Draw(gfx);
+	}
+}
+
+void Menu::Update(const Mouse& mouse)
+{
+	for (auto& b : buttons)
+	{
+		b.Update(mouse);
+	}
 }

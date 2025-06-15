@@ -30,11 +30,7 @@ void App::UpdateModel()
 	if (state == State::Menu)
 	{
 		CreateMenu();
-		if (wnd.mouse.LeftIsPressed())
-		{
-			DestroyMenu();
-			state = State::PlayGame;
-		}
+		menu->Update(wnd.mouse);
 	}
 
 	if (state == State::PlayGame)
