@@ -55,6 +55,11 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
 		fireSound.Play();
 	}
+
+	if (player->Colliding(altar))
+	{
+		player->ActiveRegenerate(dt);
+	}
 	
 	//Bullet
 	for (int b = 0; b < bul.size(); )

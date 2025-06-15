@@ -107,6 +107,44 @@ void LivingEntity::SaveToFile(std::string filename)
 	}
 }
 
+void LivingEntity::ActiveRegenerate(float dt)
+{
+	const int percent = maxLives / 20;
+	healTime += 0.0f;
+	if (healTime > 0.4f)
+	{
+		Heal(percent);
+		healTime = 0.0f;
+	}
+	if (destroyed && maxLives < lives * 10)
+	{
+		Respawn();
+	}
+}
+
+void LivingEntity::PasiveRegenerate(float dt)
+{
+	const int percent = maxLives / 50;
+	if (!destroyed)
+	{
+		healTime += dt;
+		if (healTime > 2.0f)
+		{
+			Heal(percent);
+			healTime = 0.0f;
+		}
+	}
+}
+
+void LivingEntity::Heal(int amount)
+{
+	lives += amount;
+	if (lives >= maxLives)
+	{
+		lives = maxLives;
+	}
+}
+
 void LivingEntity::LoadFromFile(const std::string& filename)
 {
 	std::ifstream file(filename);
@@ -114,4 +152,9 @@ void LivingEntity::LoadFromFile(const std::string& filename)
 	{
 		file >> maxLives >> lives;
 	}
+}
+
+void LivingEntity::Respawn()
+{
+	destroyed = false;
 }

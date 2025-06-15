@@ -13,7 +13,6 @@ public:
 	void Fire();
 	void Reload();
 	Vec2 GetDirection(const Mouse& mouse); 
-	void Heal(float dt) override;
 private:
 	Surface face = Surface("Images\\face36x40.bmp");
 	bool firing;

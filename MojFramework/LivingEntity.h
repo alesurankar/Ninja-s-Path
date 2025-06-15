@@ -20,7 +20,10 @@ public:
 	bool DestroyedStatus();
 	void Damaged();
 	void SaveToFile(std::string filename);
-	virtual void Heal(float dt) = 0;
+	void ActiveRegenerate(float dt);
+	void PasiveRegenerate(float dt);
+	void Heal(int amount);
+	void Respawn();
 private:
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();
@@ -37,4 +40,5 @@ protected:
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
 	bool facingLeft = true;
+	float healTime = 0.0f;
 };

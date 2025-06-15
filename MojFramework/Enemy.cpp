@@ -41,7 +41,3 @@ void Enemy::Update(LivingEntity& other, float dt)
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
 }
-
-void Enemy::Heal(float dt)
-{
-}
