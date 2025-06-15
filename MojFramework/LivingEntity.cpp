@@ -110,7 +110,7 @@ void LivingEntity::SaveToFile(std::string filename)
 void LivingEntity::ActiveRegenerate(float dt)
 {
 	const int percent = maxLives / 20;
-	healTime += 0.0f;
+	healTime += dt;
 	if (healTime > 0.4f)
 	{
 		Heal(percent);

@@ -31,10 +31,34 @@ GeneralGame::~GeneralGame()
 {
 	//player->SaveToFile("Config\\player_config.txt");
 	DestroyPlayer();
+	DestroyMenu();
 }
 
 void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
+	//Menu
+	if (menu == nullptr && kbd.KeyIsPressed(VK_ESCAPE))
+	{
+		CreateMenu();
+	}
+	if (menu != nullptr)
+	{
+		menu->Update(mouse);
+		std::string menuMessage = menu->GetMenuMessage();
+		if (menuMessage == "Close")
+		{
+			DestroyMenu();
+		}
+		if (menuMessage == "Quit to Main Menu")
+		{
+			gameMessage = "Menu";
+		}
+		if (menuMessage == "Quit and Exit")
+		{
+			gameMessage = "Exit";
+		}
+	}
+
 	//Latency
 	const int refreshRate = 16;
 	frameTimes.push_back(static_cast<int>(dt * 1000));
@@ -49,7 +73,10 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Player
-	player->Update(mouse, kbd, dt);
+	if (menu == nullptr)
+	{
+		player->Update(mouse, kbd, dt);
+	}
 	if (player->FiringStatus())
 	{
 		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
@@ -143,6 +170,28 @@ void GeneralGame::DestroyPlayer()
 	}
 }
 
+void GeneralGame::CreateMenu()
+{
+	if (menu == nullptr)
+	{
+		menu = new Menu(Menu::MenuType::IN_GAME);
+	}
+}
+
+void GeneralGame::DestroyMenu()
+{
+	if (menu != nullptr)
+	{
+		delete menu;
+		menu = nullptr;
+	}
+}
+
+std::string GeneralGame::GetGameMessage()
+{
+	return gameMessage;
+}
+
 void GeneralGame::DrawGame(Graphics& gfx)
 {
 	//Altar
@@ -179,4 +228,10 @@ void GeneralGame::DrawGame(Graphics& gfx)
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 550, 550 }, Colors::Red, gfx);
+
+	//Menu
+	if (menu != nullptr)
+	{
+		menu->Draw(gfx);
+	}
 }

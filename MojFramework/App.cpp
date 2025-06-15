@@ -29,10 +29,9 @@ void App::UpdateModel()
 
 	if (state == State::Menu)
 	{
-		CreateMenu();
 		menu->Update(wnd.mouse);
 		std::string message = menu->GetMenuMessage();
-		if (message == "Quit")
+		if (message == "Exit")
 		{
 			wnd.Kill();
 		}
@@ -40,13 +39,24 @@ void App::UpdateModel()
 		{
 			DestroyMenu();
 			state = State::PlayGame;
+			CreateGame();
 		}
 	}
 
 	if (state == State::PlayGame)
 	{
-		CreateGame();
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
+		std::string message = gg->GetGameMessage();
+		if (message == "Exit")
+		{
+			wnd.Kill();
+		}
+		if (message == "Menu")
+		{
+			DestroyGame();
+			state = State::Menu;
+			CreateMenu();
+		}
 	}
 }
 
@@ -71,7 +81,7 @@ void App::CreateMenu()
 {
 	if (menu == nullptr)
 	{
-		menu = new Menu;
+		menu = new Menu(Menu::MenuType::MAIN);
 	}
 }
 

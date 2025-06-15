@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Fonts.h"
 #include "Altar.h"
+#include "Menu.h"
 #include <deque>
 #include <numeric>
 
@@ -24,13 +25,18 @@ public:
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
 	void CreatePlayer();
 	void DestroyPlayer();
+	void CreateMenu();
+	void DestroyMenu();
+	std::string GetGameMessage();
 private:
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xRand;
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
+	std::string gameMessage;
 	Player* player = nullptr;
+	Menu* menu = nullptr;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
