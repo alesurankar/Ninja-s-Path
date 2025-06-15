@@ -12,20 +12,26 @@ public:
 	Button(int x_in, int y_in, const std::string& text_in);
 	void Draw(Graphics& gfx) const;
 	void Update(const Mouse& mouse);
+	bool GetEffect();
+	std::string GetButtonMessage();
+	void Pressed();
+	void Released();
 private:
 	int x;
 	int y;
 	std::string text;
 	static constexpr int width = 120;
 	static constexpr int height = 30;
-	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
-	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	bool effect;
 	bool onTop;
 	bool pressed;
+	bool released;
 	int len_x;
 	int len_y;
 	int middle_x;
 	int middle_y;
 	RectI outside;
 	RectI inside;
+	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
+	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 };

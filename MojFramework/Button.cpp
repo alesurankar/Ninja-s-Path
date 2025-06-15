@@ -5,14 +5,16 @@ Button::Button(int x_in, int y_in, const std::string& text_in)
 	x(x_in),
 	y(y_in),
 	text(text_in),
-	pressed(false),
-	onTop(false),
 	outside(x - 1, y - 1, x + width + 1, y + height + 1),
 	inside(x, y, x + width, y + height),
 	len_x(8 * static_cast<int>(text.length())),
 	len_y(14),
 	middle_x(x + (width/2) - (len_x/2)),
-	middle_y(y + (height/2) - (len_y/2))
+	middle_y(y + (height/2) - (len_y/2)),
+	onTop(false),
+	pressed(false),
+	released(false),
+	effect(false)
 {}
 
 void Button::Draw(Graphics& gfx) const
@@ -43,16 +45,46 @@ void Button::Update(const Mouse& mouse)
 	else
 	{
 		onTop = false;
+		pressed = false;
 	}
 	if (onTop)
 	{
 		if (mouse.LeftIsPressed())
 		{
-			pressed = true;
+			Pressed();
 		}
 		else
 		{
-			pressed = false;
+			Released();
 		}
 	}
+}
+
+bool Button::GetEffect()
+{
+	return effect;
+}
+
+std::string Button::GetButtonMessage()
+{
+	return text;
+}
+
+void Button::Pressed()
+{
+	if (released)
+	{
+		pressed = true;
+		released = false;
+	}
+}
+
+void Button::Released()
+{
+	if (pressed)
+	{
+		effect = true;
+	}
+	pressed = false;
+	released = true;
 }
