@@ -55,7 +55,7 @@ public:
 	Keyboard kbd;
 	Mouse mouse;
 private:
-	static constexpr wchar_t* wndClassName = L"NinjaStrike";
+	static constexpr const wchar_t* wndClassName = L"NinjaStrike";
 	HINSTANCE hInst = nullptr;
 	std::wstring args;
 };

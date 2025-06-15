@@ -44,8 +44,6 @@ private:
 	float count;
 	bool gameOver = true; 
 	bool gameWon = true;
-	int score = 0;
-	int scoreX = Graphics::ScreenWidth / Config::maxScore;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 };

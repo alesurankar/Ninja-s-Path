@@ -25,7 +25,6 @@ GeneralGame::GeneralGame()
 	coll.clear();
 
 	//GeneralGame
-	score = 0;
 	gameOver = false;
 	gameWon = false;
 	count = 0.0f;
@@ -128,13 +127,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		if (coll[c].Colliding(*player))
 		{
-			score++;
 			coll.erase(coll.begin() + c);
-			if (score >= Config::maxScore)
-			{
-				gameOver = true;
-				gameWon = true;
-			}
 			objCollected.Play();
 		}
 		else
