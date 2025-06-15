@@ -7,7 +7,7 @@ FrameTimer::FrameTimer()
 	last = steady_clock::now();
 }
 
-float FrameTimer::CheckPoint()
+float FrameTimer::CheckTime()
 {
 	steady_clock::time_point old = last;
 	last = steady_clock::now();

@@ -17,18 +17,19 @@ App::~App()
 
 void App::Go()
 {
+	dt = ft.CheckTime();
 	gfx.BeginFrame(Colors::DarkGray);
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
+	DoFrameRate(frameRate, dt);
 }
 
 void App::UpdateModel()
 {
-	float dt = ft.CheckPoint();
-
 	if (state == State::Menu)
 	{
+		frameRate = 0.032f;
 		menu->Update(wnd.mouse);
 		std::string message = menu->GetMenuMessage();
 		if (message == "Exit")
@@ -45,6 +46,7 @@ void App::UpdateModel()
 
 	if (state == State::PlayGame)
 	{
+		frameRate = 0.016f;
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
 		std::string message = gg->GetGameMessage();
 		if (message == "Exit")
@@ -92,6 +94,13 @@ void App::DestroyMenu()
 		delete menu;
 		menu = nullptr;
 	}
+}
+
+void App::DoFrameRate(float frameRate_ms, float dt)
+{
+	float targetFrameRate = frameRate_ms * 2; //bad calculation temporary fix
+	float sleepTime = targetFrameRate - dt;
+	std::this_thread::sleep_for(std::chrono::duration<float>(sleepTime));
 }
 
 void App::ComposeFrame()

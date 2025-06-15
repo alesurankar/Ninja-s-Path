@@ -2,6 +2,7 @@
 #include "GeneralGame.h"
 #include "FrameTimer.h"
 #include "Menu.h"
+#include <thread>
 
 class App
 {
@@ -26,6 +27,7 @@ private:
 	void DestroyGame();
 	void CreateMenu();
 	void DestroyMenu();
+	void DoFrameRate(float frameRate_ms, float dt);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -36,5 +38,7 @@ private:
 	GeneralGame* gg = nullptr;
 	Menu* menu = nullptr;
 	State state = State::Menu;
+	float frameRate;
+	float dt;
 	/********************************/
 };
