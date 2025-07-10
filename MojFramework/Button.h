@@ -20,8 +20,6 @@ private:
 	int x;
 	int y;
 	std::string text;
-	static constexpr int width = 140;
-	static constexpr int height = 30;
 	bool effect;
 	bool onTop;
 	bool pressed;
@@ -34,4 +32,7 @@ private:
 	RectI inside;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+public:
+	static constexpr int width = 140;
+	static constexpr int height = 30;
 };

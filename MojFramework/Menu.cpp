@@ -7,19 +7,26 @@ Menu::Menu(MenuType type_in)
 	logo(GetLogo(type))
 {
 	buttons.clear();
+	const int logo_x_mid = logo.GetWidth() / 2;
+	const int logo_y_mid = logo.GetHeight() / 2;
+	const int screen_x_mid = Graphics::ScreenWidth / 2;
+	const int screen_y_mid = Graphics::ScreenHeight / 2;
+	const int left = screen_x_mid - logo_x_mid;
+	const int right = screen_x_mid + logo_x_mid;
+	const int top = screen_y_mid - logo_y_mid;
+	const int bottom = screen_y_mid + logo_y_mid;
+	pos = Vei2{ left, top };
 	if (type == MenuType::MAIN)
 	{
-		pos = Vei2{ 0,0 };
-		buttons.emplace_back(100, 180, "New Character");
-		buttons.emplace_back(100, 220, "Play now");
-		buttons.emplace_back(600, 400, "Exit");
+		buttons.emplace_back(left + 40, top + 180, "New Character");
+		buttons.emplace_back(left + 40, top + 220, "Play now");
+		buttons.emplace_back(right - Button::width - 40, bottom - 100, "Exit");
 	}
 	if (type == MenuType::IN_GAME)
 	{
-		pos = Vei2{ 240,90 };
-		buttons.emplace_back(pos.x + 70, pos.y + 130, "Close");
-		buttons.emplace_back(pos.x + 70, pos.y + 230, "Quit to Main Menu");
-		buttons.emplace_back(pos.x + 70, pos.y + 270, "Quit and Exit");
+		buttons.emplace_back(left + 70, top + 130, "Close");
+		buttons.emplace_back(left + 70, top + 230, "Quit to Main Menu");
+		buttons.emplace_back(left + 70, top + 270, "Quit and Exit");
 	}
 }
 

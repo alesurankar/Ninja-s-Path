@@ -198,7 +198,7 @@ void Game::DrawGame(Graphics& gfx)
 	player->DrawStatus(gfx);
 
 	//Latency
-	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 550, 550 }, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
 
 	//Menu
 	if (menu)

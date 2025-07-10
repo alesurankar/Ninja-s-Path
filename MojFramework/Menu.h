@@ -27,6 +27,6 @@ private:
 	Vei2 pos;
 	std::string message;
 	MenuType type;
-	Surface logo = Surface("Images\\menu.bmp");
+	Surface logo;
 	std::vector<Button> buttons;
 };

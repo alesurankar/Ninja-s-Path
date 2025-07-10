@@ -139,7 +139,7 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Surface												sysBuffer;
 public:
-	static constexpr int ScreenWidth = 800;
-	static constexpr int ScreenHeight = 600;
+	static constexpr int ScreenWidth = 1000;
+	static constexpr int ScreenHeight = 700;
 	static RectI GetScreenRect();
 };
