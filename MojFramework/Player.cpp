@@ -12,15 +12,17 @@ Player::~Player()
 	SaveToFile("Config\\player_config.txt");
 }
 
-void Player::Draw(Graphics& gfx) const
+void Player::Draw(const Camera& cam, Graphics& gfx) const
 {
+	Vec2 screenPos;
+	cam.WorldToScreen(pos, screenPos);
 	if (!destroyed)
 	{
-		animations[(int)curSequence].Draw(pos, gfx, facingLeft);
+		animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	}
 	else
 	{
-		animations[(int)curSequence].DrawGhost(pos, gfx, facingLeft);
+		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
 }
 
@@ -112,8 +114,12 @@ void Player::Reload()
 	loaded = true;
 }
 
-Vec2 Player::GetDirection(const Mouse& mouse)
+Vec2 Player::GetDirection(const Camera& cam, const Mouse& mouse)
 {
-	Vec2 dir = Vec2(mouse.GetPos()) - GetCenter();
+	Vec2 mouseScreenPos = (Vec2)mouse.GetPos();
+	Vec2 mouseWorldPos = cam.ScreenToWorld(mouseScreenPos);
+	Vec2 playerWorldPos = GetCenter();
+	Vec2 dir = mouseWorldPos - playerWorldPos;
+
 	return dir.GetNormalized();
 }

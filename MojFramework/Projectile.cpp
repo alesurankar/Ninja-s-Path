@@ -7,9 +7,11 @@ Projectile::Projectile(const Vec2& pos_in, const Surface& object_in, int width_i
 	smashed(false)
 {}
 
-void Projectile::Draw(Graphics & gfx) const
+void Projectile::Draw(const Camera& cam, Graphics & gfx) const
 {
-	gfx.DrawImage(pos, object, ImageEffect::NoEffect{});
+	Vec2 screenPos;
+	cam.WorldToScreen(pos, screenPos);
+	gfx.DrawImage(screenPos, object, ImageEffect::NoEffect{});
 }
 
 void Projectile::Smashed()

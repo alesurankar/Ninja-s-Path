@@ -3,8 +3,8 @@
 Game::Game()
 	:
 	rng(rd()),
-	xRand(0.0f, static_cast<float>(Graphics::ScreenWidth)),
-	yRand(0.0f, static_cast<float>(Graphics::ScreenHeight)),
+	xRand(-static_cast<float>(Graphics::ScreenWidth), static_cast<float>(Graphics::ScreenWidth)),
+	yRand(-static_cast<float>(Graphics::ScreenHeight), static_cast<float>(Graphics::ScreenHeight)),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -13,10 +13,13 @@ Game::Game()
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Kamiza
-	kamiza = std::make_unique<Kamiza>(Vec2(880.0f, 20.0f));
+	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f,-60.0f));
 
 	//Player
 	player = std::make_unique<Player>(Vec2(xRand(rng), yRand(rng)));
+
+	//Camera
+	cam = std::make_unique<Camera>(player->GetCenter());
 
 	//Bullet
 	bul.clear();
@@ -71,16 +74,22 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	if (!menu)
 	{
 		player->Update(mouse, kbd, dt);
+		worldPos = player->GetCenter();
 	}
 	if (player->FiringStatus())
 	{
-		bul.emplace_back(player->GetCenter(), player->GetDirection(mouse));
+		bul.emplace_back(player->GetCenter(), player->GetDirection(*cam, mouse));
 		fireSound.Play();
 	}
 
 	if (player->Colliding(*kamiza))
 	{
 		player->ActiveRegenerate(dt);
+	}
+
+	if (player->DestroyedStatus())
+	{
+		player->SetPos(kamiza->GetCenter());
 	}
 	
 	//Bullet
@@ -146,6 +155,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			c++;
 		}
 	}
+
+	//Camera
+	cam->Follow(player->GetCenter());
 }
 
 void Game::CreateMenu()
@@ -166,12 +178,12 @@ std::string Game::GetGameMessage()
 void Game::DrawGame(Graphics& gfx)
 {
 	//kamiza
-	kamiza->Draw(gfx);
+	kamiza->Draw(*cam, gfx);
 
 	//Collectable
 	for (Collectable& c : coll)
 	{
-		c.Draw(gfx);
+		c.Draw(*cam, gfx);
 	}
 	
 	//Bullet
@@ -179,7 +191,7 @@ void Game::DrawGame(Graphics& gfx)
 	{
 		if (!b.SmashedStatus())
 		{
-			b.Draw(gfx);
+			b.Draw(*cam, gfx);
 		}
 	}
 	
@@ -188,18 +200,20 @@ void Game::DrawGame(Graphics& gfx)
 	{
 		if (!e.DestroyedStatus())
 		{
-			e.Draw(gfx); 
-			e.DrawStatus(gfx);
+			e.Draw(*cam, gfx);
 		}
 	}
 
 	//Player
-	player->Draw(gfx);
+	player->Draw(*cam, gfx);
 	player->DrawStatus(gfx);
 	player->DrawXP(gfx);
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
+
+	//WorldPosition
+	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
 
 	//Menu
 	if (menu)

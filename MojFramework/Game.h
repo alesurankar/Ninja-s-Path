@@ -13,6 +13,7 @@
 #include "Fonts.h"
 #include "Kamiza.h"
 #include "Menu.h"
+#include "Camera.h"
 #include <deque>
 #include <numeric>
 #include <memory>
@@ -40,6 +41,7 @@ private:
 	std::vector<Collectable> coll;
 	std::vector<Bullet> bul;
 	std::unique_ptr<Kamiza> kamiza;
+	std::unique_ptr<Camera> cam;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;
@@ -50,4 +52,5 @@ private:
 	int latency = 0;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	Vec2 worldPos;
 };

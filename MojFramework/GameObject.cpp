@@ -26,6 +26,11 @@ const Vec2& GameObject::GetPos() const
 	return pos;
 }
 
+void GameObject::SetPos(Vec2 pos_in)
+{
+	pos = pos_in;
+}
+
 Vec2 GameObject::GetCenter() const
 {
 	Vec2 center = pos + Vec2(float(width) / 2.0f, float(height) / 2.0f);

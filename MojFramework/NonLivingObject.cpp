@@ -6,7 +6,9 @@ NonLivingObject::NonLivingObject(const Vec2& pos_in, const Surface& object_in, i
 	object(object_in)
 {}
 
-void NonLivingObject::Draw(Graphics & gfx) const
+void NonLivingObject::Draw(const Camera& cam, Graphics & gfx) const
 {
-	gfx.DrawImage(pos, object, ImageEffect::Chroma{Colors::Magenta});
+	Vec2 screenPos;
+	cam.WorldToScreen(pos, screenPos);
+	gfx.DrawImage(screenPos, object, ImageEffect::Chroma{Colors::Magenta});
 }

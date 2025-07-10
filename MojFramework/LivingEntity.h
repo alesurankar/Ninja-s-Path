@@ -15,8 +15,8 @@ public:
 		WALKING_LEFT
 	};
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
-	void Draw(Graphics& gfx) const override;
-	virtual void DrawStatus(Graphics& gfx) const;
+	void Draw(const Camera& cam, Graphics& gfx) const override;
+	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
 	bool DestroyedStatus();
 	void Damaged();
 	void SaveToFile(std::string filename);

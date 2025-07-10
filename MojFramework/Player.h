@@ -6,14 +6,14 @@ class Player : public LivingEntity
 public:
 	Player(const Vec2& pos_in);
 	~Player();
-	void Draw(Graphics& gfx) const override;
+	void Draw(const Camera& cam, Graphics& gfx) const override;
 	void DrawXP(Graphics& gfx) const;
-	void DrawStatus(Graphics& gfx) const override;
+	void DrawStatus(Graphics& gfx) const;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
 	bool FiringStatus();
 	void Fire();
 	void Reload();
-	Vec2 GetDirection(const Mouse& mouse); 
+	Vec2 GetDirection(const Camera& cam, const Mouse& mouse);
 private:
 	Surface face = Surface("Images\\face36x40.bmp");
 	Surface emptyHP = Surface("Images\\Player_bar_empty300x40.bmp");

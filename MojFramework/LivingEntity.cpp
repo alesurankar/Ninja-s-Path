@@ -20,19 +20,24 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	}
 }
 
-void LivingEntity::Draw(Graphics & gfx) const
+void LivingEntity::Draw(const Camera& cam, Graphics & gfx) const
 {
-	animations[(int)curSequence].Draw(pos, gfx, facingLeft);
+	Vec2 screenPos;
+	cam.WorldToScreen(pos, screenPos);
+	animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
+	DrawStatus(cam, gfx);
 }
 
-void LivingEntity::DrawStatus(Graphics& gfx) const
+void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const
 {
-	RectI wholeBar(Vei2(pos) - Vei2(0, 6), width, 5);
-	RectI diminBar(Vei2(pos) - Vei2(0, 6), width * lives / maxLives, 5);
+	Vec2 screenPos;
+	cam.WorldToScreen(pos, screenPos);
+	RectI wholeBar(Vei2(screenPos) - Vei2(0, 6), width, 5);
+	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), width * lives / maxLives, 5);
 	gfx.DrawRect(wholeBar, c);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
-	smallFont.DrawText("Lvl 0", Vei2(pos) - Vei2(0, 20), Colors::White, gfx);
+	smallFont.DrawText("Lvl 0", Vei2(screenPos) - Vei2(0, 20), Colors::White, gfx);
 }
 
 bool LivingEntity::DestroyedStatus()
