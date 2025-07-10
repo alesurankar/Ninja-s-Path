@@ -6,13 +6,7 @@ App::App(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	CreateMenu();
-}
-
-App::~App()
-{
-	DestroyGame();
-	DestroyMenu();
+	CreateState();
 }
 
 void App::Go()
@@ -37,9 +31,9 @@ void App::UpdateModel()
 		}
 		if (message == "Play now")
 		{
-			DestroyMenu();
+			DestroyState();
 			state = State::GAME;
-			CreateGame();
+			CreateState();
 		}
 	}
 
@@ -54,56 +48,48 @@ void App::UpdateModel()
 		}
 		if (message == "Menu")
 		{
-			DestroyGame();
+			DestroyState();
 			state = State::MENU;
-			CreateMenu();
+			CreateState();
 		}
 	}
 }
 
-void App::CreateGame()
+void App::CreateState()
 {
-	if (gg == nullptr)
+	switch (state)
 	{
-		gg = new GeneralGame;
+	case State::MENU:
+		menu = std::make_unique<Menu>(Menu::MenuType::MAIN);
+		break;
+	case State::GAME:
+		gg = std::make_unique<GeneralGame>();
+		break;
 	}
 }
 
-void App::DestroyGame()
+void App::DestroyState()
 {
-	if (gg != nullptr)
+	switch (state)
 	{
-		delete gg;
-		gg = nullptr;
-	}
-}
-
-void App::CreateMenu()
-{
-	if (menu == nullptr)
-	{
-		menu = new Menu(Menu::MenuType::MAIN);
-	}
-}
-
-void App::DestroyMenu()
-{
-	if (menu != nullptr)
-	{
-		delete menu;
-		menu = nullptr;
+	case State::MENU:
+		menu.reset();
+		break;
+	case State::GAME:
+		gg.reset();
+		break;
 	}
 }
 
 void App::ComposeFrame()
 {
-	if (state == State::MENU)
+	switch (state)
 	{
+	case State::MENU:
 		menu->Draw(gfx);
-	}
-
-	if (state == State::GAME)
-	{
+		break;
+	case State::GAME:
 		gg->DrawGame(gfx);
+		break;
 	}
 }

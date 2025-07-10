@@ -3,6 +3,7 @@
 #include "FrameTimer.h"
 #include "Menu.h"
 #include <thread>
+#include <memory>
 
 class App
 {
@@ -15,17 +16,14 @@ public:
 	App(class MainWindow& wnd);
 	App(const App&) = delete;
 	App& operator=(const App&) = delete;
-	~App();
 	void Go();
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  Moje Funkcije               */
-	void CreateGame();
-	void DestroyGame();
-	void CreateMenu();
-	void DestroyMenu();
+	void CreateState();
+	void DestroyState();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -33,8 +31,8 @@ private:
 	/********************************/
 	/*  Moji Parametri              */
 	FrameTimer ft;
-	GeneralGame* gg = nullptr;
-	Menu* menu = nullptr;
+	std::unique_ptr<GeneralGame> gg;
+	std::unique_ptr<Menu> menu;
 	State state = State::MENU;
 	int delay;
 	/********************************/
