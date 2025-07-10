@@ -32,6 +32,7 @@ void LivingEntity::DrawStatus(Graphics& gfx) const
 	gfx.DrawRect(wholeBar, c);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
+	smallFont.DrawText("Lvl 0", Vei2(pos) - Vei2(0, 20), Colors::White, gfx);
 }
 
 bool LivingEntity::DestroyedStatus()

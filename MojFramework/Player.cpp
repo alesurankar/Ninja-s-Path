@@ -24,14 +24,26 @@ void Player::Draw(Graphics& gfx) const
 	}
 }
 
+void Player::DrawXP(Graphics& gfx) const
+{
+	RectI wholeBar(0, gfx.ScreenHeight - 10, gfx.ScreenWidth, gfx.ScreenHeight);
+	RectI diminBar(0, gfx.ScreenHeight - 10, (gfx.ScreenWidth * xp / maxXP), gfx.ScreenHeight);
+	gfx.DrawRect(wholeBar, Colors::Gray);
+	gfx.DrawRect(diminBar, Colors::Yellow);
+	smallFont.DrawText("XP: " + std::to_string(xp) + " / " + std::to_string(maxXP), { gfx.ScreenWidth / 2 - 20, gfx.ScreenHeight - 11 }, Colors::Black, gfx);
+}
+
 void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
-	RectI wholeBar(36, 0, gfx.ScreenWidth / 2, 40);
-	RectI diminBar(36, 0, (gfx.ScreenWidth * lives / maxLives) / 2, 40);
-	gfx.DrawRect(wholeBar, Colors::White);
-	gfx.DrawRect(diminBar, c);
+	RectI hpBar(0, 0, (fullHP.GetWidth() * lives / maxLives), fullHP.GetHeight());
+	RectI energyBar(0, 0, fullEnergy.GetWidth(), fullEnergy.GetHeight());
+	gfx.DrawImage(face.GetWidth(), 0, emptyHP, ImageEffect::Chroma{ Colors::Magenta });
+	gfx.DrawImage(face.GetWidth(), 0, hpBar, fullHP, ImageEffect::Chroma{ Colors::Magenta });
+	gfx.DrawImage(face.GetWidth(), fullHP.GetHeight(), energyBar, fullEnergy, ImageEffect::Chroma{ Colors::Magenta });
 	smallFont.DrawText(std::to_string(maxLives) + " / " + std::to_string(lives), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText("Lvl: ", { 340, 10 }, Colors::Yellow, gfx);
+	bigFont.DrawText("0", { 370, 10 }, Colors::Yellow, gfx);
 }
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)

@@ -3,8 +3,8 @@
 Game::Game()
 	:
 	rng(rd()),
-	xRand(20.0f, 740.0f),
-	yRand(20.0f, 540.0f),
+	xRand(0.0f, static_cast<float>(Graphics::ScreenWidth)),
+	yRand(0.0f, static_cast<float>(Graphics::ScreenHeight)),
 	fireSound(L"Sounds\\1_fireSound.wav"),
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
@@ -13,7 +13,7 @@ Game::Game()
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Kamiza
-	kamiza = std::make_unique<Kamiza>(Vec2(680.0f, 10.0f));
+	kamiza = std::make_unique<Kamiza>(Vec2(880.0f, 20.0f));
 
 	//Player
 	player = std::make_unique<Player>(Vec2(xRand(rng), yRand(rng)));
@@ -196,6 +196,7 @@ void Game::DrawGame(Graphics& gfx)
 	//Player
 	player->Draw(gfx);
 	player->DrawStatus(gfx);
+	player->DrawXP(gfx);
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
