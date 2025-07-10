@@ -15,16 +15,14 @@
 #include "Menu.h"
 #include <deque>
 #include <numeric>
+#include <memory>
 
-class GeneralGame
+class Game
 {
 public:
-	GeneralGame();
-	~GeneralGame();
+	Game();
 	void DrawGame(Graphics& gfx);
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
-	void CreatePlayer();
-	void DestroyPlayer();
 	void CreateMenu();
 	void DestroyMenu();
 	std::string GetGameMessage();
@@ -35,13 +33,13 @@ private:
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
 	std::string gameMessage;
-	Player* player = nullptr;
-	Menu* menu = nullptr;
+	std::unique_ptr<Player> player;
+	std::unique_ptr<Menu> menu;
 	static constexpr int n = Config::enemyNum;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
 	std::vector<Bullet> bul;
-	Kamiza kamiza;
+	std::unique_ptr<Kamiza> kamiza;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;

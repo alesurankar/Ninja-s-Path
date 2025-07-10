@@ -7,6 +7,11 @@ Player::Player(const Vec2& pos_in)
 	loaded(false)
 {}
 
+Player::~Player()
+{
+	SaveToFile("Config\\player_config.txt");
+}
+
 void Player::Draw(Graphics& gfx) const
 {
 	if (!destroyed)

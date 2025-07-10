@@ -1,6 +1,6 @@
-#include "GeneralGame.h"
+#include "Game.h"
 
-GeneralGame::GeneralGame()
+Game::Game()
 	:
 	rng(rd()),
 	xRand(20.0f, 740.0f),
@@ -9,12 +9,14 @@ GeneralGame::GeneralGame()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
-	kamiza(Vec2(680.0f,10.0f))
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
 {
 	gameMusic.Play(1.0f, 0.4f);
+	//Kamiza
+	kamiza = std::make_unique<Kamiza>(Vec2(680.0f, 10.0f));
+
 	//Player
-	CreatePlayer();
+	player = std::make_unique<Player>(Vec2(xRand(rng), yRand(rng)));
 
 	//Bullet
 	bul.clear();
@@ -27,21 +29,14 @@ GeneralGame::GeneralGame()
 	coll.clear();
 }
 
-GeneralGame::~GeneralGame()
-{
-	//player->SaveToFile("Config\\player_config.txt");
-	DestroyPlayer();
-	DestroyMenu();
-}
-
-void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
+void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	//Menu
-	if (menu == nullptr && kbd.KeyIsPressed(VK_ESCAPE))
+	if (!menu && kbd.KeyIsPressed(VK_ESCAPE))
 	{
 		CreateMenu();
 	}
-	if (menu != nullptr)
+	if (menu)
 	{
 		menu->Update(mouse);
 		std::string menuMessage = menu->GetMenuMessage();
@@ -73,7 +68,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Player
-	if (menu == nullptr)
+	if (!menu)
 	{
 		player->Update(mouse, kbd, dt);
 	}
@@ -83,7 +78,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		fireSound.Play();
 	}
 
-	if (player->Colliding(kamiza))
+	if (player->Colliding(*kamiza))
 	{
 		player->ActiveRegenerate(dt);
 	}
@@ -153,49 +148,25 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 }
 
-void GeneralGame::CreatePlayer()
+void Game::CreateMenu()
 {
-	if (player == nullptr)
-	{
-		player = new Player(Vec2(xRand(rng), yRand(rng)));
-	}
+	menu = std::make_unique<Menu>(Menu::MenuType::IN_GAME);
 }
 
-void GeneralGame::DestroyPlayer()
+void Game::DestroyMenu()
 {
-	if (player != nullptr)
-	{
-		delete player;
-		player = nullptr;
-	}
+	menu.reset();
 }
 
-void GeneralGame::CreateMenu()
-{
-	if (menu == nullptr)
-	{
-		menu = new Menu(Menu::MenuType::IN_GAME);
-	}
-}
-
-void GeneralGame::DestroyMenu()
-{
-	if (menu != nullptr)
-	{
-		delete menu;
-		menu = nullptr;
-	}
-}
-
-std::string GeneralGame::GetGameMessage()
+std::string Game::GetGameMessage()
 {
 	return gameMessage;
 }
 
-void GeneralGame::DrawGame(Graphics& gfx)
+void Game::DrawGame(Graphics& gfx)
 {
 	//kamiza
-	kamiza.Draw(gfx);
+	kamiza->Draw(gfx);
 
 	//Collectable
 	for (Collectable& c : coll)
@@ -230,7 +201,7 @@ void GeneralGame::DrawGame(Graphics& gfx)
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { 550, 550 }, Colors::Red, gfx);
 
 	//Menu
-	if (menu != nullptr)
+	if (menu)
 	{
 		menu->Draw(gfx);
 	}

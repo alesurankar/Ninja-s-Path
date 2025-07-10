@@ -100,7 +100,7 @@
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GeneralGame.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="LivingEntity.cpp" />
     <ClCompile Include="NonLivingObject.cpp" />
@@ -129,7 +129,7 @@
     <ClInclude Include="Fonts.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GeneralGame.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImageEffect.h" />
     <ClInclude Include="LivingEntity.h" />

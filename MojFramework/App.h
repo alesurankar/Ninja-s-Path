@@ -1,5 +1,5 @@
 #pragma once
-#include "GeneralGame.h"
+#include "Game.h"
 #include "FrameTimer.h"
 #include "Menu.h"
 #include <thread>
@@ -31,7 +31,7 @@ private:
 	/********************************/
 	/*  Moji Parametri              */
 	FrameTimer ft;
-	std::unique_ptr<GeneralGame> gg;
+	std::unique_ptr<Game> game;
 	std::unique_ptr<Menu> menu;
 	State state = State::MENU;
 	int delay;

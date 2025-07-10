@@ -40,8 +40,8 @@ void App::UpdateModel()
 	if (state == State::GAME)
 	{
 		delay = 1;
-		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
-		std::string message = gg->GetGameMessage();
+		game->UpdateGame(wnd.mouse, wnd.kbd, dt);
+		std::string message = game->GetGameMessage();
 		if (message == "Exit")
 		{
 			wnd.Kill();
@@ -63,7 +63,7 @@ void App::CreateState()
 		menu = std::make_unique<Menu>(Menu::MenuType::MAIN);
 		break;
 	case State::GAME:
-		gg = std::make_unique<GeneralGame>();
+		game = std::make_unique<Game>();
 		break;
 	}
 }
@@ -76,7 +76,7 @@ void App::DestroyState()
 		menu.reset();
 		break;
 	case State::GAME:
-		gg.reset();
+		game.reset();
 		break;
 	}
 }
@@ -89,7 +89,7 @@ void App::ComposeFrame()
 		menu->Draw(gfx);
 		break;
 	case State::GAME:
-		gg->DrawGame(gfx);
+		game->DrawGame(gfx);
 		break;
 	}
 }
