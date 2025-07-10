@@ -1,7 +1,5 @@
 #pragma once
 //#include <boost::asio>
-//#include <boost::beast>
-//#include <boost::json>
 #include <string>
 #include <fstream>
 #include <filesystem>
@@ -11,6 +9,8 @@ namespace fs = std::filesystem;
 class Client
 {
 public:
+	//Client(boost::asio::io_context& io_in);
+	//void Start();
 	Client();
 	std::string GetUsername();
 	bool Exists();
