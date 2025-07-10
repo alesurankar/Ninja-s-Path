@@ -33,7 +33,7 @@ public:
 	Graphics(class HWNDKey& key);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
-	void EndFrame();
+	void EndFrame(int delay);
 	void BeginFrame(Color bg);
 	Color GetPixel(int x, int y) const;
 	void PutPixel(int x, int y, int r, int g, int b)

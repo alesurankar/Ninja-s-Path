@@ -17,19 +17,18 @@ App::~App()
 
 void App::Go()
 {
-	dt = ft.CheckTime();
 	gfx.BeginFrame(Colors::DarkGray);
 	UpdateModel();
 	ComposeFrame();
-	gfx.EndFrame();
-	DoFrameRate(frameRate, dt);
+	gfx.EndFrame(delay);
 }
 
 void App::UpdateModel()
 {
-	if (state == State::Menu)
+	float dt = ft.CheckTime();
+	if (state == State::MENU)
 	{
-		frameRate = 0.032f;
+		delay = 3;
 		menu->Update(wnd.mouse);
 		std::string message = menu->GetMenuMessage();
 		if (message == "Exit")
@@ -39,14 +38,14 @@ void App::UpdateModel()
 		if (message == "Play now")
 		{
 			DestroyMenu();
-			state = State::PlayGame;
+			state = State::GAME;
 			CreateGame();
 		}
 	}
 
-	if (state == State::PlayGame)
+	if (state == State::GAME)
 	{
-		frameRate = 0.016f;
+		delay = 1;
 		gg->UpdateGame(wnd.mouse, wnd.kbd, dt);
 		std::string message = gg->GetGameMessage();
 		if (message == "Exit")
@@ -56,7 +55,7 @@ void App::UpdateModel()
 		if (message == "Menu")
 		{
 			DestroyGame();
-			state = State::Menu;
+			state = State::MENU;
 			CreateMenu();
 		}
 	}
@@ -96,21 +95,14 @@ void App::DestroyMenu()
 	}
 }
 
-void App::DoFrameRate(float frameRate_ms, float dt)
-{
-	float targetFrameRate = frameRate_ms * 2; //bad calculation temporary fix
-	float sleepTime = targetFrameRate - dt;
-	std::this_thread::sleep_for(std::chrono::duration<float>(sleepTime));
-}
-
 void App::ComposeFrame()
 {
-	if (state == State::Menu)
+	if (state == State::MENU)
 	{
 		menu->Draw(gfx);
 	}
 
-	if (state == State::PlayGame)
+	if (state == State::GAME)
 	{
 		gg->DrawGame(gfx);
 	}

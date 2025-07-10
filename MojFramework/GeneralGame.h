@@ -11,7 +11,7 @@
 #include "Collectable.h"
 #include "Player.h"
 #include "Fonts.h"
-#include "Altar.h"
+#include "Kamiza.h"
 #include "Menu.h"
 #include <deque>
 #include <numeric>
@@ -41,7 +41,7 @@ private:
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
 	std::vector<Bullet> bul;
-	Altar altar;
+	Kamiza kamiza;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;

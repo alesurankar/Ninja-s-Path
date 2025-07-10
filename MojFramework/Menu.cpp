@@ -25,7 +25,7 @@ Menu::Menu(MenuType type_in)
 
 void Menu::Draw(Graphics& gfx) const
 {
-	gfx.DrawImage(pos.x, pos.y, logo, ImageEffect::NoEffect{});
+	gfx.DrawImage(pos.x, pos.y, logo, ImageEffect::Chroma{Colors::Magenta});
 	for (auto& b : buttons)
 	{
 		b.Draw(gfx);

@@ -9,9 +9,8 @@ class App
 public:
 	enum class State
 	{
-		GameOver,
-		Menu,
-		PlayGame
+		MENU,
+		GAME
 	};
 	App(class MainWindow& wnd);
 	App(const App&) = delete;
@@ -27,7 +26,6 @@ private:
 	void DestroyGame();
 	void CreateMenu();
 	void DestroyMenu();
-	void DoFrameRate(float frameRate_ms, float dt);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -37,8 +35,7 @@ private:
 	FrameTimer ft;
 	GeneralGame* gg = nullptr;
 	Menu* menu = nullptr;
-	State state = State::Menu;
-	float frameRate;
-	float dt;
+	State state = State::MENU;
+	int delay;
 	/********************************/
 };

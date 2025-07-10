@@ -10,7 +10,7 @@ GeneralGame::GeneralGame()
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
 	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
-	altar(Vec2(680.0f,10.0f))
+	kamiza(Vec2(680.0f,10.0f))
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Player
@@ -83,7 +83,7 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		fireSound.Play();
 	}
 
-	if (player->Colliding(altar))
+	if (player->Colliding(kamiza))
 	{
 		player->ActiveRegenerate(dt);
 	}
@@ -124,13 +124,13 @@ void GeneralGame::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			{
 				enemy[e].Damaged();
 				b.Smashed();
-				objDamaged.Play();
 			}
 		}
 		if (enemy[e].DestroyedStatus())
 		{
 			coll.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
+			objDamaged.Play();
 		}
 		else
 		{
@@ -194,8 +194,8 @@ std::string GeneralGame::GetGameMessage()
 
 void GeneralGame::DrawGame(Graphics& gfx)
 {
-	//Altar
-	altar.Draw(gfx);
+	//kamiza
+	kamiza.Draw(gfx);
 
 	//Collectable
 	for (Collectable& c : coll)

@@ -5,7 +5,7 @@ template<typename T>
 class Rect_
 {
 public:
-	Rect_(int left_in, int top_in, int right_in, int bottom_in)
+	Rect_(T left_in, T top_in, T right_in, T bottom_in)
 		:
 		left(left_in),
 		top(top_in),
