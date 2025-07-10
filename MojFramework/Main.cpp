@@ -5,6 +5,8 @@ This Framework is Cloned and modified from PlanetChili - chili_framework <http:/
 #include "MainWindow.h"
 #include "App.h"
 #include "MyException.h"
+#include "Client.h"
+#include <memory>
 
 int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 {
@@ -13,8 +15,10 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		MainWindow wnd(hInst, pArgs);
 		try
 		{
-			App theApp(wnd);
-			while (wnd.ProcessMessage())
+			auto client = std::make_unique<Client>();
+
+			App theApp(wnd, client->GetUsername());
+			while (wnd.ProcessMessage() && client->Exists())
 			{
 				theApp.Go();
 			}

@@ -4,6 +4,8 @@
 #include "Menu.h"
 #include <thread>
 #include <memory>
+#include <string>
+#include "Fonts.h"
 
 class App
 {
@@ -13,7 +15,7 @@ public:
 		MENU,
 		GAME
 	};
-	App(class MainWindow& wnd);
+	App(class MainWindow& wnd, std::string username_in);
 	App(const App&) = delete;
 	App& operator=(const App&) = delete;
 	void Go();
@@ -35,5 +37,8 @@ private:
 	std::unique_ptr<Menu> menu;
 	State state = State::MENU;
 	int delay;
+	std::string username;
+	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
+	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 	/********************************/
 };

@@ -1,10 +1,11 @@
 #include "MainWindow.h"
 #include "App.h"
 
-App::App(MainWindow& wnd)
+App::App(MainWindow& wnd, std::string username_in)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	username(std::move(username_in))
 {
 	CreateState();
 }
@@ -92,4 +93,5 @@ void App::ComposeFrame()
 		game->DrawGame(gfx);
 		break;
 	}
+	smallFont.DrawText(username, { Graphics::ScreenWidth - 240, 70 }, Colors::White, gfx);
 }
