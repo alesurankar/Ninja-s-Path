@@ -5,9 +5,11 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	:
 	GameObject(pos_in, width_in, height_in),
 	object(object_in),
-	destroyed(false),
+	destroyed(false), 
 	filename(filename_in),
-	c(c_in)
+	c(c_in),
+	firing(false),
+	loaded(false)
 {
 	LoadFromFile(filename);
 	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
@@ -104,13 +106,28 @@ void LivingEntity::Damaged()
 	}
 }
 
-void LivingEntity::SaveToFile(std::string filename)
+bool LivingEntity::FiringStatus()
 {
-	std::ofstream file(filename);
-	if (file)
+	return firing;
+}
+
+void LivingEntity::Fire()
+{
+	if (!DestroyedStatus() && loaded)
 	{
-		file << maxLives << " " << lives << "\n";
+		firing = true;
+		loaded = false;
 	}
+	else
+	{
+		firing = false;
+	}
+}
+
+void LivingEntity::Reload()
+{
+	firing = false;
+	loaded = true;
 }
 
 void LivingEntity::ActiveRegenerate(float dt)
@@ -157,6 +174,15 @@ void LivingEntity::LoadFromFile(const std::string& filename)
 	if (file)
 	{
 		file >> maxLives >> lives;
+	}
+}
+
+void LivingEntity::SaveToFile(std::string filename)
+{
+	std::ofstream file(filename);
+	if (file)
+	{
+		file << maxLives << " " << lives << "\n";
 	}
 }
 

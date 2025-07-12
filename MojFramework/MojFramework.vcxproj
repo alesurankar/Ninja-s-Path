@@ -120,6 +120,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Stats.cpp" />
     <ClCompile Include="Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Stats.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
