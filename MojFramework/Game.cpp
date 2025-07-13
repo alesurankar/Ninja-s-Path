@@ -117,16 +117,21 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
-		if (enemy[e].Colliding(*player) && !player->DestroyedStatus())
+		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
-			player->Damaged();
+			int damage = player->TakeDamage(enemy[e], enemy[e].MeleDamage());
+			Vei2 pos = Vei2(player->GetPos());
+			damagePopups.push_back({ damage, pos });
+			enemy[e].ResetHitCooldown();
 			playerDamaged.Play();
 		}
 		for (Bullet& b : bul)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].Damaged();
+				int damage = enemy[e].TakeDamage(*player, b.DamageBonus());
+				Vei2 pos = Vei2(enemy[e].GetPos());
+				damagePopups.push_back({ damage, pos });
 				b.Smashed();
 			}
 		}
@@ -140,6 +145,16 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			e++;
 		}
+	}
+
+	//Damage Popups
+	for (int i = 0; i < damagePopups.size(); )
+	{
+		damagePopups[i].timeLeft -= dt;
+		if (damagePopups[i].timeLeft <= 0.0f)
+			damagePopups.erase(damagePopups.begin() + i);
+		else
+			++i;
 	}
 	
 	//Collectable
@@ -214,6 +229,12 @@ void Game::DrawGame(Graphics& gfx)
 
 	//WorldPosition
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
+
+	//Damage Popups
+	for (const DamagePopup& popup : damagePopups)
+	{
+		bigFont.DrawText(std::to_string(popup.damage), popup.pos, Colors::Red, gfx);
+	}
 
 	//Menu
 	if (menu)

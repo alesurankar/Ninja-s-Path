@@ -24,3 +24,8 @@ bool Projectile::SmashedStatus()
 	return smashed;
 }
 
+int Projectile::DamageBonus()
+{
+	return damage;
+}
+

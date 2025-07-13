@@ -18,6 +18,13 @@
 #include <numeric>
 #include <memory>
 
+struct DamagePopup
+{
+	int damage;
+	Vei2 pos;
+	float timeLeft = 0.2f;
+};
+
 class Game
 {
 public:
@@ -53,4 +60,5 @@ private:
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 	Vec2 worldPos;
+	std::vector<DamagePopup> damagePopups;
 };

@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="DamagePopups.cpp" />
     <ClCompile Include="Kamiza.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="App.cpp" />
@@ -126,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="DamagePopups.h" />
     <ClInclude Include="Kamiza.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="App.h" />
