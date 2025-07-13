@@ -231,9 +231,9 @@ void Game::DrawGame(Graphics& gfx)
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
 
 	//Damage Popups
-	for (const DamagePopup& popup : damagePopups)
+	for (DamagePopup popup : damagePopups)
 	{
-		bigFont.DrawText(std::to_string(popup.damage), popup.pos, Colors::Red, gfx);
+		popup.Draw(*cam, gfx);
 	}
 
 	//Menu
