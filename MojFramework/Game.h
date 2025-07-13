@@ -18,6 +18,8 @@
 #include <numeric>
 #include <memory>
 
+#include "Fortres.h"
+
 struct DamagePopup
 {
 	void Draw(const Camera& cam, Graphics& gfx)
@@ -69,4 +71,5 @@ private:
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 	Vec2 worldPos;
 	std::vector<DamagePopup> damagePopups;
+	Fortres fort;
 };

@@ -9,7 +9,8 @@ Game::Game()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
+	fort(Vei2(100,100))
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Kamiza
@@ -193,6 +194,8 @@ std::string Game::GetGameMessage()
 
 void Game::DrawGame(Graphics& gfx)
 {
+	fort.Draw(*cam, gfx);
+
 	//kamiza
 	kamiza->Draw(*cam, gfx);
 

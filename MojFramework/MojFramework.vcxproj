@@ -111,6 +111,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="LivingEntity.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="NonLivingObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -123,6 +124,8 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="Fortres.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImageEffect.h" />
     <ClInclude Include="LivingEntity.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="NonLivingObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Keyboard.h" />
@@ -161,7 +165,9 @@
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Stats.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="Fortres.h" />
     <ClInclude Include="Vec2.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MojFramework.rc" />
