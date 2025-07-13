@@ -139,6 +139,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			coll.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
+			player->CollectXP(enemy[e]);
 			objDamaged.Play();
 		}
 		else
