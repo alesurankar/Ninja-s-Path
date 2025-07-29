@@ -87,18 +87,6 @@ void App::DestroyState()
 
 void App::ComposeFrame()
 {
-	// imgui stuff
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	
-	static bool show_demo_window = true;
-	if (show_demo_window)
-	{
-		ImGui::ShowDemoWindow(&show_demo_window);
-	}
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	switch (state)
 	{
 	case State::MENU:
@@ -109,4 +97,16 @@ void App::ComposeFrame()
 		break;
 	}
 	smallFont.DrawText(username, { Graphics::ScreenWidth - 240, 70 }, Colors::White, gfx);
+	// imgui stuff
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	static bool show_demo_window = true;
+	if (show_demo_window)
+	{
+		ImGui::ShowDemoWindow(&show_demo_window);
+	}
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
