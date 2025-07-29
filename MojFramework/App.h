@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include "Fonts.h"
+#include "ImguiManager.h"
 
 class App
 {
@@ -32,6 +33,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  Moji Parametri              */
+	ImguiManager imgui;
 	FrameTimer ft;
 	std::unique_ptr<Game> game;
 	std::unique_ptr<Menu> menu;

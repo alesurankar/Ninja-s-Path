@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <string>
 #include <array>
+#include "imgui/imgui_impl_dx11.h"
 
 // Ignore the intellisense error "cannot open source file" for .shh files.
 // They will be created during the build sequence before the preprocessor runs.
@@ -90,6 +91,8 @@ Graphics::Graphics(HWNDKey& key)
 	// set backbuffer as the render target using created view
 	pImmediateContext->OMSetRenderTargets(1, pRenderTargetView.GetAddressOf(), nullptr);
 
+	// init imgui d3d impl
+	ImGui_ImplDX11_Init(pDevice.Get(), pImmediateContext.Get());
 
 	// set viewport dimensions
 	D3D11_VIEWPORT vp;

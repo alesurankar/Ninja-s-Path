@@ -4,6 +4,7 @@
 #include "MyException.h"
 #include "App.h"
 #include <assert.h>
+#include "imgui/imgui_impl_win32.h"
 
 MainWindow::MainWindow(HINSTANCE hInst, wchar_t* pArgs)
 	:
@@ -40,11 +41,16 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t* pArgs)
 
 	// show and update
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	// Init ImGui Win32 Impl
+
+	ImGui::CreateContext();	
+	ImGui_ImplWin32_Init(hWnd);
 	UpdateWindow(hWnd);
 }
 
 MainWindow::~MainWindow()
 {
+	ImGui_ImplWin32_Shutdown();
 	// unregister window class
 	UnregisterClass(wndClassName, hInst);
 }
@@ -110,6 +116,10 @@ LRESULT WINAPI MainWindow::_HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, L
 
 LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	{
+		return true;
+	}
 	switch (msg)
 	{
 	case WM_DESTROY:
