@@ -7,6 +7,7 @@
 #include <string>
 #include "Fonts.h"
 #include "ImguiManager.h"
+#include "imgui/imgui.h"
 
 class App
 {
@@ -42,5 +43,9 @@ private:
 	std::string username;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+
+	ImFont* fontRegular = nullptr;
+	ImFont* fontBold = nullptr;
+	ImFont* SemiCondensed_Black = nullptr;
 	/********************************/
 };
