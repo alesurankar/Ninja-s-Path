@@ -47,5 +47,6 @@ private:
 	ImFont* fontRegular = nullptr;
 	ImFont* fontBold = nullptr;
 	ImFont* SemiCondensed_Black = nullptr;
+	bool show_demo_window = true;
 	/********************************/
 };

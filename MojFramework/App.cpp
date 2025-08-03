@@ -108,37 +108,34 @@ void App::ComposeFrame()
 		break;
 	}
 	smallFont.DrawText(username, { Graphics::ScreenWidth - 240, 70 }, Colors::White, gfx);
-	//// imgui stuff
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
-	//
-	//static bool show_demo_window = true;
-	//if (show_demo_window)
-	//{
-	//	ImGui::ShowDemoWindow(&show_demo_window);
-	//}
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	// imgui stuff
+	 
 
+	if (wnd.kbd.KeyIsPressed(VK_SPACE))
+	{
+		gfx.DisableImgui();
+		show_demo_window = false;
+	}
+	else
+	{
+		gfx.EnableImgui();
+	}
 
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	// Use bold font
-	ImGui::PushFont(fontBold);
-	ImGui::Text("Game Title");
-	ImGui::PopFont();
-
-	// Use regular font
-	ImGui::PushFont(fontRegular);
-	ImGui::Text("Hello, %s", username.c_str());
-	ImGui::PopFont();
-
-	ImGui::PushFont(SemiCondensed_Black);
-	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Hello");
-	ImGui::PopFont();
-
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	if (show_demo_window)
+	{
+		//// Use bold font
+		//ImGui::PushFont(fontBold);
+		//ImGui::Text("Game Title");
+		//ImGui::PopFont();
+	
+		//// Use regular font
+		//ImGui::PushFont(fontRegular);
+		//ImGui::Text("Hello, %s", username.c_str());
+		//ImGui::PopFont();
+		//
+		//ImGui::PushFont(SemiCondensed_Black);
+		//ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Hello");
+		//ImGui::PopFont();
+		ImGui::ShowDemoWindow(&show_demo_window);
+	}
 }

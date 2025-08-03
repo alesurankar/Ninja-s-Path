@@ -35,6 +35,9 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	void EndFrame(int delay);
 	void BeginFrame(Color bg);
+	void EnableImgui() noexcept;
+	void DisableImgui() noexcept;
+	bool IsImguiEnabled() const noexcept;
 	Color GetPixel(int x, int y) const;
 	void PutPixel(int x, int y, int r, int g, int b)
 	{
@@ -125,6 +128,7 @@ public:
 
 	~Graphics();
 private:
+	bool imguiEnabled = true;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;

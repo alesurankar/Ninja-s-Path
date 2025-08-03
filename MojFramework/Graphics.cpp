@@ -235,6 +235,13 @@ RectI Graphics::GetScreenRect()
 
 void Graphics::EndFrame(int delay)
 {
+	// imgui frame end
+	if (imguiEnabled)
+	{
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	}
+
 	HRESULT hr;
 
 	// Map sysbuffer to GPU texture
@@ -291,8 +298,31 @@ void Graphics::EndFrame(int delay)
 
 void Graphics::BeginFrame(Color bg)
 {
+	// imgui begin frame
+	if (imguiEnabled)
+	{
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+	}
+
 	// clear the sysbuffer
 	sysBuffer.Fill(bg);
+}
+
+void Graphics::EnableImgui() noexcept
+{
+	imguiEnabled = true;
+}
+
+void Graphics::DisableImgui() noexcept
+{
+	imguiEnabled = false;
+}
+
+bool Graphics::IsImguiEnabled() const noexcept
+{
+	return imguiEnabled;
 }
 
 Color Graphics::GetPixel(int x, int y) const
