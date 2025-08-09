@@ -49,7 +49,6 @@ protected:
 	int armour;
 	int xp;
 	int hp;
-	int addXP;
 	float speed;
 	Color c;
 	bool facingLeft = true;
