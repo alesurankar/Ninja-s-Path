@@ -16,7 +16,6 @@ private:
 	Surface emptyHP = Surface("Images\\Player_bar_empty300x40.bmp");
 	Surface fullHP = Surface("Images\\Player_hp_full300x28.bmp");
 	Surface fullEnergy = Surface("Images\\Player_energy_full300x12.bmp");
-	float speed = 100.0f;
 	static constexpr int width = 33;
 	static constexpr int height = 58;
 	static constexpr Color c = Colors::Green;
