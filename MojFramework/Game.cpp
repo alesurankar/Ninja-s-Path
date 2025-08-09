@@ -110,17 +110,16 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
-		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
-	
+
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
 		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
-			player->Damaged();
-			int damage = 1;
+			int damage = player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 			Vei2 pos = Vei2(player->GetPos());
 			damagePopups.push_back({ damage, pos });
 			enemy[e].ResetHitCooldown();
@@ -130,11 +129,10 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].Damaged();
-				b.Smashed();
-				int damage = 1;
+				int damage = enemy[e].TakeDamage(*player, b.DamageBonus());
 				Vei2 pos = Vei2(enemy[e].GetPos());
 				damagePopups.push_back({ damage, pos });
+				b.Smashed();
 			}
 		}
 		if (enemy[e].DestroyedStatus())

@@ -37,12 +37,12 @@ void Player::DrawXP(Graphics& gfx) const
 void Player::DrawStatus(Graphics& gfx) const
 {
 	gfx.DrawImage(0, 0, face, ImageEffect::NoEffect{});
-	RectI hpBar(0, 0, (fullHP.GetWidth() * lives / maxLives), fullHP.GetHeight());
+	RectI hpBar(0, 0, (fullHP.GetWidth() * hp / maxHP), fullHP.GetHeight());
 	RectI energyBar(0, 0, fullEnergy.GetWidth(), fullEnergy.GetHeight());
 	gfx.DrawImage(face.GetWidth(), 0, emptyHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), 0, hpBar, fullHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), fullHP.GetHeight(), energyBar, fullEnergy, ImageEffect::Chroma{ Colors::Magenta });
-	smallFont.DrawText(std::to_string(maxLives) + " / " + std::to_string(lives), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText(std::to_string(maxHP) + " / " + std::to_string(hp), { 100, 10 }, Colors::Black, gfx);
 	smallFont.DrawText("Lvl: ", { 340, 10 }, Colors::Yellow, gfx);
 	bigFont.DrawText("0", { 370, 10 }, Colors::Yellow, gfx);
 }

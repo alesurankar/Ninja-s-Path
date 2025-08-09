@@ -16,7 +16,6 @@ public:
 	};
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
 	void Draw(const Camera& cam, Graphics& gfx) const override;
-	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
 	bool DestroyedStatus();
 	bool FiringStatus();
 	void Fire();
@@ -24,38 +23,44 @@ public:
 	int TakeDamage(LivingEntity& attacker, int weaponBonus);
 	int DamageDeal();
 	int MeleDamage();
+	void CollectXP(LivingEntity& other);
+	void LevelUp();
 	int GetLevel();
-	void Damaged();
+	int GetMaxXP();
 	void SaveToFile(std::string filename);
 	void ActiveRegenerate(float dt);
 	void PasiveRegenerate(float dt);
 	void Heal(int amount);
 	void Respawn();
-private:
-	void LoadFromFile(const std::string& filename);
-	void Destroyed();
 protected:
 	void ReadDirection(Vec2 dir);
+private:
+	void LoadFromFile(const std::string& filename);
+	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
+	void Destroyed();
 protected:
-	std::string filename;
-	Surface object;
 	bool destroyed;
-	float inOff = 1.0f;
-	int maxLives;
-	int lives;
+	int level;
+	static constexpr int baseHP = 100;
+	int maxHP;
 	int maxXP;
-	int xp = 100;
-	int strength = 1;
-	int level = 1;
-	int armour = 1;
+	int stamina;
+	int strength;
+	int armour;
+	int xp;
+	int hp;
+	int addXP;
+	float speed;
 	Color c;
+	bool facingLeft = true;
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
-	bool facingLeft = true;
-	float healTime = 0.0f;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
 private:
+	std::string filename;
+	Surface object;
 	bool firing;
 	bool loaded;
+	float healTime = 0.0f;
 };
