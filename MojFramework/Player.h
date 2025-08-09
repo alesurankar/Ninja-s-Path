@@ -10,9 +10,6 @@ public:
 	void DrawXP(Graphics& gfx) const;
 	void DrawStatus(Graphics& gfx) const;
 	void Update(const Mouse& mouse, const Keyboard& kbd, float dt);
-	bool FiringStatus();
-	void Fire();
-	void Reload();
 	Vec2 GetDirection(const Camera& cam, const Mouse& mouse);
 private:
 	Surface face = Surface("Images\\face36x40.bmp");
@@ -20,8 +17,6 @@ private:
 	Surface fullHP = Surface("Images\\Player_hp_full300x28.bmp");
 	Surface fullEnergy = Surface("Images\\Player_energy_full300x12.bmp");
 	static constexpr int maxXP = 1000;
-	bool firing;
-	bool loaded;
 	float speed = 100.0f;
 	static constexpr int width = 33;
 	static constexpr int height = 58;

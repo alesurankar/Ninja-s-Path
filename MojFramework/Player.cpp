@@ -2,10 +2,9 @@
 
 Player::Player(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c),
-	firing(false),
-	loaded(false)
-{}
+	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c)
+{
+}
 
 Player::~Player()
 {
@@ -88,30 +87,6 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
-}
-
-bool Player::FiringStatus()
-{
-	return firing;
-}
-
-void Player::Fire()
-{
-	if (!DestroyedStatus() && loaded)
-	{
-		firing = true;
-		loaded = false;
-	}
-	else
-	{
-		firing = false;
-	}
-}
-
-void Player::Reload()
-{
-	firing = false;
-	loaded = true;
 }
 
 Vec2 Player::GetDirection(const Camera& cam, const Mouse& mouse)

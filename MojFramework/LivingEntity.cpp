@@ -7,7 +7,9 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	object(object_in),
 	destroyed(false),
 	filename(filename_in),
-	c(c_in)
+	c(c_in),
+	firing(false),
+	loaded(false)
 {
 	LoadFromFile(filename);
 	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
@@ -93,6 +95,30 @@ void LivingEntity::ReadDirection(Vec2 dir)
 			}
 		}
 	}
+}
+
+bool LivingEntity::FiringStatus()
+{
+	return firing;
+}
+
+void LivingEntity::Fire()
+{
+	if (!DestroyedStatus() && loaded)
+	{
+		firing = true;
+		loaded = false;
+	}
+	else
+	{
+		firing = false;
+	}
+}
+
+void LivingEntity::Reload()
+{
+	firing = false;
+	loaded = true;
 }
 
 void LivingEntity::Damaged()

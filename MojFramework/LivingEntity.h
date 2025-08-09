@@ -18,6 +18,9 @@ public:
 	void Draw(const Camera& cam, Graphics& gfx) const override;
 	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
 	bool DestroyedStatus();
+	bool FiringStatus();
+	void Fire();
+	void Reload();
 	void Damaged();
 	void SaveToFile(std::string filename);
 	void ActiveRegenerate(float dt);
@@ -45,4 +48,7 @@ protected:
 	float healTime = 0.0f;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+private:
+	bool firing;
+	bool loaded;
 };
