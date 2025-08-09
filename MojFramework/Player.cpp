@@ -42,7 +42,7 @@ void Player::DrawStatus(Graphics& gfx) const
 	gfx.DrawImage(face.GetWidth(), 0, emptyHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), 0, hpBar, fullHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), fullHP.GetHeight(), energyBar, fullEnergy, ImageEffect::Chroma{ Colors::Magenta });
-	smallFont.DrawText(std::to_string(maxHP) + " / " + std::to_string(hp), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText(std::to_string(hp) + " / " + std::to_string(maxHP), { 100, 10 }, Colors::Black, gfx);
 	smallFont.DrawText("Lvl: ", { 340, 10 }, Colors::Yellow, gfx);
 	bigFont.DrawText(std::to_string(level), { 370, 10 }, Colors::Yellow, gfx);
 }
