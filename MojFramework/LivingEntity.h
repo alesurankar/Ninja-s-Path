@@ -21,6 +21,10 @@ public:
 	bool FiringStatus();
 	void Fire();
 	void Reload();
+	int TakeDamage(LivingEntity& attacker, int weaponBonus);
+	int DamageDeal();
+	int MeleDamage();
+	int GetLevel();
 	void Damaged();
 	void SaveToFile(std::string filename);
 	void ActiveRegenerate(float dt);
@@ -41,6 +45,9 @@ protected:
 	int lives;
 	int maxXP;
 	int xp = 100;
+	int strength = 1;
+	int level = 1;
+	int armour = 1;
 	Color c;
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;

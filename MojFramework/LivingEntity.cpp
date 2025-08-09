@@ -121,6 +121,48 @@ void LivingEntity::Reload()
 	loaded = true;
 }
 
+int LivingEntity::TakeDamage(LivingEntity& attacker, int weaponBonus)
+{
+	int finalDamage = 0;
+	if (!destroyed)
+	{
+		int baseDamage = attacker.DamageDeal() + weaponBonus;
+
+		// Optional: add randomness or critical hit chance
+		// baseDamage *= CritMultiplierOrVariance();
+
+		float armourReduction = static_cast<float>(armour) /
+			(static_cast<float>(armour) + 400.0f + 85.0f * attacker.GetLevel());
+		finalDamage = std::max(1, int(baseDamage * (1.0f - armourReduction)));
+
+		lives -= finalDamage;
+		if (lives <= 0)
+		{
+			Destroyed();
+			lives = 0;
+		}
+	}
+	return finalDamage;
+}
+
+int LivingEntity::DamageDeal()
+{
+	return strength;
+}
+
+int LivingEntity::MeleDamage()
+{
+	int weaponBase = 1;
+	int power = 0;
+	int meleDamage = weaponBase + static_cast<int>(strength * 1.5) + power;
+	return meleDamage;
+}
+
+int LivingEntity::GetLevel()
+{
+	return level;
+}
+
 void LivingEntity::Damaged()
 {
 	lives--;
