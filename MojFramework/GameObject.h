@@ -22,10 +22,12 @@ public:
 	int GetWidth() const;
 	int GetHeight() const; 
 	RectF GetHitbox(Vec2 pos_in, float padding_LR = 0.0f, float padding_TB = 0.0f) const;
+	void SetHitBox(const RectF& hitbox_in);
 protected:
 	Vec2 pos;
 	//Vec2 draw_offset = { float(-width/2), float(-height) };
 private:
+	RectF hitbox;
 	int width;
 	int height;
 	float hitbox_halfwidth = float(width)/2.0f;

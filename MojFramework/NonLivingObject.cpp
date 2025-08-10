@@ -16,5 +16,7 @@ void NonLivingObject::Draw(const Camera& cam, Graphics & gfx) const
 	cam.WorldToScreen(pos, screenPos);
 	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	gfx.DrawImage(screenPos, object, ImageEffect::Chroma{Colors::Magenta});
-	gfx.DrawRectThin((RectI)GetHitbox(boxScreenPos, padding_LR, padding_TB), Colors::Blue);
+	RectF hitbox = GetHitbox(boxScreenPos, padding_LR, padding_TB);
+	SetHitBox(hitbox);
+	gfx.DrawRectThin(RectI(hitbox), Colors::Blue);
 }

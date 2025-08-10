@@ -15,7 +15,8 @@ void Projectile::Draw(const Camera& cam, Graphics& gfx) const
 	cam.WorldToScreen(pos, screenPos);
 	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	gfx.DrawImage(screenPos, object, ImageEffect::NoEffect{});
-	gfx.DrawRectThin((RectI)GetHitbox(boxScreenPos, 1.0f, 1.0f), Colors::Yellow);
+	RectF hitbox = GetHitbox(boxScreenPos, 1.0f, 1.0f);
+	gfx.DrawRectThin(RectI(hitbox), Colors::Yellow);
 }
 
 void Projectile::Smashed()
