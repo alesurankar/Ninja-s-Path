@@ -29,6 +29,7 @@ void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
 	cam.WorldToScreen(GetPos(), screenPos);
 	animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	DrawStatus(cam, gfx);
+	gfx.DrawRectThin((RectI)GetHitbox(screenPos), Colors::Red);
 }
 
 void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const

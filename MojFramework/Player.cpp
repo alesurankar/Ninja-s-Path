@@ -23,6 +23,7 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 	{
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
+	gfx.DrawRectThin((RectI)GetHitbox(screenPos), Colors::Green);
 }
 
 void Player::DrawXP(Graphics& gfx) const

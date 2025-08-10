@@ -20,11 +20,14 @@ public:
 	Vec2 GetCenter() const;
 	RectF GetRect() const;
 	int GetWidth() const;
-	int GetHeight() const;
+	int GetHeight() const; 
+	RectF GetHitbox(Vec2 pos_in) const;
 protected:
 	Vec2 pos;
 	//Vec2 draw_offset = { float(-width/2), float(-height) };
 private:
+	float hitbox_halfwidth = 10.0f;
+	float hitbox_halfheight = 9.0f;
 	int width;
 	int height;
 };
