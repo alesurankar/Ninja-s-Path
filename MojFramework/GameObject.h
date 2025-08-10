@@ -23,7 +23,7 @@ public:
 	int GetHeight() const;
 protected:
 	Vec2 pos;
-	//Vec2 draw_offset = { -width/2.0f,-height };
+	//Vec2 draw_offset = { float(-width/2), float(-height) };
 private:
 	int width;
 	int height;

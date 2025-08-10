@@ -243,4 +243,6 @@ void Game::DrawGame(Graphics& gfx)
 	{
 		menu->Draw(gfx);
 	}
+	// test rect drawing routine
+	gfx.DrawRectThin(RectI::FromCenter(Vei2(100, 100), 20, 20), Colors::Blue);
 }
