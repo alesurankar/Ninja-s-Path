@@ -14,7 +14,7 @@ Player::~Player()
 void Player::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
-	cam.WorldToScreen(pos, screenPos);
+	cam.WorldToScreen(GetPos(), screenPos);
 	if (!destroyed)
 	{
 		animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);

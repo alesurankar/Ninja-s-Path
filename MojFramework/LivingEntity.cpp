@@ -14,11 +14,11 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	LoadFromFile(filename);
 	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
 	{
-		animations.emplace_back(0, 0, width, height, 1, object, 1.0f);
+		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 1, object, 1.0f);
 	}
 	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::WALKING_LEFT; i++)
 	{
-		animations.emplace_back(0, 0, width, height, 9, object, 0.06f);
+		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 9, object, 0.06f);
 	}
 	maxHP = baseHP + (stamina * 10);
 }
@@ -26,7 +26,7 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
-	cam.WorldToScreen(pos, screenPos);
+	cam.WorldToScreen(GetPos(), screenPos);
 	animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	DrawStatus(cam, gfx);
 }
@@ -34,9 +34,9 @@ void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
 void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
-	cam.WorldToScreen(pos, screenPos);
-	RectI wholeBar(Vei2(screenPos) - Vei2(0, 6), width, 5);
-	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), width * hp / maxHP, 5);
+	cam.WorldToScreen(GetPos(), screenPos);
+	RectI wholeBar(Vei2(screenPos) - Vei2(0, 6), GetWidth(), 5);
+	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), GetWidth() * hp / maxHP, 5);
 	gfx.DrawRect(wholeBar, c);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
