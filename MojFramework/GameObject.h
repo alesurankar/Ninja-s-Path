@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "ImageEffect.h"
 #include "Camera.h"
+#include "Rect.h"
 
 class GameObject
 {
@@ -17,6 +18,7 @@ public:
 	const Vec2& GetPos() const;
 	void SetPos(Vec2 pos_in);
 	Vec2 GetCenter() const;
+	RectF GetRect() const;
 	int GetWidth() const;
 	int GetHeight() const;
 protected:

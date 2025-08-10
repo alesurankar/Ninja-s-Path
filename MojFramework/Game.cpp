@@ -25,7 +25,8 @@ Game::Game()
 	bul.clear();
 	
 	//Enemy
-	enemy.clear();
+	enemy.clear(); 
+	enemy.reserve(Config::enemyNum);
 	count = 0.0f;
 	
 	//Collectable
