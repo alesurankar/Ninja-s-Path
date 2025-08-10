@@ -11,8 +11,11 @@ Projectile::Projectile(const Vec2& pos_in, const Surface& object_in, int width_i
 void Projectile::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
+	Vec2 boxScreenPos;
 	cam.WorldToScreen(pos, screenPos);
+	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	gfx.DrawImage(screenPos, object, ImageEffect::NoEffect{});
+	gfx.DrawRectThin((RectI)GetHitbox(boxScreenPos, 1.0f, 1.0f), Colors::Yellow);
 }
 
 void Projectile::Smashed()

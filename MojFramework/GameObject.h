@@ -21,13 +21,13 @@ public:
 	RectF GetRect() const;
 	int GetWidth() const;
 	int GetHeight() const; 
-	RectF GetHitbox(Vec2 pos_in) const;
+	RectF GetHitbox(Vec2 pos_in, float padding_LR = 0.0f, float padding_TB = 0.0f) const;
 protected:
 	Vec2 pos;
 	//Vec2 draw_offset = { float(-width/2), float(-height) };
 private:
-	float hitbox_halfwidth = 10.0f;
-	float hitbox_halfheight = 9.0f;
 	int width;
 	int height;
+	float hitbox_halfwidth = float(width)/2.0f;
+	float hitbox_halfheight = float(height)/2.0f;
 };

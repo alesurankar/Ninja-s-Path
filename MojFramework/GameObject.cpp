@@ -42,7 +42,7 @@ int GameObject::GetHeight() const
 	return height;
 }
 
-RectF GameObject::GetHitbox(Vec2 pos_in) const
+RectF GameObject::GetHitbox(Vec2 pos_in, float padding_LR, float padding_TB) const
 {
-	return RectF::FromCenter(pos_in, hitbox_halfwidth, hitbox_halfheight);
+	return RectF::FromCenter(pos_in, hitbox_halfwidth - padding_LR, hitbox_halfheight - padding_TB);
 }

@@ -14,7 +14,9 @@ Player::~Player()
 void Player::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
+	Vec2 boxScreenPos;
 	cam.WorldToScreen(GetPos(), screenPos);
+	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	if (!destroyed)
 	{
 		animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
@@ -23,7 +25,7 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 	{
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
-	gfx.DrawRectThin((RectI)GetHitbox(screenPos), Colors::Green);
+	gfx.DrawRectThin((RectI)GetHitbox(boxScreenPos, 4.0f, 4.0f), Colors::Green);
 }
 
 void Player::DrawXP(Graphics& gfx) const

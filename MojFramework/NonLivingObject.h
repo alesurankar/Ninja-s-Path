@@ -6,6 +6,8 @@ class NonLivingObject : public GameObject
 public:
 	NonLivingObject(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in);
 	void Draw(const Camera& cam, Graphics& gfx) const override;
-protected:
+private:
 	Surface object;
+	float padding_LR;
+	float padding_TB;
 };

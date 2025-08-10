@@ -26,10 +26,12 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
+	Vec2 boxScreenPos;
 	cam.WorldToScreen(GetPos(), screenPos);
+	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	DrawStatus(cam, gfx);
-	gfx.DrawRectThin((RectI)GetHitbox(screenPos), Colors::Red);
+	gfx.DrawRectThin((RectI)GetHitbox(boxScreenPos, 22.0f, 6.0f), Colors::Red);
 }
 
 void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const
