@@ -8,4 +8,6 @@ public:
 private:
 	static constexpr int width = 120;
 	static constexpr int height = 120;
+	float padding_LR = 20.0f;
+	float padding_TB = 20.0f;
 };

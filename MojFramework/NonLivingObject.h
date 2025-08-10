@@ -8,6 +8,4 @@ public:
 	void Draw(const Camera& cam, Graphics& gfx) const override;
 private:
 	Surface object;
-	float padding_LR;
-	float padding_TB;
 };

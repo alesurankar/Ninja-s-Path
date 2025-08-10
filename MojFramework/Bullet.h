@@ -11,4 +11,6 @@ private:
 	static constexpr int width = 6;
 	static constexpr int height = 6;
 	static constexpr float speed = 500.0f;
+	float padding_LR = 1.0f;
+	float padding_TB = 1.0f;
 };

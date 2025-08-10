@@ -20,4 +20,6 @@ private:
 	static constexpr int height = 58;
 	static constexpr Color c = Colors::Green;
 	float time = 0.0f;
+	float padding_LR = 4.0f;
+	float padding_TB = 4.0f;
 };

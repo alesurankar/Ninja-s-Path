@@ -42,13 +42,12 @@ int GameObject::GetHeight() const
 	return height;
 }
 
-RectF GameObject::GetHitbox(Vec2 pos_in, float padding_LR, float padding_TB) const
+RectF GameObject::GetHitBox(Vec2 camPos_in) const
 {
-
-	return RectF::FromCenter(pos_in, hitbox_halfwidth - padding_LR, hitbox_halfheight - padding_TB);
+	return hitbox.OffsetBy(camPos_in);
 }
 
-void GameObject::SetHitBox(const RectF& hitbox_in)
+void GameObject::CreateHitBox(float padding_LR, float padding_TB)
 {
-	hitbox = hitbox_in;
+	hitbox = RectF::FromCenter(pos, hitbox_halfwidth - padding_LR, hitbox_halfheight - padding_TB);
 }

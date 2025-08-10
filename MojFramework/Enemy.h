@@ -17,4 +17,6 @@ private:
 	static constexpr Color c = Colors::Red;
 	static constexpr float constHitCooldownTime = 2.0f;
 	float hitColldownTime = constHitCooldownTime;
+	float padding_LR = 10.0f;
+	float padding_TB = 5.0f;
 };

@@ -6,6 +6,7 @@ Enemy::Enemy(const Vec2& pos_in)
 	rng(std::random_device{}()),
 	vRand(-1.0f, 1.0f)
 {
+	CreateHitBox(padding_LR, padding_TB);
 }
 void Enemy::Update(LivingEntity& other, float dt)
 {

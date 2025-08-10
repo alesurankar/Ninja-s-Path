@@ -4,7 +4,9 @@ Bullet::Bullet(const Vec2& pos_in, const Vec2& dir_in)
 	:
 	Projectile(pos_in, Surface("Images\\Bullet6x6.bmp"), width, height),
 	dir(dir_in)
-{}
+{
+	CreateHitBox(padding_LR, padding_TB);
+}
 
 void Bullet::Update(const GameObject& other, float dt)
 {

@@ -6,6 +6,7 @@ template<typename T>
 class Rect_
 {
 public:
+	Rect_() = default;
 	Rect_(T left_in, T top_in, T right_in, T bottom_in)
 		:
 		left(left_in),
@@ -68,7 +69,11 @@ public:
 	}
 	Rect_ GetExpanded(T offset) const
 	{
-		return Rect_(left - offset, right + offset, top - offset, bottom + offset);
+		return Rect_(left - offset, top - offset, right + offset, bottom + offset);
+	}
+	Rect_ OffsetBy(const Vec2& offset) const
+	{
+		return Rect_(left - offset.x, top - offset.y, right - offset.x, bottom - offset.y);
 	}
 	Vec2_<T> GetCenter() const
 	{

@@ -4,10 +4,7 @@ NonLivingObject::NonLivingObject(const Vec2& pos_in, const Surface& object_in, i
 	:
 	GameObject(pos_in, width_in, height_in),
 	object(object_in)
-{
-	padding_LR = float(width_in / 5);
-	padding_TB = float(height_in / 5);
-}
+{}
 
 void NonLivingObject::Draw(const Camera& cam, Graphics & gfx) const
 {
@@ -16,7 +13,6 @@ void NonLivingObject::Draw(const Camera& cam, Graphics & gfx) const
 	cam.WorldToScreen(pos, screenPos);
 	cam.WorldToScreen(GetCenter(), boxScreenPos);
 	gfx.DrawImage(screenPos, object, ImageEffect::Chroma{Colors::Magenta});
-	RectF hitbox = GetHitbox(boxScreenPos, padding_LR, padding_TB);
-	SetHitBox(hitbox);
-	gfx.DrawRectThin(RectI(hitbox), Colors::Blue);
+	//RectF hitbox = GetHitbox(boxScreenPos, padding_LR, padding_TB);
+	gfx.DrawRectThin(RectI(GetHitBox(boxScreenPos)), Colors::Blue);
 }
