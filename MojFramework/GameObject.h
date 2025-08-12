@@ -21,15 +21,9 @@ public:
 	RectF GetRect() const;
 	int GetWidth() const;
 	int GetHeight() const; 
-	RectF GetHitBox(Vec2 camPos_in) const;
-	void CreateHitBox(float padding_LR = 0.0f, float padding_TB = 0.0f);
 protected:
 	Vec2 pos;
-	//Vec2 draw_offset = { float(-width/2), float(-height) };
 private:
-	RectF hitbox;
 	int width;
 	int height;
-	float hitbox_halfwidth = float(width)/2.0f;
-	float hitbox_halfheight = float(height)/2.0f;
 };

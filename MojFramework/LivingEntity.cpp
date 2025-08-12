@@ -32,7 +32,7 @@ void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
 	animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	DrawStatus(cam, gfx);
 	//RectF hitbox = GetHitbox(boxScreenPos, 22.0f, 6.0f);
-	gfx.DrawRectThin(RectI(GetHitBox(boxScreenPos)), Colors::Red);
+	//gfx.DrawRectThin(RectI(GetHitBox(boxScreenPos)), Colors::Red);
 }
 
 void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const

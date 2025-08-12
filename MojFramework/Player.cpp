@@ -4,7 +4,7 @@ Player::Player(const Vec2& pos_in)
 	:
 	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c)
 {
-	CreateHitBox(padding_LR, padding_TB);
+	//CreateHitBox(padding_LR, padding_TB);
 }
 
 Player::~Player()
@@ -26,7 +26,7 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 	{
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
-	gfx.DrawRectThin(RectI(GetHitBox(boxScreenPos)), Colors::Green);
+	//gfx.DrawRectThin(RectI(GetHitBox(boxScreenPos)), Colors::Green);
 }
 
 void Player::DrawXP(Graphics& gfx) const
