@@ -16,7 +16,6 @@ public:
 	};
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
 	void Draw(const Camera& cam, Graphics& gfx) const override;
-	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
 	bool DestroyedStatus();
 	void Damaged();
 	void SaveToFile(std::string filename);
@@ -25,13 +24,12 @@ public:
 	void Heal(int amount);
 	void Respawn();
 private:
+	virtual void DrawStatus(const Camera& cam, Graphics& gfx) const;
 	void LoadFromFile(const std::string& filename);
 	void Destroyed();
 protected:
 	void ReadDirection(Vec2 dir);
 protected:
-	std::string filename;
-	Surface object;
 	bool destroyed;
 	int maxLives;
 	int lives;
@@ -42,7 +40,10 @@ protected:
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
 	bool facingLeft = true;
-	float healTime = 0.0f;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+private:
+	std::string filename;
+	Surface object;
+	float healTime = 0.0f;
 };

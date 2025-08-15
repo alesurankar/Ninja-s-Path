@@ -24,6 +24,8 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 	{
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
+	DrawStatus(gfx);
+	DrawXP(gfx);
 }
 
 void Player::DrawXP(Graphics& gfx) const

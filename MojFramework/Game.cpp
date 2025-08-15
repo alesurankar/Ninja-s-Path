@@ -224,8 +224,6 @@ void Game::DrawGame(Graphics& gfx)
 
 	//Player
 	player->Draw(*cam, gfx);
-	player->DrawStatus(gfx);
-	player->DrawXP(gfx);
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
