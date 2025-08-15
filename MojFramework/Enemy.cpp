@@ -13,6 +13,7 @@ void Enemy::Update(LivingEntity& other, float dt)
 	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.f)
 	{
 		dir = Vec2(vRand(rng), vRand(rng));
+		speed = 10.0f;
 	}
 	else if (delta.GetLengthSq() > 100.0f)
 	{
@@ -32,6 +33,7 @@ void Enemy::Update(LivingEntity& other, float dt)
 		{
 			dir.x += 1.0f;
 		}
+		speed = 40.0f;
 	}
 	else
 	{

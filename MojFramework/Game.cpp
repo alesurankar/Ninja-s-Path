@@ -26,6 +26,7 @@ Game::Game()
 	
 	//Enemy
 	enemy.clear();
+	enemy.reserve(Config::enemyNum);
 	count = 0.0f;
 	
 	//Collectable
