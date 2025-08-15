@@ -37,7 +37,21 @@ void Enemy::Update(LivingEntity& other, float dt)
 	{
 		Vec2 dir(0.0f, 0.0f);
 	}
+	if (hitColldownTime > 0.0f)
+	{
+		hitColldownTime -= dt;
+	}
 	ReadDirection(dir);
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
+}
+
+float Enemy::GetHitColldown()
+{
+	return hitColldownTime;
+}
+
+void Enemy::ResetHitCooldown()
+{
+	hitColldownTime = constHitCooldownTime;
 }

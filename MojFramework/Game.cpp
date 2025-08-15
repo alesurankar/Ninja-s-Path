@@ -117,13 +117,14 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
-		if (enemy[e].Colliding(*player) && !player->DestroyedStatus())
+		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
 			player->Damaged();
-			playerDamaged.Play();
 			int damage = 1;
 			Vei2 pos = Vei2(player->GetPos());
 			damagePopups.push_back({ damage, pos });
+			enemy[e].ResetHitCooldown();
+			playerDamaged.Play();
 		}
 		for (Bullet& b : bul)
 		{
