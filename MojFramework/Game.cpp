@@ -120,8 +120,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		enemy[e].Update(*player, dt);
 		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
-			player->Damaged();
-			int damage = 1;
+			int damage = player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 			Vei2 pos = Vei2(player->GetPos());
 			damagePopups.push_back({ damage, pos });
 			enemy[e].ResetHitCooldown();
@@ -131,17 +130,17 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].Damaged();
-				b.Smashed();
-				int damage = 1;
+				int damage = enemy[e].TakeDamage(*player, b.DamageBonus());
 				Vei2 pos = Vei2(enemy[e].GetPos());
 				damagePopups.push_back({ damage, pos });
+				b.Smashed();
 			}
 		}
 		if (enemy[e].DestroyedStatus())
 		{
 			coll.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
+			player->CollectXP(enemy[e]);
 			objDamaged.Play();
 		}
 		else

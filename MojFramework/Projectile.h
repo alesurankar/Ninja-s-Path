@@ -8,7 +8,9 @@ public:
 	void Draw(const Camera& cam, Graphics& gfx) const override;
 	void Smashed();
 	bool SmashedStatus();
+	int DamageBonus();
 private:
 	Surface object;
+	int damage = 20;
 	bool smashed;
 };
