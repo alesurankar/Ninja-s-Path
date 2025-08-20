@@ -33,13 +33,31 @@ Game::Game()
 	coll.clear();
 }
 
-void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
+void Game::UpdateGame(const Mouse& mouse, Keyboard& kbd, float dt)
 {
-	//Menu
-	if (!menu && kbd.KeyIsPressed(VK_ESCAPE))
+	// Process all keyboard events
+	while (!kbd.KeyIsEmpty())
 	{
-		CreateMenu();
+		Keyboard::Event e = kbd.ReadKey();
+		if (e.IsPress())
+		{
+			switch (e.GetCode())
+			{
+			case VK_ESCAPE:
+				if (!menu)
+				{
+					CreateMenu();
+				}
+				else
+				{
+					DestroyMenu();
+				}
+				break;
+			}
+		}
 	}
+
+	//Menu
 	if (menu)
 	{
 		menu->Update(mouse);
