@@ -2,6 +2,7 @@
 #include "MyWin.h"
 #include <d3d11.h>
 #include <wrl.h>
+#include <vector>
 #include "MyException.h"
 #include "Colors.h"
 #include "Vec2.h"
@@ -36,13 +37,13 @@ public:
 	void EndFrame(int delay);
 	void BeginFrame(Color bg);
 	Color GetPixel(int x, int y) const;
-	void PutPixel(int x, int y, int r, int g, int b)
+	void PutPixel(int x, int y, int r, int g, int b, int z = 0)
 	{
-		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) });
+		PutPixel(x, y, { unsigned char(r),unsigned char(g),unsigned char(b) }, z);
 	}
-	void PutPixel(int x, int y, Color c);
-	void DrawRect(RectI srcRect, Color c);
-	void DrawRect(RectI srcRect, const RectI& clip, Color c);
+	void PutPixel(int x, int y, Color c, int z = 0);
+	void DrawRect(RectI srcRect, int z_in, Color c);
+	void DrawRect(RectI srcRect, int z_in, const RectI& clip, Color c);
 	template<typename E>
 	void DrawImage(int x, int y, const Surface& s, E effect, bool reversed = false)
 	{
@@ -138,6 +139,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Surface												sysBuffer;
+	std::vector<int> zBuffer;
 public:
 	static constexpr int ScreenWidth = 1000;
 	static constexpr int ScreenHeight = 700;

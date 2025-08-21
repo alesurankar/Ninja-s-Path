@@ -38,6 +38,10 @@ public:
 	{
 		return bottom - top;
 	}
+	T GetBottom() const
+	{
+		return bottom;
+	}
 public:
 	T left;
 	T top;

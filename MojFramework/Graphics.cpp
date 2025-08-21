@@ -24,6 +24,7 @@ Graphics::Graphics(HWNDKey& key)
 	:
 	sysBuffer(ScreenWidth, ScreenHeight)
 {
+	zBuffer.resize(ScreenWidth * ScreenHeight, std::numeric_limits<int>::min());
 	assert(key.hWnd != nullptr);
 
 	//////////////////////////////////////////////////////
@@ -280,8 +281,11 @@ void Graphics::EndFrame(int delay)
 
 void Graphics::BeginFrame(Color bg)
 {
-	// clear the sysbuffer
+	// clear color buffer
 	sysBuffer.Fill(bg);
+
+	// clear depth buffer
+	std::fill(zBuffer.begin(), zBuffer.end(), std::numeric_limits<int>::min());
 }
 
 Color Graphics::GetPixel(int x, int y) const
@@ -293,21 +297,28 @@ Color Graphics::GetPixel(int x, int y) const
 	return sysBuffer.GetPixel(x, y);
 }
 
-void Graphics::PutPixel(int x, int y, Color c)
+void Graphics::PutPixel(int x, int y, Color c, int z)
 {
 	assert(x >= 0);
-	assert(x < int(Graphics::ScreenWidth));
+	assert(x < int(ScreenWidth));
 	assert(y >= 0);
-	assert(y < int(Graphics::ScreenHeight));
-	sysBuffer.PutPixel(x, y, c);
+	assert(y < int(ScreenHeight));
+
+	const int index = y * ScreenWidth + x;
+
+	if (z > zBuffer[index])
+	{
+		zBuffer[index] = z;
+		sysBuffer.PutPixel(x, y, c);
+	}
 }
 
-void Graphics::DrawRect(RectI srcRect, Color c)
+void Graphics::DrawRect(RectI srcRect, int z_in, Color c)
 {
-	DrawRect(srcRect, GetScreenRect(), c);
+	DrawRect(srcRect, z_in, GetScreenRect(), c);
 }
 
-void Graphics::DrawRect(RectI srcRect, const RectI& clip, Color c)
+void Graphics::DrawRect(RectI srcRect, int z_in, const RectI& clip, Color c)
 {
 	if (srcRect.left < clip.left)
 	{
@@ -329,11 +340,10 @@ void Graphics::DrawRect(RectI srcRect, const RectI& clip, Color c)
 	{
 		for (int sy = srcRect.top; sy < srcRect.bottom; sy++)
 		{
-			PutPixel(sx, sy, c);
+			PutPixel(sx, sy, c, z_in);
 		}
 	}
 }
-
 
 //////////////////////////////////////////////////
 //           Graphics Exception
