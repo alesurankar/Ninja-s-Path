@@ -12,11 +12,11 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	LoadFromFile(filename);
 	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
 	{
-		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 1, object, 1.0f);
+		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 1, object, 1.0f, z);
 	}
 	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::WALKING_LEFT; i++)
 	{
-		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 9, object, 0.06f);
+		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 9, object, 0.06f, z);
 	}
 	maxHP = baseHP + (stamina * 10);
 }

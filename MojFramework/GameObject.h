@@ -22,6 +22,7 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 protected:
+	RectI rect;
 	Vec2 pos;
 private:
 	int width;

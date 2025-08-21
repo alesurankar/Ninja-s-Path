@@ -44,6 +44,8 @@ void Enemy::Update(LivingEntity& other, float dt)
 		hitColldownTime -= dt;
 	}
 	ReadDirection(dir);
+	rect = RectI(Vei2(pos), width, height);
+	z = rect.GetBottom();
 	pos += dir.GetNormalized() * speed * dt;
 	animations[(int)curSequence].Update(dt);
 }

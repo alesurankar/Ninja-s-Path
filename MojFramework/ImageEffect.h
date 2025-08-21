@@ -10,12 +10,13 @@ namespace ImageEffect
 		Chroma(Color chroma_in)
 			:
 			chroma(chroma_in)
-		{}
-		void operator()(Color color, int x, int y, Graphics& gfx) const
+		{
+		}
+		void operator()(Color color, int x, int y, int z, Graphics& gfx) const
 		{
 			if (color != chroma)
 			{
-				gfx.PutPixel(x, y, color);
+				gfx.PutPixel(x, y, color, z);
 			}
 		}
 	private:
@@ -25,9 +26,9 @@ namespace ImageEffect
 	class NoEffect
 	{
 	public:
-		void operator()(Color color, int x, int y, Graphics& gfx) const
+		void operator()(Color color, int x, int y, int z, Graphics& gfx) const
 		{
-			gfx.PutPixel(x, y, color);
+			gfx.PutPixel(x, y, color, z);
 		}
 	};
 
@@ -38,12 +39,13 @@ namespace ImageEffect
 			:
 			chroma(chroma_in),
 			oneColor(color_in)
-		{}
-		void operator()(Color color, int x, int y, Graphics& gfx) const
+		{
+		}
+		void operator()(Color color, int x, int y, int z, Graphics& gfx) const
 		{
 			if (color != chroma)
 			{
-				gfx.PutPixel(x, y, oneColor);
+				gfx.PutPixel(x, y, oneColor, z);
 			}
 		}
 	private:
@@ -57,10 +59,11 @@ namespace ImageEffect
 		Ghost(Color chroma_in)
 			:
 			chroma(chroma_in)
-		{}
-		void operator()(Color color, int x, int y, Graphics& gfx) const
 		{
-			if(color != chroma)
+		}
+		void operator()(Color color, int x, int y, int z, Graphics& gfx) const
+		{
+			if (color != chroma)
 			{
 				const Color dest = gfx.GetPixel(x, y);
 				const Color blend =
@@ -69,7 +72,7 @@ namespace ImageEffect
 					unsigned char((color.GetG() + dest.GetG()) / 3),
 					unsigned char((color.GetB() + dest.GetB()) / 3)
 				};
-				gfx.PutPixel(x, y, blend);
+				gfx.PutPixel(x, y, blend, z);
 			}
 		}
 	private:

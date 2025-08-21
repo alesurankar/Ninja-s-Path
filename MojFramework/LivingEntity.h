@@ -53,6 +53,7 @@ protected:
 	bool facingLeft = true;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
+	int z;
 private:
 	std::string filename;
 	Surface object;

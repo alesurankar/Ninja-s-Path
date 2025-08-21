@@ -9,6 +9,8 @@ public:
 	void Smashed();
 	bool SmashedStatus();
 	int DamageBonus();
+protected:
+	int z;
 private:
 	Surface object;
 	int damage = 20;

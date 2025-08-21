@@ -8,7 +8,7 @@
 class Animation
 {
 public:
-	Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in);
+	Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in, int z_in);
 	void Draw(const Vec2& pos, Graphics& gfx, bool mirrored = false) const;
 	void DrawGhost(const Vec2& pos, Graphics& gfx, bool mirrored = false) const;
 	void Update(float dt);
@@ -20,4 +20,5 @@ private:
 	float holdTime;
 	float frameTime = 0.0f;
 	int curFrame = 0;
+	int z;
 };

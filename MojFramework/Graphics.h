@@ -45,27 +45,27 @@ public:
 	void DrawRect(RectI srcRect, int z_in, Color c);
 	void DrawRect(RectI srcRect, int z_in, const RectI& clip, Color c);
 	template<typename E>
-	void DrawImage(int x, int y, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(int x, int y, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
-		DrawImage(x, y, s.GetRect(), s, effect, reversed);
+		DrawImage(x, y, s.GetRect(), s, effect, z, reversed);
 	}
 	template<typename E>
-	void DrawImage(const Vec2& pos, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(const Vec2& pos, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
-		DrawImage(int(pos.x), int(pos.y), s, effect, reversed);
+		DrawImage(int(pos.x), int(pos.y), s, effect, z, reversed);
 	}
 	template<typename E>
-	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(int x, int y, const RectI& srcRect, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
-		DrawImage(x, y, srcRect, GetScreenRect(), s, effect, reversed);
+		DrawImage(x, y, srcRect, GetScreenRect(), s, effect, z, reversed);
 	}
 	template<typename E>
-	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(const Vec2& pos, const RectI& srcRect, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
-		DrawImage(int(pos.x), int(pos.y), srcRect, s, effect, reversed);
+		DrawImage(int(pos.x), int(pos.y), srcRect, s, effect, z, reversed);
 	}
 	template<typename E>
-	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
 		if (x < clip.left)
 		{
@@ -107,20 +107,20 @@ public:
 
 				if (!reversed)
 				{
-					effect(s.GetPixel(sx, sy), sx + x - srcRect.left, sy + y - srcRect.top, *this);
+					effect(s.GetPixel(sx, sy), sx + x - srcRect.left, sy + y - srcRect.top, z, *this);
 				}
 				else
 				{
 					const int xOffset = srcRect.left + srcRect.right - 1;
-					effect(s.GetPixel(xOffset - sx, sy), x + sx - srcRect.left, y + sy - srcRect.top, *this);
+					effect(s.GetPixel(xOffset - sx, sy), x + sx - srcRect.left, y + sy - srcRect.top, z, *this);
 				}
 			}
 		}
 	}
 	template<typename E>
-	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s, E effect, bool reversed = false)
+	void DrawImage(const Vec2& pos, RectI srcRect, const RectI& clip, const Surface& s, E effect, int z = 0, bool reversed = false)
 	{
-		DrawImage(int(pos.x), int(pos.y), srcRect, clip, s, effect, reversed);
+		DrawImage(int(pos.x), int(pos.y), srcRect, clip, s, effect, z, reversed);
 	}
 
 

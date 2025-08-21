@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include "ImageEffect.h"
 
-Animation::Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in)
+Animation::Animation(int x, int y, int width, int height, int frameCount, const Surface& image_in, float holdTime_in, int z_in)
 	:
 	image(image_in),
 	holdTime(holdTime_in)
@@ -14,12 +14,12 @@ Animation::Animation(int x, int y, int width, int height, int frameCount, const 
 
 void Animation::Draw(const Vec2& pos, Graphics& gfx, bool mirrored) const
 {
-	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Chroma{Colors::Magenta}, mirrored);
+	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Chroma{Colors::Magenta}, z, mirrored);
 }
 
 void Animation::DrawGhost(const Vec2& pos, Graphics& gfx, bool mirrored) const
 {
-	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Ghost{ Colors::Magenta }, mirrored);
+	gfx.DrawImage(pos, frame[curFrame], image, ImageEffect::Ghost{ Colors::Magenta }, z, mirrored);
 }
 
 void Animation::Update(float dt)
