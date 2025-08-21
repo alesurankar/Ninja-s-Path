@@ -35,9 +35,9 @@ void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const
 	cam.WorldToScreen(GetPos(), screenPos);
 	RectI wholeBar(Vei2(screenPos) - Vei2(0, 6), GetWidth(), 5);
 	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), GetWidth() * hp / maxHP, 5);
-	gfx.DrawRect(wholeBar, GetBottom(), c);
-	gfx.DrawRect(wholeBar, Colors::White);
-	gfx.DrawRect(diminBar, c);
+	gfx.DrawRect(wholeBar, wholeBar.GetBottom(), c);
+	gfx.DrawRect(wholeBar, wholeBar.GetBottom(), Colors::White);
+	gfx.DrawRect(diminBar, diminBar.GetBottom(), c);
 	smallFont.DrawText("Lvl " + std::to_string(level), Vei2(screenPos) - Vei2(0, 20), Colors::White, gfx);
 }
 

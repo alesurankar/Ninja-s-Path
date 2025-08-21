@@ -21,15 +21,15 @@ void Button::Draw(Graphics& gfx) const
 {
 	if (onTop)
 	{
-		gfx.DrawRect(outside, Colors::Yellow);
+		gfx.DrawRect(outside, outside.GetBottom(), Colors::Yellow);
 	}
 	if (pressed)
 	{
-		gfx.DrawRect(inside, Colors::DarkBlue);
+		gfx.DrawRect(inside, inside.GetBottom(), Colors::DarkBlue);
 	}
 	else
 	{
-		gfx.DrawRect(inside, Colors::Blue);
+		gfx.DrawRect(inside, inside.GetBottom(), Colors::Blue);
 	}
 	smallFont.DrawText(text, {middle_x, middle_y}, Colors::Yellow, gfx);
 }
