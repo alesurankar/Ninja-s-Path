@@ -1,47 +1,43 @@
-import app_utills
-
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
+from app_utils import init_db, create_user, verify_user, list_users, delete_user
+from pydantic import BaseModel
+
+app = FastAPI(title="User Management API")
 
 
-app = FastAPI()
+class UserRequest(BaseModel):
+    username: str
 
+# --- Initialize DB at startup ---
+init_db()
+
+# endpoints
 @app.get("/")
 def root():
     return RedirectResponse(url="/docs")
 
-# --- Table Management ---
-@app.post("/create-table/{table_name}")
-def api_create_table(table_name: str):
+@app.post("/signup")
+def signup(user: UserRequest):
     try:
-        app_utills.create_table(table_name)
-        return {"message": f"Table '{table_name}' created successfully."}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    
-
-@app.delete("/delete-table/{table_name}")
-def api_delete_table(table_name: str):
-    try:
-        app_utills.delete_table(table_name)
-        return {"message": f"Table '{table_name}' deleted successfully."}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    
-
-@app.get("/check-table/{table_name}")
-def api_check_table(table_name: str):
-    try:
-        exists = app_utills.check_table_exists(table_name)
-        return {"exists": exists}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
-@app.get("/list-tables")
-def api_list_tables():
-    try:
-        tables = app_utills.list_tables()
-        return {"tables": tables}
+        create_user(user.username)
+        return {"message": f"User '{user.username}' created successfully."}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/login")
+def login(user: UserRequest):
+    if verify_user(user.username):
+        return {"message": f"Logged in as '{user.username}'"}
+    raise HTTPException(status_code=400, detail=f"User '{user.username}' not found.")
+
+@app.get("/users")
+def get_users():
+    users = list_users()
+    return {"users": users}
+
+@app.delete("/users/{username}")
+def remove_user(user: UserRequest):
+    if delete_user(user.username):
+        return {"message": f"User '{user.username}' deleted successfully."}
+    raise HTTPException(status_code=400, detail=f"User '{user.username}' not found.")
