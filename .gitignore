@@ -316,6 +316,13 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Ignore database files
+*.db
+
+# Ignore virtual environments
+venv/
+.env/
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config
