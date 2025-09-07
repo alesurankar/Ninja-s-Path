@@ -63,8 +63,12 @@ def get_users():
     users = list_users()
     return {"users": users}
 
-@app.delete("/users/{username}")
-def remove_user(user: UserRequest):
-    if delete_user(user.username):
-        return {"message": f"User '{user.username}' deleted successfully."}
-    raise HTTPException(status_code=400, detail=f"User '{user.username}' not found.")
+@app.delete("/delete-user/{username}")
+def remove_user(username: str):
+    if delete_user(username):
+        return {"message": f"User '{username}' deleted successfully."}
+    raise HTTPException(status_code=400, detail=f"User '{username}' not found.")
+
+
+
+    
