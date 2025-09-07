@@ -27,9 +27,13 @@ def signup(user: UserRequest):
 
 @app.post("/login")
 def login(user: UserRequest):
-    if verify_user(user.username):
-        return {"message": f"Logged in as '{user.username}'"}
-    raise HTTPException(status_code=400, detail=f"User '{user.username}' not found.")
+    if not verify_user(user.username):
+        raise HTTPException(status_code=400, detail=f"User '{user.username}' not found.")
+    # Create a TXT file on disk
+    filename = f"{user.username}.txt"
+    with open(filename, "w") as f:
+        f.write(user.username)
+    return {"message": f"Logged in as '{user.username}', file '{filename}' created."}
 
 @app.get("/users")
 def get_users():
