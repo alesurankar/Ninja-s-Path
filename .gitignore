@@ -316,6 +316,8 @@ paket-files/
 __pycache__/
 *.pyc
 
+.db
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config
@@ -361,3 +363,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/FastAPI/data.db
