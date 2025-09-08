@@ -121,6 +121,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			player->Damaged();
 			playerDamaged.Play();
+			int damage = 1;
+			Vei2 pos = Vei2(player->GetPos());
+			damagePopups.push_back({ damage, pos });
 		}
 		for (Bullet& b : bul)
 		{
@@ -128,6 +131,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			{
 				enemy[e].Damaged();
 				b.Smashed();
+				int damage = 1;
+				Vei2 pos = Vei2(enemy[e].GetPos());
+				damagePopups.push_back({ damage, pos });
 			}
 		}
 		if (enemy[e].DestroyedStatus())
@@ -140,6 +146,16 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			e++;
 		}
+	}
+
+	//Damage Popups
+	for (int i = 0; i < damagePopups.size(); )
+	{
+		damagePopups[i].timeLeft -= dt;
+		if (damagePopups[i].timeLeft <= 0.0f)
+			damagePopups.erase(damagePopups.begin() + i);
+		else
+			++i;
 	}
 	
 	//Collectable
@@ -214,6 +230,12 @@ void Game::DrawGame(Graphics& gfx)
 
 	//WorldPosition
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
+
+	//Damage Popups
+	for (DamagePopup popup : damagePopups)
+	{
+		popup.Draw(*cam, gfx);
+	}
 
 	//Menu
 	if (menu)

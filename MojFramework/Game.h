@@ -14,9 +14,11 @@
 #include "Kamiza.h"
 #include "Menu.h"
 #include "Camera.h"
+#include "DamagePopup.h"
 #include <deque>
 #include <numeric>
 #include <memory>
+
 
 class Game
 {
@@ -42,6 +44,7 @@ private:
 	std::vector<Bullet> bul;
 	std::unique_ptr<Kamiza> kamiza;
 	std::unique_ptr<Camera> cam;
+	std::vector<DamagePopup> damagePopups;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;
