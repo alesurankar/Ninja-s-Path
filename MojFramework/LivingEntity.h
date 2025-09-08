@@ -17,7 +17,13 @@ public:
 	LivingEntity(const Vec2& pos_in, const Surface& object_in, int width_in, int height_in, const std::string& filename_in, Color c_in);
 	void Draw(const Camera& cam, Graphics& gfx) const override;
 	bool DestroyedStatus();
-	void Damaged();
+	int TakeDamage(LivingEntity& attacker, int weaponBonus);
+	int DamageDeal();
+	int MeleDamage();
+	void CollectXP(LivingEntity& other);
+	void LevelUp();
+	int GetLevel();
+	int GetMaxXP();
 	void SaveToFile(std::string filename);
 	void ActiveRegenerate(float dt);
 	void PasiveRegenerate(float dt);
@@ -31,10 +37,15 @@ protected:
 	void ReadDirection(Vec2 dir);
 protected:
 	bool destroyed;
-	int maxLives;
-	int lives;
+	int level;
+	static constexpr int baseHP = 100;
+	int maxHP;
 	int maxXP;
-	int xp = 100;
+	int stamina;
+	int strength;
+	int armour;
+	int xp;
+	int hp;
 	float speed;
 	Color c;
 	std::vector<Animation> animations;

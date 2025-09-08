@@ -18,6 +18,7 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	{
 		animations.emplace_back(0, 0, GetWidth(), GetHeight(), 9, object, 0.06f);
 	}
+	maxHP = baseHP + (stamina * 10);
 }
 
 void LivingEntity::Draw(const Camera& cam, Graphics& gfx) const
@@ -33,11 +34,11 @@ void LivingEntity::DrawStatus(const Camera& cam, Graphics& gfx) const
 	Vec2 screenPos;
 	cam.WorldToScreen(GetPos(), screenPos);
 	RectI wholeBar(Vei2(screenPos) - Vei2(0, 6), GetWidth(), 5);
-	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), GetWidth() * lives / maxLives, 5);
+	RectI diminBar(Vei2(screenPos) - Vei2(0, 6), GetWidth() * hp / maxHP, 5);
 	gfx.DrawRect(wholeBar, c);
 	gfx.DrawRect(wholeBar, Colors::White);
 	gfx.DrawRect(diminBar, c);
-	smallFont.DrawText("Lvl 0", Vei2(screenPos) - Vei2(0, 20), Colors::White, gfx);
+	smallFont.DrawText("Lvl " + std::to_string(level), Vei2(screenPos) - Vei2(0, 20), Colors::White, gfx);
 }
 
 bool LivingEntity::DestroyedStatus()
@@ -48,7 +49,7 @@ bool LivingEntity::DestroyedStatus()
 void LivingEntity::Destroyed()
 {
 	destroyed = true;
-	lives = 0;
+	hp = 0;
 }
 
 void LivingEntity::ReadDirection(Vec2 dir)
@@ -95,13 +96,78 @@ void LivingEntity::ReadDirection(Vec2 dir)
 	}
 }
 
-void LivingEntity::Damaged()
+int LivingEntity::TakeDamage(LivingEntity& attacker, int weaponBonus)
 {
-	lives--;
-	if (lives <= 0)
+	int finalDamage = 0;
+	if (!destroyed)
 	{
-		Destroyed();
+		int baseDamage = attacker.DamageDeal() + weaponBonus;
+
+		// Optional: add randomness or critical hit chance
+		// baseDamage *= CritMultiplierOrVariance();
+
+		float armourReduction = static_cast<float>(armour) /
+			(static_cast<float>(armour) + 400.0f + 85.0f * attacker.GetLevel());
+		finalDamage = std::max(1, int(baseDamage * (1.0f - armourReduction)));
+
+		hp -= finalDamage;
+		if (hp <= 0)
+		{
+			Destroyed();
+			hp = 0;
+		}
 	}
+	return finalDamage;
+}
+
+int LivingEntity::DamageDeal()
+{
+	return strength;
+}
+
+int LivingEntity::MeleDamage()
+{
+	int weaponBase = 1;
+	int power = 0;
+	int meleDamage = weaponBase + static_cast<int>(strength * 1.5) + power;
+	return meleDamage;
+}
+
+void LivingEntity::CollectXP(LivingEntity& other)
+{
+	int levelDifference = other.GetLevel() - GetLevel();
+	if (levelDifference >= -3)
+	{
+		int xp_increase = other.GetMaxXP() / (8 * GetLevel());
+		xp += xp_increase * 1; //Faster leveling
+		if (xp >= maxXP)
+		{
+			xp_increase = xp - maxXP;
+			LevelUp();
+			xp = xp_increase / ((8 * GetLevel()) / (8 * (GetLevel() - 1)));
+		}
+	}
+}
+
+void LivingEntity::LevelUp()
+{
+	level++;
+	maxXP += 300 + 90 * level;
+	stamina += 3;
+	maxHP = baseHP + (stamina * 10);
+	strength += 2;
+	armour += 2;
+	hp = maxHP;
+}
+
+int LivingEntity::GetLevel()
+{
+	return level;
+}
+
+int LivingEntity::GetMaxXP()
+{
+	return maxXP;
 }
 
 void LivingEntity::SaveToFile(std::string filename)
@@ -109,20 +175,20 @@ void LivingEntity::SaveToFile(std::string filename)
 	std::ofstream file(filename);
 	if (file)
 	{
-		file << maxLives << " " << lives << "\n";
+		file << level << " " << hp << " " << maxXP << " " << xp << " " << stamina << " " << strength << " " << armour << "\n";
 	}
 }
 
 void LivingEntity::ActiveRegenerate(float dt)
 {
-	const int percent = maxLives / 20;
+	const int percent = maxHP / 20;
 	healTime += dt;
 	if (healTime > 0.4f)
 	{
 		Heal(percent);
 		healTime = 0.0f;
 	}
-	if (destroyed && maxLives < lives * 10)
+	if (destroyed && maxHP < hp * 10)
 	{
 		Respawn();
 	}
@@ -130,7 +196,7 @@ void LivingEntity::ActiveRegenerate(float dt)
 
 void LivingEntity::PasiveRegenerate(float dt)
 {
-	const int percent = maxLives / 50;
+	const int percent = maxHP / 50;
 	if (!destroyed)
 	{
 		healTime += dt;
@@ -144,10 +210,10 @@ void LivingEntity::PasiveRegenerate(float dt)
 
 void LivingEntity::Heal(int amount)
 {
-	lives += amount;
-	if (lives >= maxLives)
+	hp += amount;
+	if (hp >= maxHP)
 	{
-		lives = maxLives;
+		hp = maxHP;
 	}
 }
 
@@ -156,7 +222,7 @@ void LivingEntity::LoadFromFile(const std::string& filename)
 	std::ifstream file(filename);
 	if (file)
 	{
-		file >> maxLives >> lives;
+		file >> level >> hp >> maxXP >> xp >> stamina >> strength >> armour;
 	}
 }
 

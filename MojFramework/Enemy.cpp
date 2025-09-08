@@ -2,10 +2,11 @@
 
 Enemy::Enemy(const Vec2& pos_in)
 	:
-	LivingEntity(pos_in, Surface("Images\\enemy64x64.bmp"), width, height, ("Config\\enemy_config.txt"), c),
+	LivingEntity(pos_in, Surface("Images\\enemy64x64.bmp"), width, height, ("Config\\level1_enemy.txt"), c),
 	rng(std::random_device{}()),
 	vRand(-1.0f, 1.0f)
-{}
+{
+}
 void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();

@@ -5,9 +5,10 @@ Projectile::Projectile(const Vec2& pos_in, const Surface& object_in, int width_i
 	GameObject(pos_in, width_in, height_in),
 	object(object_in),
 	smashed(false)
-{}
+{
+}
 
-void Projectile::Draw(const Camera& cam, Graphics & gfx) const
+void Projectile::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
 	cam.WorldToScreen(pos, screenPos);
@@ -24,3 +25,7 @@ bool Projectile::SmashedStatus()
 	return smashed;
 }
 
+int Projectile::DamageBonus()
+{
+	return damage;
+}

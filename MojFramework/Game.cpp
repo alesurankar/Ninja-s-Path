@@ -13,7 +13,7 @@ Game::Game()
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Kamiza
-	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f,-60.0f));
+	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f, -60.0f));
 
 	//Player
 	player = std::make_unique<Player>(Vec2(xRand(rng), yRand(rng)));
@@ -120,8 +120,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		enemy[e].Update(*player, dt);
 		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
 		{
-			player->Damaged();
-			int damage = 1;
+			int damage = player->TakeDamage(enemy[e], enemy[e].MeleDamage());
 			Vei2 pos = Vei2(player->GetPos());
 			damagePopups.push_back({ damage, pos });
 			enemy[e].ResetHitCooldown();
@@ -131,17 +130,17 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			if (enemy[e].Colliding(b))
 			{
-				enemy[e].Damaged();
-				b.Smashed();
-				int damage = 1;
+				int damage = enemy[e].TakeDamage(*player, b.DamageBonus());
 				Vei2 pos = Vei2(enemy[e].GetPos());
 				damagePopups.push_back({ damage, pos });
+				b.Smashed();
 			}
 		}
 		if (enemy[e].DestroyedStatus())
 		{
 			coll.emplace_back(enemy[e].GetPos());
 			enemy.erase(enemy.begin() + e);
+			player->CollectXP(enemy[e]);
 			objDamaged.Play();
 		}
 		else
@@ -226,7 +225,7 @@ void Game::DrawGame(Graphics& gfx)
 	player->Draw(*cam, gfx);
 
 	//Latency
-	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50 }, Colors::Red, gfx);
 
 	//WorldPosition
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
