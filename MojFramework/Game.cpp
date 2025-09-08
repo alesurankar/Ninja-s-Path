@@ -23,12 +23,12 @@ Game::Game()
 
 	//Bullet
 	bul.clear();
-	
+
 	//Enemy
-	enemy.clear(); 
+	enemy.clear();
 	enemy.reserve(Config::enemyNum);
 	count = 0.0f;
-	
+
 	//Collectable
 	coll.clear();
 }
@@ -92,7 +92,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		player->SetPos(kamiza->GetCenter());
 	}
-	
+
 	//Bullet
 	for (int b = 0; b < bul.size(); )
 	{
@@ -106,15 +106,15 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			b++;
 		}
 	}
-	
+
 	//Enemy
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
-		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
-	
+
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
@@ -159,7 +159,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		else
 			++i;
 	}
-	
+
 	//Collectable
 	for (int c = 0; c < coll.size();)
 	{
@@ -203,7 +203,7 @@ void Game::DrawGame(Graphics& gfx)
 	{
 		c.Draw(*cam, gfx);
 	}
-	
+
 	//Bullet
 	for (Bullet& b : bul)
 	{
@@ -212,7 +212,7 @@ void Game::DrawGame(Graphics& gfx)
 			b.Draw(*cam, gfx);
 		}
 	}
-	
+
 	//Enemy
 	for (Enemy& e : enemy)
 	{
@@ -224,8 +224,6 @@ void Game::DrawGame(Graphics& gfx)
 
 	//Player
 	player->Draw(*cam, gfx);
-	player->DrawStatus(gfx);
-	player->DrawXP(gfx);
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);

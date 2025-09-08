@@ -16,7 +16,7 @@ Player::~Player()
 void Player::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
-	cam.WorldToScreen(pos, screenPos);
+	cam.WorldToScreen(GetPos(), screenPos);
 	if (!destroyed)
 	{
 		animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
@@ -25,6 +25,8 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 	{
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
+	DrawStatus(gfx);
+	DrawXP(gfx);
 }
 
 void Player::DrawXP(Graphics& gfx) const

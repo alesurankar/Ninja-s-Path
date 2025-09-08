@@ -23,6 +23,7 @@ public:
 	int GetHeight() const;
 protected:
 	Vec2 pos;
+private:
 	int width;
 	int height;
 };
