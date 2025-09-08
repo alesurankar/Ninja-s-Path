@@ -5,7 +5,8 @@ Player::Player(const Vec2& pos_in)
 	LivingEntity(pos_in, Surface("Images\\player33x58.bmp"), width, height, ("Config\\player_config.txt"), c),
 	firing(false),
 	loaded(false)
-{}
+{
+}
 
 Player::~Player()
 {
@@ -43,7 +44,7 @@ void Player::DrawStatus(Graphics& gfx) const
 	gfx.DrawImage(face.GetWidth(), 0, emptyHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), 0, hpBar, fullHP, ImageEffect::Chroma{ Colors::Magenta });
 	gfx.DrawImage(face.GetWidth(), fullHP.GetHeight(), energyBar, fullEnergy, ImageEffect::Chroma{ Colors::Magenta });
-	smallFont.DrawText(std::to_string(maxLives) + " / " + std::to_string(lives), { 100, 10 }, Colors::Black, gfx);
+	smallFont.DrawText(std::to_string(lives) + " / " + std::to_string(maxLives), { 100, 10 }, Colors::Black, gfx);
 	smallFont.DrawText("Lvl: ", { 340, 10 }, Colors::Yellow, gfx);
 	bigFont.DrawText("0", { 370, 10 }, Colors::Yellow, gfx);
 }
@@ -60,11 +61,11 @@ void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		speed = Config::mySpeed * 3;
+		speed = 300.0f;
 	}
 	else
 	{
-		speed = Config::mySpeed;
+		speed = 100.0f;
 	}
 
 	Vec2 dir(0.0f, 0.0f);
