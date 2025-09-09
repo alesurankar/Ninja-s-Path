@@ -22,6 +22,9 @@ Game::Game()
 
 	//Camera
 	cam = std::make_unique<Camera>(player->GetCenter());
+
+	//Enemy
+	enemy.reserve(Config::enemyNum);
 }
 
 void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -49,6 +52,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		}
 	}
 
+
 	//Latency
 	const int refreshRate = 16;
 	frameTimes.push_back(static_cast<int>(dt * 1000));
@@ -61,6 +65,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		int sum = std::accumulate(frameTimes.begin(), frameTimes.end(), 0);
 		latency = static_cast<int>(sum / frameTimes.size());
 	}
+
 
 	//Player
 	if (!menu)
@@ -84,79 +89,90 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		player->SetPos(kamiza->GetCenter());
 	}
 	
+
 	//Bullet
-	for (int b = 0; b < bul.size(); )
+	for (Bullet& b : bul)
 	{
-		bul[b].Update(*player, dt);
-		if (bul[b].SmashedStatus())
-		{
-			bul.erase(bul.begin() + b);
-		}
-		else
-		{
-			b++;
-		}
+		b.Update(*player, dt);
 	}
+
+	bul.erase(
+		std::remove_if(bul.begin(), bul.end(),
+			[](Bullet& b) { return b.SmashedStatus(); }),
+		bul.end());
+
 	
 	//Enemy
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
-		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
-	
-	for (int e = 0; e < enemy.size();)
+	// Update all enemies
+	for (Enemy& e : enemy)
 	{
-		enemy[e].Update(*player, dt);
-		if (enemy[e].Colliding(*player) && !player->DestroyedStatus())
+		e.Update(*player, dt);
+
+		// Handle collisions with player
+		if (e.Colliding(*player) && !player->DestroyedStatus())
 		{
 			player->Damaged();
 			playerDamaged.Play();
 		}
+
+		// Handle collisions with bullets
 		for (Bullet& b : bul)
 		{
-			if (enemy[e].Colliding(b))
+			if (e.Colliding(b))
 			{
-				enemy[e].Damaged();
+				e.Damaged();
 				b.Smashed();
 			}
 		}
-		if (enemy[e].DestroyedStatus())
-		{
-			coll.emplace_back(enemy[e].GetPos());
-			enemy.erase(enemy.begin() + e);
-			objDamaged.Play();
-		}
-		else
-		{
-			e++;
-		}
 	}
+	// Remove destroyed enemies and spawn collectables
+	enemy.erase(
+		std::remove_if(enemy.begin(), enemy.end(),
+			[&](Enemy& e)
+			{
+				if (e.DestroyedStatus())
+				{
+					coll.emplace_back(e.GetPos()); // spawn collectable
+					objDamaged.Play();
+					return true; // remove this enemy
+				}
+				return false; // keep enemy
+			}),
+		enemy.end());
 	
+
 	//Collectable
-	for (int c = 0; c < coll.size();)
-	{
-		if (coll[c].Colliding(*player))
-		{
-			coll.erase(coll.begin() + c);
-			objCollected.Play();
-		}
-		else
-		{
-			c++;
-		}
-	}
+	coll.erase(
+		std::remove_if(coll.begin(), coll.end(),
+			[&](Collectable& c)
+			{
+				if (c.Colliding(*player))
+				{
+					objCollected.Play();
+					return true;
+				}
+				return false;
+			}),
+		coll.end());
+
 
 	//Camera
 	cam->Follow(player->GetCenter());
+
 
 	//Kamiza
 	//Collectable
 	//Player
 	//Enemy
 	//Bullet
-	objects.clear();
+	objects.clear(); 
+	objects.reserve(1 + coll.size() + 1 + enemy.size() + bul.size());
 	objects.push_back(kamiza.get());
 	for (Collectable& c : coll) 
 		objects.push_back(&c);
