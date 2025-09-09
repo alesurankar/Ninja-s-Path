@@ -9,9 +9,11 @@ Game::Game()
 	objCollected(L"Sounds\\2_objcollected.wav"),
 	objDamaged(L"Sounds\\3_objDamaged.wav"),
 	playerDamaged(L"Sounds\\4_playerDamaged.wav"),
-	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound)
+	gameMusic(L"Sounds\\5_gameMusic.wav", Sound::LoopType::AutoFullSound),
+	count(0.0f)
 {
 	gameMusic.Play(1.0f, 0.4f);
+
 	//Kamiza
 	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f,-60.0f));
 
@@ -20,16 +22,6 @@ Game::Game()
 
 	//Camera
 	cam = std::make_unique<Camera>(player->GetCenter());
-
-	//Bullet
-	bul.clear();
-	
-	//Enemy
-	enemy.clear();
-	count = 0.0f;
-	
-	//Collectable
-	coll.clear();
 }
 
 void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -158,6 +150,21 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 
 	//Camera
 	cam->Follow(player->GetCenter());
+
+	//Kamiza
+	//Collectable
+	//Player
+	//Enemy
+	//Bullet
+	objects.clear();
+	objects.push_back(kamiza.get());
+	for (Collectable& c : coll) 
+		objects.push_back(&c);
+	objects.push_back(player.get());
+	for (Enemy& e : enemy) 
+		objects.push_back(&e);
+	for (Bullet& b : bul) 
+		objects.push_back(&b);
 }
 
 void Game::CreateMenu()
@@ -177,37 +184,15 @@ std::string Game::GetGameMessage()
 
 void Game::DrawGame(Graphics& gfx)
 {
-	//kamiza
-	kamiza->Draw(*cam, gfx);
-
+	//Kamiza
 	//Collectable
-	for (Collectable& c : coll)
-	{
-		c.Draw(*cam, gfx);
-	}
-	
-	//Bullet
-	for (Bullet& b : bul)
-	{
-		if (!b.SmashedStatus())
-		{
-			b.Draw(*cam, gfx);
-		}
-	}
-	
-	//Enemy
-	for (Enemy& e : enemy)
-	{
-		if (!e.DestroyedStatus())
-		{
-			e.Draw(*cam, gfx);
-		}
-	}
-
 	//Player
-	player->Draw(*cam, gfx);
-	player->DrawStatus(gfx);
-	player->DrawXP(gfx);
+	//Enemy
+	//Bullet
+	for (GameObject* obj : objects)
+	{
+		obj->Draw(*cam, gfx);
+	}
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
