@@ -13,7 +13,7 @@ Game::Game()
 {
 	gameMusic.Play(1.0f, 0.4f);
 	//Kamiza
-	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f,-60.0f));
+	kamiza = std::make_unique<Kamiza>(Vec2(-60.0f, -60.0f));
 
 	//Player
 	player = std::make_unique<Player>(Vec2(xRand(rng), yRand(rng)));
@@ -23,11 +23,11 @@ Game::Game()
 
 	//Bullet
 	bul.clear();
-	
+
 	//Enemy
 	enemy.clear();
 	count = 0.0f;
-	
+
 	//Collectable
 	coll.clear();
 }
@@ -91,7 +91,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	{
 		player->SetPos(kamiza->GetCenter());
 	}
-	
+
 	//Bullet
 	for (int b = 0; b < bul.size(); )
 	{
@@ -105,15 +105,15 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			b++;
 		}
 	}
-	
+
 	//Enemy
 	count += dt;
 	if (count > Config::enemyRespawnTime && enemy.size() < n)
 	{
-		enemy.emplace_back(Vec2(xRand(rng), yRand(rng))); 
+		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
-	
+
 	for (int e = 0; e < enemy.size();)
 	{
 		enemy[e].Update(*player, dt);
@@ -121,6 +121,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		{
 			player->Damaged();
 			playerDamaged.Play();
+			int damage = 1;
+			Vei2 pos = Vei2(player->GetPos());
+			damagePopups.emplace_back(damage, pos);
 		}
 		for (Bullet& b : bul)
 		{
@@ -128,6 +131,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			{
 				enemy[e].Damaged();
 				b.Smashed();
+				int damage = 1;
+				Vei2 pos = Vei2(enemy[e].GetPos());
+				damagePopups.emplace_back(damage, pos);
 			}
 		}
 		if (enemy[e].DestroyedStatus())
@@ -141,7 +147,17 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			e++;
 		}
 	}
-	
+
+	//Damage Popups
+	for (int i = 0; i < damagePopups.size(); )
+	{
+		damagePopups[i].timeLeft -= dt;
+		if (damagePopups[i].timeLeft <= 0.0f)
+			damagePopups.erase(damagePopups.begin() + i);
+		else
+			++i;
+	}
+
 	//Collectable
 	for (int c = 0; c < coll.size();)
 	{
@@ -185,7 +201,7 @@ void Game::DrawGame(Graphics& gfx)
 	{
 		c.Draw(*cam, gfx);
 	}
-	
+
 	//Bullet
 	for (Bullet& b : bul)
 	{
@@ -194,7 +210,7 @@ void Game::DrawGame(Graphics& gfx)
 			b.Draw(*cam, gfx);
 		}
 	}
-	
+
 	//Enemy
 	for (Enemy& e : enemy)
 	{
@@ -210,10 +226,16 @@ void Game::DrawGame(Graphics& gfx)
 	player->DrawXP(gfx);
 
 	//Latency
-	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", {Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50}, Colors::Red, gfx);
+	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50 }, Colors::Red, gfx);
 
 	//WorldPosition
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
+
+	//Damage Popups
+	for (DamagePopup popup : damagePopups)
+	{
+		popup.Draw(*cam, gfx);
+	}
 
 	//Menu
 	if (menu)
