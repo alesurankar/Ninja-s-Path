@@ -21,15 +21,8 @@ Game::Game()
 	//Camera
 	cam = std::make_unique<Camera>(player->GetCenter());
 
-	//Bullet
-	bul.clear();
-
 	//Enemy
-	enemy.clear();
 	count = 0.0f;
-
-	//Collectable
-	coll.clear();
 }
 
 void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
@@ -175,6 +168,27 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 
 	//Camera
 	cam->Follow(player->GetCenter());
+
+	//kamiza
+	//Collectable
+	//Bullet
+	//Enemy
+	//Player
+	objects.clear();
+	objects.push_back(kamiza.get());
+	for (Collectable& c : coll)
+	{
+		objects.push_back(&c);
+	}
+	for (Bullet& b : bul)
+	{
+		objects.push_back(&b);
+	}
+	for (Enemy& e : enemy)
+	{
+		objects.push_back(&e);
+	}
+	objects.push_back(player.get());
 }
 
 void Game::CreateMenu()
@@ -195,36 +209,14 @@ std::string Game::GetGameMessage()
 void Game::DrawGame(Graphics& gfx)
 {
 	//kamiza
-	kamiza->Draw(*cam, gfx);
-
 	//Collectable
-	for (Collectable& c : coll)
-	{
-		c.Draw(*cam, gfx);
-	}
-
 	//Bullet
-	for (Bullet& b : bul)
-	{
-		if (!b.SmashedStatus())
-		{
-			b.Draw(*cam, gfx);
-		}
-	}
-
 	//Enemy
-	for (Enemy& e : enemy)
-	{
-		if (!e.DestroyedStatus())
-		{
-			e.Draw(*cam, gfx);
-		}
-	}
-
 	//Player
-	player->Draw(*cam, gfx);
-	player->DrawStatus(gfx);
-	player->DrawXP(gfx);
+	for (GameObject* obj : objects)
+	{
+		obj->Draw(*cam, gfx);
+	}
 
 	//Latency
 	bigFont.DrawText("Latency: " + std::to_string(latency) + "ms", { Graphics::ScreenWidth - 240, Graphics::ScreenHeight - 50 }, Colors::Red, gfx);

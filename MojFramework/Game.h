@@ -35,16 +35,19 @@ private:
 	std::uniform_real_distribution<float> xRand;
 	std::uniform_real_distribution<float> yRand;
 	std::uniform_real_distribution<float> vRand;
-	std::string gameMessage;
+	//Game objects
+	std::vector<GameObject*> objects;
 	std::unique_ptr<Player> player;
-	std::unique_ptr<Menu> menu;
-	static constexpr int n = Config::enemyNum;
+	std::unique_ptr<Kamiza> kamiza;
 	std::vector<Enemy> enemy;
 	std::vector<Collectable> coll;
 	std::vector<Bullet> bul;
-	std::unique_ptr<Kamiza> kamiza;
+	///
+	std::unique_ptr<Menu> menu;
 	std::unique_ptr<Camera> cam;
 	std::vector<DamagePopup> damagePopups;
+	std::string gameMessage;
+	static constexpr int n = Config::enemyNum;
 	Sound fireSound;
 	Sound objCollected;
 	Sound objDamaged;
