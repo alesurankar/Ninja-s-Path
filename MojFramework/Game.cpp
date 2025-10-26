@@ -22,6 +22,7 @@ Game::Game()
 	cam = std::make_unique<Camera>(player->GetCenter());
 
 	//Enemy
+	enemy.reserve(Config::enemyNum);
 	count = 0.0f;
 }
 
@@ -86,17 +87,9 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Bullet
-	for (int b = 0; b < bul.size(); )
+	for (Bullet& b : bul)
 	{
-		bul[b].Update(*player, dt);
-		if (bul[b].SmashedStatus())
-		{
-			bul.erase(bul.begin() + b);
-		}
-		else
-		{
-			b++;
-		}
+		b.Update(*player, dt);
 	}
 
 	//Enemy
@@ -107,38 +100,28 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		count = 0.0f;
 	}
 
-	for (int e = 0; e < enemy.size();)
+	for (Enemy& e : enemy)
 	{
-		enemy[e].Update(*player, dt);
-		if (enemy[e].Colliding(*player) && !player->DestroyedStatus() && enemy[e].GetHitColldown() <= 1.0f)
+		e.Update(*player, dt);
+		if (e.Colliding(*player) && !player->DestroyedStatus() && e.GetHitColldown() <= 1.0f)
 		{
 			player->Damaged();
 			playerDamaged.Play();
 			int damage = 1;
 			Vei2 pos = Vei2(player->GetPos());
 			damagePopups.emplace_back(damage, pos);
-			enemy[e].ResetHitCooldown();
+			e.ResetHitCooldown();
 		}
 		for (Bullet& b : bul)
 		{
-			if (enemy[e].Colliding(b))
+			if (e.Colliding(b))
 			{
-				enemy[e].Damaged();
+				e.Damaged();
 				b.Smashed();
 				int damage = 1;
-				Vei2 pos = Vei2(enemy[e].GetPos());
+				Vei2 pos = Vei2(e.GetPos());
 				damagePopups.emplace_back(damage, pos);
 			}
-		}
-		if (enemy[e].DestroyedStatus())
-		{
-			coll.emplace_back(enemy[e].GetPos());
-			enemy.erase(enemy.begin() + e);
-			objDamaged.Play();
-		}
-		else
-		{
-			e++;
 		}
 	}
 
@@ -152,22 +135,11 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			++i;
 	}
 
-	//Collectable
-	for (int c = 0; c < coll.size();)
-	{
-		if (coll[c].Colliding(*player))
-		{
-			coll.erase(coll.begin() + c);
-			objCollected.Play();
-		}
-		else
-		{
-			c++;
-		}
-	}
-
 	//Camera
 	cam->Follow(player->GetCenter());
+
+	//Erase objects
+	EraseObjects();
 
 	//kamiza
 	//Collectable
@@ -175,6 +147,7 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//Enemy
 	//Player
 	objects.clear();
+	objects.reserve(1 + coll.size() + 1 + enemy.size() + bul.size());
 	objects.push_back(kamiza.get());
 	for (Collectable& c : coll)
 	{
@@ -189,6 +162,51 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 		objects.push_back(&e);
 	}
 	objects.push_back(player.get());
+}
+
+void Game::EraseObjects()
+{
+	//Collectable
+	coll.erase(
+		std::remove_if(coll.begin(), coll.end(),
+			[&](Collectable& c)
+			{
+				if (c.Colliding(*player))
+				{
+					objCollected.Play();
+					return true;
+				}
+				return false;
+			}),
+		coll.end());
+
+	//Bullet
+	bul.erase(
+		std::remove_if(bul.begin(), bul.end(),
+			[](Bullet& b)
+			{
+				if (b.SmashedStatus())
+				{
+					return true;
+				}
+				return false;
+			}),
+		bul.end());
+
+	//Enemy
+	enemy.erase(
+		std::remove_if(enemy.begin(), enemy.end(),
+			[&](Enemy& e)
+			{
+				if (e.DestroyedStatus())
+				{
+					coll.emplace_back(e.GetPos());
+					objDamaged.Play();
+					return true;
+				}
+				return false;
+			}),
+		enemy.end());
 }
 
 void Game::CreateMenu()

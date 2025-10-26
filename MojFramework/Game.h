@@ -26,6 +26,7 @@ public:
 	Game();
 	void DrawGame(Graphics& gfx);
 	void UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt);
+	void EraseObjects();
 	void CreateMenu();
 	void DestroyMenu();
 	std::string GetGameMessage();
