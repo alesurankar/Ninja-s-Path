@@ -22,7 +22,6 @@ private:
 	static constexpr int maxXP = 1000;
 	bool firing;
 	bool loaded;
-	float speed = 100.0f;
 	static constexpr int width = 33;
 	static constexpr int height = 58;
 	static constexpr Color c = Colors::Green;

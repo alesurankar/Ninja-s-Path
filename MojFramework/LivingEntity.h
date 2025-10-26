@@ -38,6 +38,7 @@ protected:
 	int lives;
 	int maxXP;
 	int xp = 100;
+	float speed;
 	Color c;
 	std::vector<Animation> animations;
 	Sequence curSequence = Sequence::STANDING_RIGHT;
