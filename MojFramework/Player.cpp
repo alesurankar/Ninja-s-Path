@@ -16,12 +16,10 @@ void Player::Draw(const Camera& cam, Graphics& gfx) const
 {
 	Vec2 screenPos;
 	cam.WorldToScreen(pos, screenPos);
-	if (!destroyed)
-	{
+	if (!destroyed) {
 		animations[(int)curSequence].Draw(screenPos, gfx, facingLeft);
 	}
-	else
-	{
+	else {
 		animations[(int)curSequence].DrawGhost(screenPos, gfx, facingLeft);
 	}
 	DrawStatus(gfx);
@@ -52,38 +50,30 @@ void Player::DrawStatus(Graphics& gfx) const
 
 void Player::Update(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
-	if (mouse.LeftIsPressed())
-	{
+	if (mouse.LeftIsPressed()) {
 		Fire();
 	}
-	else
-	{
+	else {
 		Reload();
 	}
-	if (kbd.KeyIsPressed(VK_SPACE))
-	{
+	if (kbd.KeyIsPressed(VK_SPACE)) {
 		speed = 300.0f;
 	}
-	else
-	{
+	else {
 		speed = 100.0f;
 	}
 
 	Vec2 dir(0.0f, 0.0f);
-	if (kbd.KeyIsPressed('W'))
-	{
+	if (kbd.KeyIsPressed('W')) {
 		dir.y -= 1.0f;
 	}
-	if (kbd.KeyIsPressed('S'))
-	{
+	if (kbd.KeyIsPressed('S')) {
 		dir.y += 1.0f;
 	}
-	if (kbd.KeyIsPressed('A'))
-	{
+	if (kbd.KeyIsPressed('A')) {
 		dir.x -= 1.0f;
 	}
-	if (kbd.KeyIsPressed('D'))
-	{
+	if (kbd.KeyIsPressed('D')) {
 		dir.x += 1.0f;
 	}
 	PasiveRegenerate(dt);
@@ -99,13 +89,11 @@ bool Player::FiringStatus()
 
 void Player::Fire()
 {
-	if (!DestroyedStatus() && loaded)
-	{
+	if (!DestroyedStatus() && loaded) {
 		firing = true;
 		loaded = false;
 	}
-	else
-	{
+	else {
 		firing = false;
 	}
 }

@@ -6,8 +6,7 @@ Animation::Animation(int x, int y, int width, int height, int frameCount, const 
 	image(image_in),
 	holdTime(holdTime_in)
 {
-	for (int i = 0; i < frameCount; i++)
-	{
+	for (int i = 0; i < frameCount; i++) {
 		frame.emplace_back(x + i * width, y, x + (i + 1) * width, height + y);
 	}
 }
@@ -25,8 +24,7 @@ void Animation::DrawGhost(const Vec2& pos, Graphics& gfx, bool mirrored) const
 void Animation::Update(float dt)
 {
 	frameTime += dt;
-	while (frameTime >= holdTime)
-	{
+	while (frameTime >= holdTime) {
 		Advance();
 		frameTime -= holdTime;
 	}
@@ -34,8 +32,7 @@ void Animation::Update(float dt)
 
 void Animation::Advance()
 {
-	if (++curFrame >= frame.size())
-	{
+	if (++curFrame >= frame.size()) {
 		curFrame = 0;
 	}
 }

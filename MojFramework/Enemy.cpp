@@ -10,37 +10,29 @@ void Enemy::Update(LivingEntity& other, float dt)
 {
 	Vec2 delta = other.GetPos() - GetCenter();
 	Vec2 dir = delta;
-	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.f)
-	{
+	if (other.DestroyedStatus() || delta.GetLengthSq() > 40000.f) {
 		dir = Vec2(vRand(rng), vRand(rng));
 		speed = 10.0f;
 	}
-	else if (delta.GetLengthSq() > 100.0f)
-	{
-		if (delta.y < 0.0f)
-		{
+	else if (delta.GetLengthSq() > 100.0f) {
+		if (delta.y < 0.0f) {
 			dir.y -= 1.0f;
 		}
-		if (delta.y > 0.0f)
-		{
+		if (delta.y > 0.0f) {
 			dir.y += 1.0f;
 		}
-		if (delta.x < 0.0f)
-		{
+		if (delta.x < 0.0f) {
 			dir.x -= 1.0f;
 		}
-		if (delta.x > 0.0f)
-		{
+		if (delta.x > 0.0f) {
 			dir.x += 1.0f;
 		}
 		speed = 40.0f;
 	}
-	else
-	{
+	else {
 		Vec2 dir(0.0f, 0.0f);
 	}
-	if (hitColldownTime > 0.0f)
-	{
+	if (hitColldownTime > 0.0f) {
 		hitColldownTime -= dt;
 	}
 	ReadDirection(dir);

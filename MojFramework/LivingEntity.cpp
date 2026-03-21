@@ -10,12 +10,10 @@ LivingEntity::LivingEntity(const Vec2& pos_in, const Surface& object_in, int wid
 	c(c_in)
 {
 	LoadFromFile(filename);
-	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++)
-	{
+	for (int i = (int)Sequence::STANDING_RIGHT; i <= (int)Sequence::STANDING_LEFT; i++) {
 		animations.emplace_back(0, 0, width, height, 1, object, 1.0f);
 	}
-	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::WALKING_LEFT; i++)
-	{
+	for (int i = (int)Sequence::WALKING_RIGHT; i <= (int)Sequence::WALKING_LEFT; i++) {
 		animations.emplace_back(0, 0, width, height, 9, object, 0.06f);
 	}
 }
@@ -53,41 +51,31 @@ void LivingEntity::Destroyed()
 
 void LivingEntity::ReadDirection(Vec2 dir)
 {
-	
-	if (dir.x < 0.0f)
-	{
+	if (dir.x < 0.0f) {
 		curSequence = Sequence::WALKING_LEFT;
 		facingLeft = true;
 	}
-	else if (dir.x > 0.0f)
-	{
+	else if (dir.x > 0.0f) {
 		curSequence = Sequence::WALKING_RIGHT;
 		facingLeft = false;
 	}
-	else if (dir.x == 0.0f)
-	{
-		if (dir.y != 0)
-		{
-			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
-			{
+	else if (dir.x == 0.0f) {
+		if (dir.y != 0) {
+			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT) {
 				curSequence = Sequence::WALKING_LEFT;
 				facingLeft = true;
 			}
-			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
-			{
+			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT) {
 				curSequence = Sequence::WALKING_RIGHT;
 				facingLeft = false;
 			}
 		}
-		else if (dir.y == 0)
-		{
-			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT)
-			{
+		else if (dir.y == 0) {
+			if (curSequence == Sequence::WALKING_LEFT || curSequence == Sequence::STANDING_LEFT) {
 				curSequence = Sequence::STANDING_LEFT;
 				facingLeft = true;
 			}
-			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT)
-			{
+			else if (curSequence == Sequence::WALKING_RIGHT || curSequence == Sequence::STANDING_RIGHT) {
 				curSequence = Sequence::STANDING_RIGHT;
 				facingLeft = false;
 			}
@@ -98,8 +86,7 @@ void LivingEntity::ReadDirection(Vec2 dir)
 void LivingEntity::Damaged()
 {
 	lives--;
-	if (lives <= 0)
-	{
+	if (lives <= 0) {
 		Destroyed();
 	}
 }
@@ -107,8 +94,7 @@ void LivingEntity::Damaged()
 void LivingEntity::SaveToFile(std::string filename)
 {
 	std::ofstream file(filename);
-	if (file)
-	{
+	if (file) {
 		file << maxLives << " " << lives << "\n";
 	}
 }
@@ -117,13 +103,11 @@ void LivingEntity::ActiveRegenerate(float dt)
 {
 	const int percent = maxLives / 20;
 	healTime += dt;
-	if (healTime > 0.4f)
-	{
+	if (healTime > 0.4f) {
 		Heal(percent);
 		healTime = 0.0f;
 	}
-	if (destroyed && maxLives < lives * 10)
-	{
+	if (destroyed && maxLives < lives * 10) {
 		Respawn();
 	}
 }
@@ -131,11 +115,9 @@ void LivingEntity::ActiveRegenerate(float dt)
 void LivingEntity::PasiveRegenerate(float dt)
 {
 	const int percent = maxLives / 50;
-	if (!destroyed)
-	{
+	if (!destroyed) {
 		healTime += dt;
-		if (healTime > 2.0f)
-		{
+		if (healTime > 2.0f) {
 			Heal(percent);
 			healTime = 0.0f;
 		}
@@ -145,8 +127,7 @@ void LivingEntity::PasiveRegenerate(float dt)
 void LivingEntity::Heal(int amount)
 {
 	lives += amount;
-	if (lives >= maxLives)
-	{
+	if (lives >= maxLives) {
 		lives = maxLives;
 	}
 }
@@ -154,8 +135,7 @@ void LivingEntity::Heal(int amount)
 void LivingEntity::LoadFromFile(const std::string& filename)
 {
 	std::ifstream file(filename);
-	if (file)
-	{
+	if (file) {
 		file >> maxLives >> lives;
 	}
 }

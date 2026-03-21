@@ -21,34 +21,28 @@ void App::Go()
 void App::UpdateModel()
 {
 	float dt = ft.CheckTime();
-	if (state == State::MENU)
-	{
+	if (state == State::MENU) {
 		delay = 3;
 		menu->Update(wnd.mouse);
 		std::string message = menu->GetMenuMessage();
-		if (message == "Exit")
-		{
+		if (message == "Exit") {
 			wnd.Kill();
 		}
-		if (message == "Play now")
-		{
+		if (message == "Play now") {
 			DestroyState();
 			state = State::GAME;
 			CreateState();
 		}
 	}
 
-	if (state == State::GAME)
-	{
+	if (state == State::GAME) {
 		delay = 1;
 		game->UpdateGame(wnd.mouse, wnd.kbd, dt);
 		std::string message = game->GetGameMessage();
-		if (message == "Exit")
-		{
+		if (message == "Exit") {
 			wnd.Kill();
 		}
-		if (message == "Menu")
-		{
+		if (message == "Menu") {
 			DestroyState();
 			state = State::MENU;
 			CreateState();

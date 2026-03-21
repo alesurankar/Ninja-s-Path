@@ -16,14 +16,12 @@ Menu::Menu(MenuType type_in)
 	const int top = screen_y_mid - logo_y_mid;
 	const int bottom = screen_y_mid + logo_y_mid;
 	pos = Vei2{ left, top };
-	if (type == MenuType::MAIN)
-	{
+	if (type == MenuType::MAIN) {
 		buttons.emplace_back(left + 40, top + 180, "New Character");
 		buttons.emplace_back(left + 40, top + 220, "Play now");
 		buttons.emplace_back(right - Button::width - 40, bottom - 100, "Exit");
 	}
-	if (type == MenuType::IN_GAME)
-	{
+	if (type == MenuType::IN_GAME) {
 		buttons.emplace_back(left + 70, top + 130, "Close");
 		buttons.emplace_back(left + 70, top + 230, "Quit to Main Menu");
 		buttons.emplace_back(left + 70, top + 270, "Quit and Exit");
@@ -33,19 +31,16 @@ Menu::Menu(MenuType type_in)
 void Menu::Draw(Graphics& gfx) const
 {
 	gfx.DrawImage(pos.x, pos.y, logo, ImageEffect::Chroma{Colors::Magenta});
-	for (auto& b : buttons)
-	{
+	for (auto& b : buttons) {
 		b.Draw(gfx);
 	}
 }
 
 void Menu::Update(const Mouse& mouse)
 {
-	for (auto& b : buttons)
-	{
+	for (auto& b : buttons) {
 		b.Update(mouse);
-		if (b.GetEffect())
-		{
+		if (b.GetEffect()) {
 			TakeEffect(b.GetButtonMessage());
 		}
 	}

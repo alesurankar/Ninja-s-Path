@@ -19,16 +19,13 @@ Button::Button(int x_in, int y_in, const std::string& text_in)
 
 void Button::Draw(Graphics& gfx) const
 {
-	if (onTop)
-	{
+	if (onTop) {
 		gfx.DrawRect(outside, Colors::Yellow);
 	}
-	if (pressed)
-	{
+	if (pressed) {
 		gfx.DrawRect(inside, Colors::DarkBlue);
 	}
-	else
-	{
+	else {
 		gfx.DrawRect(inside, Colors::Blue);
 	}
 	smallFont.DrawText(text, {middle_x, middle_y}, Colors::Yellow, gfx);
@@ -38,23 +35,18 @@ void Button::Update(const Mouse& mouse)
 {
 	Vei2 mousePos = mouse.GetPos();
 	if (mousePos.y > y && mousePos.y < (y + height) &&
-		mousePos.x > x && mousePos.x < (x + width))
-	{
+		mousePos.x > x && mousePos.x < (x + width)) {
 		onTop = true;
 	}
-	else
-	{
+	else {
 		onTop = false;
 		pressed = false;
 	}
-	if (onTop)
-	{
-		if (mouse.LeftIsPressed())
-		{
+	if (onTop) {
+		if (mouse.LeftIsPressed()) {
 			Pressed();
 		}
-		else
-		{
+		else {
 			Released();
 		}
 	}
@@ -72,8 +64,7 @@ std::string Button::GetButtonMessage()
 
 void Button::Pressed()
 {
-	if (released)
-	{
+	if (released) {
 		pressed = true;
 		released = false;
 	}
@@ -81,8 +72,7 @@ void Button::Pressed()
 
 void Button::Released()
 {
-	if (pressed)
-	{
+	if (pressed) {
 		effect = true;
 	}
 	pressed = false;

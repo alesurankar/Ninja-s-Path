@@ -22,16 +22,11 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
-	/********************************/
-	/*  Moje Funkcije               */
 	void CreateState();
 	void DestroyState();
-	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	/********************************/
-	/*  Moji Parametri              */
 	FrameTimer ft;
 	std::unique_ptr<Game> game;
 	std::unique_ptr<Menu> menu;
@@ -40,5 +35,4 @@ private:
 	std::string username;
 	Fonts bigFont = Fonts("Images\\Fonts16x28.bmp");
 	Fonts smallFont = Fonts("Images\\Fonts8x14.bmp");
-	/********************************/
 };

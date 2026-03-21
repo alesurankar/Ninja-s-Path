@@ -29,24 +29,18 @@ Game::Game()
 void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 {
 	//Menu
-	if (!menu && kbd.KeyIsPressed(VK_ESCAPE))
-	{
+	if (!menu && kbd.KeyIsPressed(VK_ESCAPE)) {
 		CreateMenu();
 	}
-	if (menu)
-	{
+	if (menu) {
 		menu->Update(mouse);
 		std::string menuMessage = menu->GetMenuMessage();
-		if (menuMessage == "Close")
-		{
-			DestroyMenu();
-		}
-		if (menuMessage == "Quit to Main Menu")
-		{
+		if (menuMessage == "Close") {
+			DestroyMenu(); }
+		if (menuMessage == "Quit to Main Menu") {
 			gameMessage = "Menu";
 		}
-		if (menuMessage == "Quit and Exit")
-		{
+		if (menuMessage == "Quit and Exit") {
 			gameMessage = "Exit";
 		}
 	}
@@ -54,57 +48,47 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	//Latency
 	const int refreshRate = 16;
 	frameTimes.push_back(static_cast<int>(dt * 1000));
-	if (frameTimes.size() > refreshRate)
-	{
+	if (frameTimes.size() > refreshRate) {
 		frameTimes.pop_front();
 	}
-	if (frameTimes.size() == refreshRate)
-	{
+	if (frameTimes.size() == refreshRate) {
 		int sum = std::accumulate(frameTimes.begin(), frameTimes.end(), 0);
 		latency = static_cast<int>(sum / frameTimes.size());
 	}
 
 	//Player
-	if (!menu)
-	{
+	if (!menu) {
 		player->Update(mouse, kbd, dt);
 		worldPos = player->GetCenter();
 	}
-	if (player->FiringStatus())
-	{
+	if (player->FiringStatus()) {
 		bul.emplace_back(player->GetCenter(), player->GetDirection(*cam, mouse));
 		fireSound.Play();
 	}
 
-	if (player->Colliding(*kamiza))
-	{
+	if (player->Colliding(*kamiza)) {
 		player->ActiveRegenerate(dt);
 	}
 
-	if (player->DestroyedStatus())
-	{
+	if (player->DestroyedStatus()) {
 		player->SetPos(kamiza->GetCenter());
 	}
 
 	//Bullet
-	for (Bullet& b : bul)
-	{
+	for (Bullet& b : bul) {
 		b.Update(*player, dt);
 	}
 
 	//Enemy
 	count += dt;
-	if (count > Config::enemyRespawnTime && enemy.size() < n)
-	{
+	if (count > Config::enemyRespawnTime && enemy.size() < n) {
 		enemy.emplace_back(Vec2(xRand(rng), yRand(rng)));
 		count = 0.0f;
 	}
 
-	for (Enemy& e : enemy)
-	{
+	for (Enemy& e : enemy) {
 		e.Update(*player, dt);
-		if (e.Colliding(*player) && !player->DestroyedStatus() && e.GetHitColldown() <= 1.0f)
-		{
+		if (e.Colliding(*player) && !player->DestroyedStatus() && e.GetHitColldown() <= 1.0f) {
 			player->Damaged();
 			playerDamaged.Play();
 			int damage = 1;
@@ -112,10 +96,8 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 			damagePopups.emplace_back(damage, pos);
 			e.ResetHitCooldown();
 		}
-		for (Bullet& b : bul)
-		{
-			if (e.Colliding(b))
-			{
+		for (Bullet& b : bul) {
+			if (e.Colliding(b)) {
 				e.Damaged();
 				b.Smashed();
 				int damage = 1;
@@ -126,13 +108,14 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	}
 
 	//Damage Popups
-	for (int i = 0; i < damagePopups.size(); )
-	{
+	for (int i = 0; i < damagePopups.size(); ) {
 		damagePopups[i].timeLeft -= dt;
-		if (damagePopups[i].timeLeft <= 0.0f)
+		if (damagePopups[i].timeLeft <= 0.0f) {
 			damagePopups.erase(damagePopups.begin() + i);
-		else
+		}
+		else {
 			++i;
+		}
 	}
 
 	//Camera
@@ -149,16 +132,13 @@ void Game::UpdateGame(const Mouse& mouse, const Keyboard& kbd, float dt)
 	objects.clear();
 	objects.reserve(1 + coll.size() + 1 + enemy.size() + bul.size());
 	objects.push_back(kamiza.get());
-	for (Collectable& c : coll)
-	{
+	for (Collectable& c : coll) {
 		objects.push_back(&c);
 	}
-	for (Bullet& b : bul)
-	{
+	for (Bullet& b : bul) {
 		objects.push_back(&b);
 	}
-	for (Enemy& e : enemy)
-	{
+	for (Enemy& e : enemy) {
 		objects.push_back(&e);
 	}
 	objects.push_back(player.get());
@@ -171,8 +151,7 @@ void Game::EraseObjects()
 		std::remove_if(coll.begin(), coll.end(),
 			[&](Collectable& c)
 			{
-				if (c.Colliding(*player))
-				{
+				if (c.Colliding(*player)) {
 					objCollected.Play();
 					return true;
 				}
@@ -182,11 +161,9 @@ void Game::EraseObjects()
 
 	//Bullet
 	bul.erase(
-		std::remove_if(bul.begin(), bul.end(),
-			[](Bullet& b)
-			{
-				if (b.SmashedStatus())
-				{
+		std::remove_if(bul.begin(), bul.end(), 
+			[](Bullet& b) {
+				if (b.SmashedStatus()) {
 					return true;
 				}
 				return false;
@@ -196,10 +173,8 @@ void Game::EraseObjects()
 	//Enemy
 	enemy.erase(
 		std::remove_if(enemy.begin(), enemy.end(),
-			[&](Enemy& e)
-			{
-				if (e.DestroyedStatus())
-				{
+			[&](Enemy& e) {
+				if (e.DestroyedStatus()) {
 					coll.emplace_back(e.GetPos());
 					objDamaged.Play();
 					return true;
@@ -231,8 +206,7 @@ void Game::DrawGame(Graphics& gfx)
 	//Bullet
 	//Enemy
 	//Player
-	for (GameObject* obj : objects)
-	{
+	for (GameObject* obj : objects) {
 		obj->Draw(*cam, gfx);
 	}
 
@@ -243,14 +217,12 @@ void Game::DrawGame(Graphics& gfx)
 	smallFont.DrawText(std::to_string((int)worldPos.x) + ", " + std::to_string((int)worldPos.y), { Graphics::ScreenWidth - 240, 50 }, Colors::White, gfx);
 
 	//Damage Popups
-	for (DamagePopup popup : damagePopups)
-	{
+	for (DamagePopup popup : damagePopups) {
 		popup.Draw(*cam, gfx);
 	}
 
 	//Menu
-	if (menu)
-	{
+	if (menu) {
 		menu->Draw(gfx);
 	}
 }

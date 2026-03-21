@@ -18,19 +18,16 @@ bool Client::Exists()
 
 void Client::LoadUsername()
 {
-	if (!fs::exists(fullPath))
-	{
+	if (!fs::exists(fullPath)) {
 		std::ofstream createFile(fullPath);
-		if(createFile.is_open())
-		{
+		if(createFile.is_open()) {
 			createFile << "Offline";
 			createFile.close();
 		}
 	}
 
 	std::ifstream file(fullPath);
-	if (file.is_open())
-	{
+	if (file.is_open()) {
 		std::getline(file, username);
 		file.close();
 	}
